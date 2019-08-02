@@ -55,7 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="util\IdBroker.cs" />
+    <Compile Include="src\util\IdBroker.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,17 +70,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Document.cs" />
-    <Compile Include="Model\DocumentManager.cs" />
-    <Compile Include="Model\Edit.cs" />
-    <Compile Include="Model\EditListModel.cs" />
-    <Compile Include="Model\INIManagerApplication.cs" />
-    <Compile Include="Model\KeyNode.cs" />
-    <Compile Include="Model\MergeStructure.cs" />
-    <Compile Include="Model\Profile.cs" />
-    <Compile Include="Model\ProfileManager.cs" />
-    <Compile Include="Model\Section.cs" />
-    <Compile Include="Model\ValueNode.cs" />
+    <Compile Include="src\Model\Document.cs" />
+    <Compile Include="src\Model\DocumentManager.cs" />
+    <Compile Include="src\Model\Edit.cs" />
+    <Compile Include="src\Model\EditListModel.cs" />
+    <Compile Include="src\Model\INIManagerApplication.cs" />
+    <Compile Include="src\Model\KeyNode.cs" />
+    <Compile Include="src\Model\MergeStructure.cs" />
+    <Compile Include="src\Model\Profile.cs" />
+    <Compile Include="src\Model\ProfileManager.cs" />
+    <Compile Include="src\Model\Section.cs" />
+    <Compile Include="src\Model\ValueNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
