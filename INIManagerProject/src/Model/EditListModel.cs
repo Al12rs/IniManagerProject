@@ -4,30 +4,71 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IniParser;
+using IniParser.Model;
+using System.IO;
 
 namespace INIManagerProject.Model
 {
     class EditListModel
     {
-        private List<Edit> _fisicalEditList;
-        private Document _document;
-        private IdBroker _idBroker;
-
+        //<editId, EditRef>
+        private Dictionary<int, Edit> _editMapById;
+        private Dictionary<string, Edit> _editMapByName;
 
         public EditListModel(Document document)
         {
-            _document = document;
-            _fisicalEditList = new List<Edit>();
-            _idBroker = new IdBroker();
+            Document = document;
+            _editMapById = new Dictionary<int, Edit>();
+            _editMapByName = new Dictionary<string, Edit>();
+            IdBroker = new IdBroker();
+
+            EditsFolder = Path.Combine(Document.DocumentFolder, "Edits");
+            if (!Directory.Exists(EditsFolder))
+            {
+                Directory.CreateDirectory(EditsFolder);
+            }
         }
 
         public void initializeNewEditListModel()
         {
             //creating base file (initial undisablable Edit)
-            var baseEdit = new Edit(_idBroker.NextId, "Base File");
-            _fisicalEditList.Add(baseEdit);
+            int newId = IdBroker.NextId;
+            
+            var baseEditFolder = Path.Combine(EditsFolder, "Base File");
+            if (!Directory.Exists(baseEditFolder))
+            {
+                Directory.CreateDirectory(baseEditFolder);
+            }
+            //take managed file as base file.
+            File.Copy(Document.ManagedFilePath, Path.Combine(baseEditFolder, "Base File.ini"), overwrite: true);
+            var baseEdit = new Edit(newId, "Base File", Document);
+            baseEdit.UpdateFromDisk();
+            _editMapById.Add(newId, baseEdit);
+            _editMapByName.Add("Base File", baseEdit);
+
+            //not updating profile since Document is doing that for us here.
         }
 
-        internal Document Document { get => _document; }
+        public void LoadEditsFromDisk()
+        {
+            string[] subdirs = Directory.GetDirectories(EditsFolder)
+                             .Select(Path.GetFileName)
+                             .ToArray();
+            foreach(var editDirName in subdirs)
+            {
+                int newId = IdBroker.NextId;
+                var loadedEdit = new Edit(newId, editDirName, Document);
+                _editMapById.Add(newId, loadedEdit);
+                _editMapByName.Add(editDirName, loadedEdit);
+                loadedEdit.UpdateFromDisk();
+            }
+        }
+
+        internal Document Document { get; }
+        internal IdBroker IdBroker { get; }
+        internal string EditsFolder {get; private set;}
+        internal Dictionary<int, Edit> EditMapById { get => _editMapById;  }
+        internal Dictionary<string, Edit> EditMapByName { get => _editMapByName; }
     }
 }

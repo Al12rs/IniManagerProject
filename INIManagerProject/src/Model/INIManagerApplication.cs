@@ -1,4 +1,7 @@
-﻿using System;
+﻿using IniParser.Model;
+using IniParser;
+using IniParser.Parser;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,11 +12,10 @@ namespace INIManagerProject.Model
 {
     class INIManagerApplication
     {
-        private DocumentManager _documentManager;
-        private String _applicationAppdataFolder;
-
-        public string ApplicationAppdataFolder { get => _applicationAppdataFolder; set => _applicationAppdataFolder = value; }
-        internal DocumentManager DocumentManager { get => _documentManager; }
+        internal string ApplicationAppdataFolder { get; set; }
+        internal DocumentManager DocumentManager { get; private set; }
+        internal string ApplicationSettingsFilePath { get; private set; }
+        internal IniData ParsedApplicationSettings { get; private set; }
 
         public INIManagerApplication()
         {
@@ -23,11 +25,30 @@ namespace INIManagerProject.Model
             {
                 Directory.CreateDirectory(ApplicationAppdataFolder);
             }
+            ApplicationSettingsFilePath = Path.Combine(ApplicationAppdataFolder, "INIManagerSettings.ini");
         }
 
         public void start()
         {
-            _documentManager = new DocumentManager();
+            DocumentManager = new DocumentManager();
+            var parser = new FileIniDataParser();
+            if (!File.Exists(ApplicationSettingsFilePath))
+            {
+                File.Create(ApplicationSettingsFilePath).Dispose();
+            }
+            //parser.Parser.Configuration.ThrowExceptionsOnError = false;
+            ParsedApplicationSettings = parser.ReadFile(ApplicationSettingsFilePath);
+            string loadedDocuments = ParsedApplicationSettings["General"]["loadedDocuments"];
+            if (loadedDocuments!= null)
+            {
+                var loadedDocumentsList = loadedDocuments.Split(',');
+                foreach(var docName in loadedDocumentsList)
+                {
+                    //DocumentManager.LoadDocumentFromFolder()
+                }
+            }
+
+
         }
 
        

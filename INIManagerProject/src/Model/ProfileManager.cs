@@ -1,4 +1,5 @@
 ﻿using INIManagerProject.util;
+using IniParser.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,14 +12,11 @@ namespace INIManagerProject.Model
 {
     class ProfileManager
     {
-        //currently used profile
-        private Profile _currentProfile;
         //list of all the profiles managed and associated to the current document
-        private List<Profile> _profileList;
+        private Dictionary<string, Profile> _profileList;
         //associated document
         private Document _document;
-        //class capable of generating IDs
-        private IdBroker _idBroker;
+
         //path of profiles folder
         private string _profilesFolder;
 
@@ -26,7 +24,8 @@ namespace INIManagerProject.Model
         public ProfileManager(Document document)
         {
             Document = document;
-            _profileList = new List<Profile>();
+            _profileList = new Dictionary<string, Profile>();
+            IdBroker = new IdBroker();
 
             //create Profiles folder if it isn't present
             ProfilesFolder = Path.Combine(Document.DocumentFolder, "Profiles");
@@ -37,19 +36,52 @@ namespace INIManagerProject.Model
 
         }
 
-        public void initializeNewProfile()
+        public void initializeNewProfileMananger()
         {
             //generate default profile
-            var defaultProfile = new Profile(_idBroker.NextId, "default", Document);
-            _profileList.Add(defaultProfile);
+            var defaultProfile = new Profile(IdBroker.NextId, "default", Document);
+            _profileList.Add("default",defaultProfile);
 
             //enable the default profile
-            _currentProfile = defaultProfile;
+            CurrentProfile = defaultProfile;
         }
 
-        //properties
+        public void LoadFromDisk()
+        {
+            //needed to get the current profile from last session.
+            IniData applicationSettings = ((App)Application.Current).IniApplication.ParsedApplicationSettings;
+            string[] subdirs = Directory.GetDirectories(ProfilesFolder)
+                             .Select(Path.GetFileName)
+                             .ToArray();
+            //TODO: check if list is empty and create default profile if it is.
+            foreach (var profileName in subdirs)
+            {
+                int newId = IdBroker.NextId;
+                var loadedProfile = new Profile(newId, profileName, Document);
+                _profileList.Add(profileName, loadedProfile);
+                loadedProfile.ReadNameListFromDisk();
+            }
+            var currentProfileName = applicationSettings["Profiles"]["currentProfile"];
+            Profile foundProfile;
+            if(currentProfileName != null && _profileList.TryGetValue(currentProfileName, out foundProfile))
+            {
+                CurrentProfile = foundProfile;
+            }
+            else
+            {
+                //set the current profile to a random one from the list.
+                CurrentProfile = _profileList.First().Value;
+            }
+        }
+
+
+        #region Properties
+
         public string ProfilesFolder { get => _profilesFolder; set => _profilesFolder = value; }
-        internal Profile CurrentProfile { get => _currentProfile;}
+        internal Profile CurrentProfile { get; private set; }
         internal Document Document { get => _document; set => _document = value; }
+        internal IdBroker IdBroker { get; private set; }
+
+        #endregion
     }
 }

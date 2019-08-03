@@ -36,5 +36,16 @@ namespace INIManagerProject
             }
             
         }
+
+        private void mnuNew_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "INI files(*.ini)|*.ini";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ((App)Application.Current).IniApplication.DocumentManager.CreateNewDocument(openFileDialog.FileName);
+            }
+
+        }
     }
 }
