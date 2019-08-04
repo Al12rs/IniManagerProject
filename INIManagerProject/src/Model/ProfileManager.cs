@@ -49,7 +49,6 @@ namespace INIManagerProject.Model
         public void LoadFromDisk()
         {
             //needed to get the current profile from last session.
-            IniData applicationSettings = ((App)Application.Current).IniApplication.ParsedApplicationSettings;
             string[] subdirs = Directory.GetDirectories(ProfilesFolder)
                              .Select(Path.GetFileName)
                              .ToArray();
@@ -61,9 +60,15 @@ namespace INIManagerProject.Model
                 _profileList.Add(profileName, loadedProfile);
                 loadedProfile.ReadNameListFromDisk();
             }
-            var currentProfileName = applicationSettings["Profiles"]["currentProfile"];
+            LoadAndSetCurrentProfileFromDisk();
+        }
+
+        private void LoadAndSetCurrentProfileFromDisk()
+        {
+            IniData documentSettings = Document.ParsedDocumentSettings;
+            var currentProfileName = documentSettings["Profiles"]["currentProfile"];
             Profile foundProfile;
-            if(currentProfileName != null && _profileList.TryGetValue(currentProfileName, out foundProfile))
+            if (currentProfileName != null && _profileList.TryGetValue(currentProfileName, out foundProfile))
             {
                 CurrentProfile = foundProfile;
             }
