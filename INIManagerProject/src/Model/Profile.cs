@@ -8,29 +8,25 @@ using System.Threading.Tasks;
 
 namespace INIManagerProject.Model
 {
+    /// <summary>
+    /// Contains priority and status data for Edits of a specific document.
+    /// There can be multiple profiles for each document.
+    /// </summary>
     class Profile
     {
+        #region Fields
+
+        /// <summary>
+        /// List of pairs Edit-Status ordered by priority (0 is lowest).
+        /// </summary>
         private List<KeyValuePair<Edit,bool>> _priorityList;
-        //what is read from file
+        /// <summary>
+        /// List of pairs editNames-editStatus ordered by priority.
+        /// This is what is read and saved on disk.
+        /// </summary>
         private List<KeyValuePair<string, bool>> _editNamesAndStatusByPriority;
 
-        public Profile(int profileId, String profileName, Document doc)
-        {
-            ProfileID = profileId;
-            ProfileName = profileName;
-            Document = doc;
-            _priorityList = new List<KeyValuePair<Edit, bool>>();
-            _editNamesAndStatusByPriority = new List<KeyValuePair<string, bool>>();
-            _editNamesAndStatusByPriority.Add(new KeyValuePair<string, bool>("Base File", true));
-            var profilesFolder = Document.ProfileManager.ProfilesFolder;
-            ProfileFolder = Path.Combine(profilesFolder, ProfileName);
-            if (!Directory.Exists(ProfileFolder))
-            {
-                Directory.CreateDirectory(ProfileFolder);
-            }
-            ProfileFilePath = Path.Combine(ProfileFolder, ProfileName + ".txt");
-            
-        }
+        #endregion
 
         #region Properties
 
@@ -39,13 +35,79 @@ namespace INIManagerProject.Model
         internal int ProfileID { get; }
         internal string ProfileName { get; set; }
         internal Document Document { get; }
-        internal List<KeyValuePair<Edit, bool>> PriorityList { get => _priorityList;}
+        internal List<KeyValuePair<Edit, bool>> PriorityList { get => _priorityList; }
 
         #endregion
 
-        public void ValidateAndUpdateProfileEdits()
+        #region Initialization
+
+        /// <summary>
+        /// Constructor, will populate:
+        /// Id, Document, ProfileName.
+        /// Generate Profile folder and editsOrder.txt if not present.
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <param name="profileName"></param>
+        /// <param name="doc"></param>
+        public Profile(int profileId, String profileName, Document doc)
+        {
+            ProfileID = profileId;
+            ProfileName = profileName;
+            Document = doc;
+            _priorityList = new List<KeyValuePair<Edit, bool>>();
+            _editNamesAndStatusByPriority = new List<KeyValuePair<string, bool>>();
+            var profilesFolder = Document.ProfileManager.ProfilesFolder;
+            ProfileFolder = Path.Combine(profilesFolder, ProfileName);
+            if (!Directory.Exists(ProfileFolder))
+            {
+                Directory.CreateDirectory(ProfileFolder);
+            }
+            ProfileFilePath = Path.Combine(ProfileFolder, "editsOrder.txt");
+            if(!File.Exists(ProfileFilePath))
+            {
+                File.Create(ProfileFilePath).Dispose();
+            }            
+        }
+
+        #endregion
+
+        #region PublicMethods
+
+        /// <summary>
+        /// Loads the content of editsOrder.txt to _editNamesAndStatusByPriority.
+        /// Does not populate _priorityList.
+        /// </summary>
+        internal void ReadNameListFromDisk()
+        {
+            _editNamesAndStatusByPriority.Clear();
+            string rawStr = File.ReadAllText(ProfileFilePath);
+            string[] edits = rawStr.Split('\n');
+            foreach (var line in edits)
+            {
+                if (line[0] == '+')
+                {
+                    var entry = new KeyValuePair<string, bool>(line.Substring(1), true);
+                    _editNamesAndStatusByPriority.Add(entry);
+                }
+                else if (line[0] == '-')
+                {
+                    var entry = new KeyValuePair<string, bool>(line.Substring(1), false);
+                    _editNamesAndStatusByPriority.Add(entry);
+                }
+                //do nothing if it doesn't start with +/-
+            }
+        }
+
+        /// <summary>
+        /// Applies _editNamesAndStatusByPriority to the edits in the EditList
+        /// all while populating the _priorityList.
+        /// Updates  _editNamesAndStatusByPriority removing edits that are missing from EditList and 
+        /// adding the ones that are present in EditList but missing in _editNamesAndStatusByPriority.
+        /// </summary>
+        public void ValidateAndUpdatePriorityLists()
         {
             EditListModel editListModel = Document.EditListModel;
+            _priorityList.Clear();
             //Add listed Edits to prioritylist
             foreach (var nameStatusPair in _editNamesAndStatusByPriority)
             {
@@ -79,16 +141,11 @@ namespace INIManagerProject.Model
             UpdateNameListFromEditList();
         }
 
-        private void UpdateNameListFromEditList()
-        {
-            _editNamesAndStatusByPriority.Clear();
-            for (int i = 0; i < _priorityList.Count; i++)
-            {
-                _editNamesAndStatusByPriority.Add(new KeyValuePair<string, bool>(_priorityList[i].Key.EditName, _priorityList[i].Value));
-            }
-        }
 
-        //saves the _editNamesAndStatusByPriority to ProfileName.txt
+
+        /// <summary>
+        /// Saves the _editNamesAndStatusByPriority to ProfileName.txt.
+        /// </summary>
         internal void PersistProfile()
         {
             StringBuilder sb = new StringBuilder();
@@ -99,25 +156,23 @@ namespace INIManagerProject.Model
             File.WriteAllText(ProfileFilePath, sb.ToString());
         }
 
-        //loads the content of ProfileName.txt to _editNamesAndStatusByPriority
-        internal void ReadNameListFromDisk()
+        #endregion
+
+        #region PrivateMethods
+
+        /// <summary>
+        /// Takes a fully populated _priorityList and generates t
+        /// </summary>
+        private void UpdateNameListFromEditList()
         {
             _editNamesAndStatusByPriority.Clear();
-            String rawStr = File.ReadAllText(ProfileFilePath);
-            string[] edits = rawStr.Split('\n');
-            foreach (var line in edits)
+            for (int i = 0; i < _priorityList.Count; i++)
             {
-                if (line[0] == '+')
-                {
-                   var entry = new KeyValuePair<string, bool>(line.Substring(1), true);
-                    _editNamesAndStatusByPriority.Add(entry);
-                } else if (line[0] == '-')
-                {
-                    var entry = new KeyValuePair<string, bool>(line.Substring(1), false);
-                    _editNamesAndStatusByPriority.Add(entry);
-                }
-                //do nothing if it doesn't start with +/-
+                _editNamesAndStatusByPriority.Add(new KeyValuePair<string, bool>(_priorityList[i].Key.EditName, _priorityList[i].Value));
             }
         }
+
+        #endregion
+
     }
 }

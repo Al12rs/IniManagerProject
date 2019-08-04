@@ -10,12 +10,24 @@ using System.Threading.Tasks;
 
 namespace INIManagerProject.Model
 {
+    /// <summary>
+    /// Point of reference for the application.
+    /// Instatiates DocumentManager.
+    /// Obtainable from anywhere with:
+    /// ((App)Application.Current).IniApplication
+    /// </summary>
     class INIManagerApplication
     {
+        #region Properties
+
         internal string ApplicationAppdataFolder { get; set; }
-        internal DocumentManager DocumentManager { get; private set; }
         internal string ApplicationSettingsFilePath { get; private set; }
         internal IniData ParsedApplicationSettings { get; private set; }
+        internal DocumentManager DocumentManager { get; private set; }
+
+        #endregion Properties
+
+        #region Initialization
 
         public INIManagerApplication()
         {
@@ -30,27 +42,30 @@ namespace INIManagerProject.Model
 
         public void start()
         {
-            DocumentManager = new DocumentManager();
+            LoadApplicationSettings();
+            DocumentManager = new DocumentManager();     
+            DocumentManager.LoadActiveDocumentsFromDisk();
+            // TODO: set the document currently in focus in the view.
+        }
+
+        #endregion Initialization
+
+        #region PrivateMethods
+
+        /// <summary>
+        /// Reads INIManagerSettings.ini and populates ParsedApplicationSettings
+        /// </summary>
+        private void LoadApplicationSettings()
+        {
             var parser = new FileIniDataParser();
             if (!File.Exists(ApplicationSettingsFilePath))
             {
                 File.Create(ApplicationSettingsFilePath).Dispose();
             }
-            //parser.Parser.Configuration.ThrowExceptionsOnError = false;
             ParsedApplicationSettings = parser.ReadFile(ApplicationSettingsFilePath);
-            string loadedDocuments = ParsedApplicationSettings["General"]["loadedDocuments"];
-            if (loadedDocuments!= null)
-            {
-                var loadedDocumentsList = loadedDocuments.Split(',');
-                foreach(var docName in loadedDocumentsList)
-                {
-                    //DocumentManager.LoadDocumentFromFolder()
-                }
-            }
-
-
         }
 
-       
+        #endregion PrivateMethods
+
     }
 }

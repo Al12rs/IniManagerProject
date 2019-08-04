@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace INIManagerProject.util
 {
+    /// <summary>
+    /// Very simple class to generate session unique Ids.
+    /// Ids are int and start from 0. Negative Ids can be considered invalid values.
+    /// </summary>
     class IdBroker
     {
         private int _nextId;
@@ -15,6 +19,7 @@ namespace INIManagerProject.util
             _nextId = 0;
         }
 
+        /// <summary> Obtain a new Id unique for this IdBroker instance.</summary>
         public int NextId { get { return _nextId++; } }
     }
 }

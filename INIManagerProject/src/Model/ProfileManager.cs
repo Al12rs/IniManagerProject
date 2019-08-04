@@ -10,60 +10,102 @@ using System.Windows;
 
 namespace INIManagerProject.Model
 {
+    /// <summary>
+    /// Manages the profiles of a specific Document.
+    /// Single instance for each Document object.
+    /// </summary>
     class ProfileManager
     {
-        //list of all the profiles managed and associated to the current document
+        #region Fields
+        /// <summary>
+        /// Dictionary of string ProfileNames->Profiles 
+        /// </summary>
         private Dictionary<string, Profile> _profileList;
-        //associated document
-        private Document _document;
+        #endregion
 
-        //path of profiles folder
-        private string _profilesFolder;
+        #region Properties
 
+        public string ProfilesFolder { get; private set; }
+        internal Profile CurrentProfile { get; private set; }
+        internal Document Document { get; set; }
+        internal IdBroker IdBroker { get; private set; }
 
+        #endregion
+
+        #region Initialization
         public ProfileManager(Document document)
         {
             Document = document;
             _profileList = new Dictionary<string, Profile>();
             IdBroker = new IdBroker();
 
-            //create Profiles folder if it isn't present
-            ProfilesFolder = Path.Combine(Document.DocumentFolder, "Profiles");
+            ProfilesFolder = Path.Combine(Document.DocumentFolderPath, "Profiles");
             if (!Directory.Exists(ProfilesFolder))
             {
                 Directory.CreateDirectory(ProfilesFolder);
             }
-
         }
+        #endregion
 
-        public void initializeNewProfileMananger()
+        #region PublicMethods
+
+        /// <summary>
+        /// Load all profiles found in the Profiles folder of the Document
+        /// and set the last active as the currentProfile if possible,
+        /// otherwise set a random one as currentProfile.
+        /// </summary>
+        public void LoadProfilesFromDisk()
         {
-            //generate default profile
-            var defaultProfile = new Profile(IdBroker.NextId, "default", Document);
-            _profileList.Add("default",defaultProfile);
-
-            //enable the default profile
-            CurrentProfile = defaultProfile;
-        }
-
-        public void LoadFromDisk()
-        {
-            //needed to get the current profile from last session.
             string[] subdirs = Directory.GetDirectories(ProfilesFolder)
                              .Select(Path.GetFileName)
                              .ToArray();
-            //TODO: check if list is empty and create default profile if it is.
-            foreach (var profileName in subdirs)
+            if(subdirs == null || subdirs.Length < 1)
             {
-                int newId = IdBroker.NextId;
-                var loadedProfile = new Profile(newId, profileName, Document);
-                _profileList.Add(profileName, loadedProfile);
-                loadedProfile.ReadNameListFromDisk();
+                CreateDefaultProfile();
             }
-            LoadAndSetCurrentProfileFromDisk();
+            else
+            {
+                foreach (var profileName in subdirs)
+                {
+                    CreateProfileFromDisk(profileName);
+                }
+            }
+            SetCurrentProfileFromDisk();
         }
 
-        private void LoadAndSetCurrentProfileFromDisk()
+        #endregion
+
+        #region PrivateMethods
+
+        /// <summary>
+        /// Create a new Profile object and add it to the list given a profileName.
+        /// It will either load saved data on disk or create new data if not present.
+        /// </summary>
+        /// <param name="profileName"></param>
+        /// <returns>Generated profile</returns>
+        private Profile CreateProfileFromDisk(string profileName)
+        {
+            int newId = IdBroker.NextId;
+            var loadedProfile = new Profile(newId, profileName, Document);
+            _profileList.Add(profileName, loadedProfile);
+            loadedProfile.ReadNameListFromDisk();
+            return loadedProfile;
+        }
+
+        /// <summary>
+        /// Generates a Default profile.
+        /// </summary>
+        /// <returns>the generated Profile</returns>
+        private Profile CreateDefaultProfile()
+        {
+            return CreateProfileFromDisk("Default");
+        }
+
+        /// <summary>
+        /// Will read the DocumentSettings to determine the last active profile.
+        /// If no matching profile is found a random one is selected.
+        /// </summary>
+        private void SetCurrentProfileFromDisk()
         {
             IniData documentSettings = Document.ParsedDocumentSettings;
             var currentProfileName = documentSettings["Profiles"]["currentProfile"];
@@ -79,14 +121,7 @@ namespace INIManagerProject.Model
             }
         }
 
-
-        #region Properties
-
-        public string ProfilesFolder { get => _profilesFolder; set => _profilesFolder = value; }
-        internal Profile CurrentProfile { get; private set; }
-        internal Document Document { get => _document; set => _document = value; }
-        internal IdBroker IdBroker { get; private set; }
-
         #endregion
+
     }
 }

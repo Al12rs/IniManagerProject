@@ -28,13 +28,11 @@ namespace INIManagerProject
 
         private void mnuOpen_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "INI files(*.ini)|*.ini";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                ((App)Application.Current).IniApplication.DocumentManager.CreateNewDocument(openFileDialog.FileName);
-            }
-            
+
+            // Placeholder: hardcoded to open skyrim.ini document.
+            ((App)Application.Current).IniApplication.DocumentManager.CreateAndLoadDocumentFromName("Skyrim");
+
+
         }
 
         private void mnuNew_Click(object sender, RoutedEventArgs e)
