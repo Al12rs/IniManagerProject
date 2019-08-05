@@ -11,6 +11,8 @@ namespace INIManagerProject.Model
 {
     /// <summary>
     /// Class containing the list of open Documents (Managed ini files) and functionality to manage them.
+    /// Singleton, there is just one manager for iniApplication, there 
+    /// can be multiple documents on the other hand.
     /// </summary>
     class DocumentManager
     {
@@ -83,8 +85,6 @@ namespace INIManagerProject.Model
 
         /// <summary>
         /// Instantiates and loads a Document from disk given the <paramref name="docName"/>.
-        /// Singleton, there is just one manager for iniApplication, there 
-        /// can be multiple documents on the other hand.
         /// </summary>
         /// <param name="folderName"></param>
         /// <returns>Document created or null if failed to load.</returns>

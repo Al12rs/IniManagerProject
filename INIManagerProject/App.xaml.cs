@@ -16,7 +16,7 @@ namespace INIManagerProject
     {
         private INIManagerApplication _iniApplication;
 
-        internal INIManagerApplication IniApplication { get => _iniApplication; set => _iniApplication = value; }
+        internal INIManagerApplication IniApplication { get => _iniApplication; private set => _iniApplication = value; }
 
         protected override void OnStartup(StartupEventArgs e)
         {

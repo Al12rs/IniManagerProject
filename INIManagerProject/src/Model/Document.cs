@@ -62,7 +62,8 @@ namespace INIManagerProject.Model
             if (!File.Exists(DocumentSettingsFilePath))
             {
                 File.Create(DocumentSettingsFilePath).Dispose();
-            }
+            }                
+            LoadDocumentSettings();
 
             ProfileManager = new ProfileManager(this);
             EditListModel = new EditListModel(this);

@@ -84,17 +84,21 @@ namespace INIManagerProject.Model
             string[] edits = rawStr.Split('\n');
             foreach (var line in edits)
             {
-                if (line[0] == '+')
+                if(line.Length > 0)
                 {
-                    var entry = new KeyValuePair<string, bool>(line.Substring(1), true);
-                    _editNamesAndStatusByPriority.Add(entry);
+                    if (line[0] == '+')
+                    {
+                        var entry = new KeyValuePair<string, bool>(line.Substring(1), true);
+                        _editNamesAndStatusByPriority.Add(entry);
+                    }
+                    else if (line[0] == '-')
+                    {
+                        var entry = new KeyValuePair<string, bool>(line.Substring(1), false);
+                        _editNamesAndStatusByPriority.Add(entry);
+                    }
+                    //do nothing if it doesn't start with +/-
                 }
-                else if (line[0] == '-')
-                {
-                    var entry = new KeyValuePair<string, bool>(line.Substring(1), false);
-                    _editNamesAndStatusByPriority.Add(entry);
-                }
-                //do nothing if it doesn't start with +/-
+
             }
         }
 
