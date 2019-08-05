@@ -6,8 +6,13 @@
         xmlns:local="clr-namespace:INIManagerProject"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closed="MainWindow_Closed">
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" Name="MenuBar"/>
+            <RowDefinition Height="*"  Name="Centre"/>
+        </Grid.RowDefinitions>
+        
+        <Menu Grid.Row="0">
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Click="mnuNew_Click"/>
                 <MenuItem Header="_Open" Click="mnuOpen_Click" />
@@ -15,7 +20,15 @@
                 <Separator />
                 <MenuItem Header="_Exit" />
             </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_New Edit"/>
+            </MenuItem>
         </Menu>
-        <TextBox AcceptsReturn="True" />
-    </DockPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>            
+        </Grid>
+    </Grid>
 </Window>
