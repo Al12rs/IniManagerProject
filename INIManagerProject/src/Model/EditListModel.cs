@@ -79,13 +79,15 @@ namespace INIManagerProject.Model
             {
                 foreach (var editDirName in subdirs)
                 {
+                    // Don't load base file into the editLists.
                     if(editDirName != "Base File")
                     {
                         CreateEditFromDisk(editDirName);
-                    } else
-                    {
-                        LoadBaseFileFromDisk();
                     }
+                }
+                if (BaseFileEdit == null)
+                {
+                    LoadBaseFileFromDisk();
                 }
             }
         }
@@ -130,7 +132,7 @@ namespace INIManagerProject.Model
         }
 
         /// <summary>
-        /// 
+        /// Loads the BaseFile from the folder, if it does not exist it is generated empty.
         /// </summary>
         /// <returns></returns>
         private Edit LoadBaseFileFromDisk()
