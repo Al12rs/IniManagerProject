@@ -95,7 +95,7 @@ namespace INIManagerProject.Model
         /// <summary>
         /// Saves rawContent to the editSourceFile.
         /// </summary>
-        public void PersistEdit()
+        public void Persist()
         {
             File.WriteAllText(EditSourceFile, RawContent);
         }

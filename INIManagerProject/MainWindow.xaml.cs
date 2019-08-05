@@ -45,5 +45,11 @@ namespace INIManagerProject
             }
 
         }
+
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            //Persist all settings.
+            ((App)Application.Current).IniApplication.Persist();
+        }
     }
 }

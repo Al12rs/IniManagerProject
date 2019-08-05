@@ -73,6 +73,16 @@ namespace INIManagerProject.Model
             SetCurrentProfileFromDisk();
         }
 
+        /// <summary>
+        /// Only persists the current Profile and the name of the current profile.
+        /// </summary>
+        public void Persist()
+        {
+            CurrentProfile.Persist();
+            Document.ParsedDocumentSettings["Profiles"]["currentProfile"]
+                = CurrentProfile.ProfileName;
+        }
+
         #endregion
 
         #region PrivateMethods

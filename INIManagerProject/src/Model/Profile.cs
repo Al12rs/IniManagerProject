@@ -150,7 +150,7 @@ namespace INIManagerProject.Model
         /// <summary>
         /// Saves the _editNamesAndStatusByPriority to ProfileName.txt.
         /// </summary>
-        internal void PersistProfile()
+        internal void Persist()
         {
             StringBuilder sb = new StringBuilder();
             for(int i=0; i< _editNamesAndStatusByPriority.Count; i++)

@@ -37,6 +37,7 @@ namespace INIManagerProject.Model
         internal string EditsFolder { get; private set; }
         internal Dictionary<int, Edit> EditMapById { get => _editMapById; }
         internal Dictionary<string, Edit> EditMapByName { get => _editMapByName; }
+        internal Edit BaseFileEdit { get; private set; }
 
         #endregion
 
@@ -63,6 +64,7 @@ namespace INIManagerProject.Model
 
         /// <summary>
         /// Will create and add edits found in the edits folder to the lists.
+        /// Base File will either be loaded or created anew if missing.
         /// </summary>
         public void LoadEditsFromDisk()
         {
@@ -71,15 +73,36 @@ namespace INIManagerProject.Model
                              .ToArray();
             if (subdirs == null || subdirs.Length < 1)
             {
-                // TODO: Move Base file to Document isntead of editList.
-                CreateBaseFileEdit();
+                CreateBaseFileFromManagedFile();
             }
             else
             {
                 foreach (var editDirName in subdirs)
                 {
-                    CreateEditFromDisk(editDirName);
+                    if(editDirName != "Base File")
+                    {
+                        CreateEditFromDisk(editDirName);
+                    } else
+                    {
+                        LoadBaseFileFromDisk();
+                    }
                 }
+            }
+        }
+
+        #endregion
+
+        #region PublicMethods
+
+        /// <summary>
+        /// Perists all edits and Base Edit
+        /// </summary>
+        public void Persist()
+        {
+            BaseFileEdit.Persist();
+            foreach (var edit in _editMapById.Values)
+            {
+                edit.Persist();
             }
         }
 
@@ -87,8 +110,11 @@ namespace INIManagerProject.Model
 
         #region PrivateMethods
 
-        // TODO: Move Base file to Document isntead of editList.
-        private Edit CreateBaseFileEdit()
+        /// <summary>
+        /// Generate a new baseFileEdit from the contents of the file to manage.
+        /// </summary>
+        /// <returns></returns>
+        private Edit CreateBaseFileFromManagedFile()
         {
             var baseEditFolder = Path.Combine(EditsFolder, "Base File");
             if (!Directory.Exists(baseEditFolder))
@@ -96,7 +122,34 @@ namespace INIManagerProject.Model
                 Directory.CreateDirectory(baseEditFolder);
             }
             File.Copy(Document.ManagedFilePath, Path.Combine(baseEditFolder, "Base File.ini"), overwrite: true);
-            return CreateEditFromDisk("Base File");
+            int newId = IdBroker.NextId;
+            var baseEdit = new Edit(newId, "Base File", Document);
+            baseEdit.UpdateFromDisk();
+            BaseFileEdit = baseEdit;
+            return baseEdit;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private Edit LoadBaseFileFromDisk()
+        {
+            var baseEditFolder = Path.Combine(EditsFolder, "Base File");
+            if (!Directory.Exists(baseEditFolder))
+            {
+                Directory.CreateDirectory(baseEditFolder);
+            }
+            var BaseFileSourcePath = Path.Combine(baseEditFolder, "Base File.ini");
+            if (!File.Exists(BaseFileSourcePath))
+            {
+                File.Create(BaseFileSourcePath).Dispose();
+            }
+            int newId = IdBroker.NextId;
+            var baseEdit = new Edit(newId, "Base File", Document);
+            baseEdit.UpdateFromDisk();
+            BaseFileEdit = baseEdit;
+            return baseEdit;
         }
 
         /// <summary>
@@ -106,12 +159,12 @@ namespace INIManagerProject.Model
         /// </summary>
         /// <param name="editDirName"></param>
         /// <returns>The loaded edit</returns>
-        private Edit CreateEditFromDisk(string editDirName)
+        private Edit CreateEditFromDisk(string editName)
         {
             int newId = IdBroker.NextId;
-            var loadedEdit = new Edit(newId, editDirName, Document);
+            var loadedEdit = new Edit(newId, editName, Document);
             _editMapById.Add(newId, loadedEdit);
-            _editMapByName.Add(editDirName, loadedEdit);
+            _editMapByName.Add(editName, loadedEdit);
             loadedEdit.UpdateFromDisk();
             return loadedEdit;
         }

@@ -102,6 +102,20 @@ namespace INIManagerProject.Model
             ProfileManager.CurrentProfile.ValidateAndUpdatePriorityLists();
             return true;
         }
+
+        /// <summary>
+        /// Handle persisting of managedFilePath as well as telling Profiles and EditLists to persist.
+        /// writes DocumentSettings.ini to disk.
+        /// </summary>
+        public void Persist()
+        {
+            ParsedDocumentSettings["General"]["managedFilePath"] = ManagedFilePath;
+            ProfileManager.Persist();
+            EditListModel.Persist();
+            var parser = new FileIniDataParser();
+            parser.WriteFile(DocumentSettingsFilePath, ParsedDocumentSettings);
+        }
+
         #endregion
 
         #region PrivateMethods

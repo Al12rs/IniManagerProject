@@ -50,6 +50,21 @@ namespace INIManagerProject.Model
 
         #endregion Initialization
 
+        #region PublickMethods
+
+        /// <summary>
+        /// Hnadles persisting the application state to disk.
+        /// Persists DocManager and writes the applicationSettings.ini
+        /// </summary>
+        public void Persist()
+        {
+            DocumentManager.Persist();
+            var parser = new FileIniDataParser();
+            parser.WriteFile(ApplicationSettingsFilePath, ParsedApplicationSettings);
+        }
+
+        #endregion
+
         #region PrivateMethods
 
         /// <summary>

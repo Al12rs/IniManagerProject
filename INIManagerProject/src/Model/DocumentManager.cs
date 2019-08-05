@@ -103,6 +103,22 @@ namespace INIManagerProject.Model
         }
 
         /// <summary>
+        /// Handles persisting of list of open documents as well as calling persist on all of them.
+        /// </summary>
+        internal void Persist()
+        {
+            StringBuilder openDocuments = new StringBuilder();
+            foreach (var doc in DocumentList)
+            {
+                openDocuments.Append(doc.DocumentName + ",");
+                doc.Persist();
+            }
+            ((App)Application.Current)
+                .IniApplication.ParsedApplicationSettings["General"]["loadedDocuments"] = openDocuments.ToString();
+            // TODO: write parsed application settings to file.
+        }
+
+        /// <summary>
         /// Obtain document from a specific DocumentId.
         /// </summary>
         /// <param name="documentId"></param>
