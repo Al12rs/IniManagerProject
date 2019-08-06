@@ -9,9 +9,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" Name="MenuBar"/>
-            <RowDefinition Height="*"  Name="Centre"/>
+            <RowDefinition Height="40" Name="DocBar" />
+            <RowDefinition Height="*"  Name="Centre" />
+            <RowDefinition Height="30"  Name="BottomLayer" />
         </Grid.RowDefinitions>
-        
+
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Click="mnuNew_Click"/>
@@ -24,11 +26,28 @@
                 <MenuItem Header="_New Edit"/>
             </MenuItem>
         </Menu>
-        <Grid Grid.Row="1">
+        <TextBlock Grid.Row="1">DocZone(test)</TextBlock>
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>            
+                <ColumnDefinition Width="*" Name="Grid1"/>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" Name="Grid2"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" Name="EditListMenu" />
+                    <RowDefinition Height="*" Name="EditList" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="2">TEST COL 1</TextBlock>
+            </Grid>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">TEST COL 2</TextBlock>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
