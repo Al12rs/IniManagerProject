@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:INIManagerProject"
         xmlns:local="clr-namespace:INIManagerProject"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1220" Closed="MainWindow_Closed">
@@ -10,7 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" Name="MenuBar"/>
-            <RowDefinition Height="40" Name="DocBar" />
+            <!--<RowDefinition Height="40" Name="DocBar" />-->
             <RowDefinition Height="*"  Name="Centre" />
             <RowDefinition Height="30"  Name="BottomLayer" />
         </Grid.RowDefinitions>
@@ -58,48 +59,6 @@
       </TabControl>
 
       <!--Mid Application Grid Zone -->
-      <Grid Grid.Row="2">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" Name="Grid1"/>
-          <ColumnDefinition Width="5" />
-          <ColumnDefinition Width="*" Name="Grid2"/>
-        </Grid.ColumnDefinitions>
-        <!-- Left Grid (Edit List) -->
-        <Grid Grid.Column="0">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="50" Name="EditListMenu" />
-            <RowDefinition Height="*" Name="EditList" />
-          </Grid.RowDefinitions>
-          <!-- Edit List (Combo box) -->
-                <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="20" VerticalAlignment="Center" > Profiles: </Label>
-                <ComboBox Grid.Row="0" HorizontalAlignment="Center" Width="400" Height="25" VerticalAlignment="Center" />
-                <!--  Edit List (List View Zone)  -->
-                <ListView Grid.Row="1" HorizontalAlignment="Stretch" />
-                <TextBlock Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" >LISTA 1</TextBlock>
-            </Grid>
-            <!-- -->
-            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-            <!-- Right Grid (Edit Content) -->
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="14" > Edit Content:</Label>
-                <!-- Tab control Edit Content-->
-                <TabControl Grid.Row="1">
-                    <TabItem Header="content1">
-                        
-                    </TabItem>
-                    <TabItem Header="content2"/>
-                    <TabItem Header="content3"/>
-                </TabControl>
-                <!-- -->
-                <ListView Grid.Row="2" HorizontalAlignment="Stretch" />
-                <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top">LISTA 2</TextBlock>
-            </Grid>
-            <!-- -->
-        </Grid>
+      <!--<uc:DocumentView Grid.Row="2"/> -->
     </Grid>
 </Window>

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="INIManagerProject.UserControl1"
+﻿<UserControl x:Class="INIManagerProject.DocumentView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -31,21 +31,24 @@
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25" />
-                <RowDefinition Height="25" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="14" >Edit Content:</Label>
             <!-- Tab control Edit Content-->
             <TabControl Grid.Row="1">
-                <TabItem Header="content1">
-
+                <TabItem Header="Content">
+                  <Grid>
+                        <TextBlock HorizontalAlignment="Stretch"> THIS IS A CONTENT SAMPLE </TextBlock>
+                  </Grid>
                 </TabItem>
-                <TabItem Header="content2"/>
-                <TabItem Header="content3"/>
+              <TabItem Header="Notes">
+                <Grid>
+                  <TextBlock HorizontalAlignment="Stretch"> THIS IS A NOTE SAMPLE </TextBlock>
+                </Grid>
+              </TabItem>
+                <TabItem Header="Conflicts"/>
             </TabControl>
             <!-- -->
-            <ListView Grid.Row="2" HorizontalAlignment="Stretch" />
-            <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top">LISTA 2</TextBlock>
         </Grid>
     </Grid>
 </UserControl>
