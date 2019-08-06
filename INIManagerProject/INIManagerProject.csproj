@@ -97,6 +97,7 @@
     <Compile Include="src\Model\Profile.cs" />
     <Compile Include="src\Model\ProfileManager.cs" />
     <Compile Include="src\Model\Section.cs" />
+    <Compile Include="src\Model\SectionCollection.cs" />
     <Compile Include="src\Model\ValueNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
