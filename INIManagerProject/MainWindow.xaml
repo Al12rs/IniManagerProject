@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:INIManagerProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Closed="MainWindow_Closed">
+        Title="MainWindow" Height="700" Width="1220" Closed="MainWindow_Closed">
+    <!---GRIGLIA PRINCIPALE -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" Name="MenuBar"/>
@@ -13,7 +14,7 @@
             <RowDefinition Height="*"  Name="Centre" />
             <RowDefinition Height="30"  Name="BottomLayer" />
         </Grid.RowDefinitions>
-
+        <!-- Menu Bar -->
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Click="mnuNew_Click"/>
@@ -26,28 +27,79 @@
                 <MenuItem Header="_New Edit"/>
             </MenuItem>
         </Menu>
-        <TextBlock Grid.Row="1">DocZone(test)</TextBlock>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" Name="Grid1"/>
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="*" Name="Grid2"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" Name="EditListMenu" />
-                    <RowDefinition Height="*" Name="EditList" />
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="2">TEST COL 1</TextBlock>
+        <!-- DocZone section -->
+      <!--<TabControl Grid.Row="1">
+        <TabItem Header="Document1">
+          <TextBlock >DocZone(test)</TextBlock>
+        </TabItem>
+        <TabItem Header="Security" />
+      </TabControl>-->
+      <!-- Dynamic Tabs -->
+      <TabControl Grid.Row="1" Name="document" ItemsSource="{Binding}" SelectionChanged="document_SelectionChanged">
+        <TabControl.Resources>
+          <DataTemplate x:Key="TabHeader" DataType="TabItem">
+            <DockPanel>
+              <Button Name="btnDelete" DockPanel.Dock="Right" Margin="5,0,0,0" Padding="0" Click="btnDelete_Click" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Name}">
+                <Image Source="/delete.gif" Height="11" Width="11"></Image>
+              </Button>
+              <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Header}" />
+            </DockPanel>
+          </DataTemplate>
+          <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="AcceptsReturn" Value="True"></Setter>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"></Setter>
+            <Setter Property="MaxLines" Value="5000"></Setter>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"></Setter>
+          </Style>
+        </TabControl.Resources>
+      </TabControl>
+
+      <!--Mid Application Grid Zone -->
+      <Grid Grid.Row="2">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" Name="Grid1"/>
+          <ColumnDefinition Width="5" />
+          <ColumnDefinition Width="*" Name="Grid2"/>
+        </Grid.ColumnDefinitions>
+        <!-- Left Grid (Edit List) -->
+        <Grid Grid.Column="0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="50" Name="EditListMenu" />
+            <RowDefinition Height="*" Name="EditList" />
+          </Grid.RowDefinitions>
+          <!-- Edit List (Combo box) -->
+                <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="20" VerticalAlignment="Center" > Profiles: </Label>
+                <ComboBox Grid.Row="0" HorizontalAlignment="Center" Width="400" Height="25" VerticalAlignment="Center" />
+                <!--  Edit List (List View Zone)  -->
+                <ListView Grid.Row="1" HorizontalAlignment="Stretch" />
+                <TextBlock Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" >LISTA 1</TextBlock>
             </Grid>
+            <!-- -->
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+            <!-- Right Grid (Edit Content) -->
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">TEST COL 2</TextBlock>
+                <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="14" > Edit Content:</Label>
+                <!-- Tab control Edit Content-->
+                <TabControl Grid.Row="1">
+                    <TabItem Header="content1">
+                        
+                    </TabItem>
+                    <TabItem Header="content2"/>
+                    <TabItem Header="content3"/>
+                </TabControl>
+                <!-- -->
+                <ListView Grid.Row="2" HorizontalAlignment="Stretch" />
+                <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top">LISTA 2</TextBlock>
             </Grid>
+            <!-- -->
         </Grid>
     </Grid>
 </Window>

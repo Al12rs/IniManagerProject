@@ -21,9 +21,36 @@ namespace INIManagerProject
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<TabItem> _tabItems;
+        private TabItem _tabAdd;
+
         public MainWindow()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+
+                // initialize tabItem array
+                _tabItems = new List<TabItem>();
+
+                // add a tabItem with + in header 
+                TabItem tabAdd = new TabItem();
+                tabAdd.Header = "+";
+
+                _tabItems.Add(tabAdd);
+
+                // add first tab
+                this.AddTabItem();
+
+                // bind tab control
+                tabDynamic.DataContext = _tabItems;
+
+                tabDynamic.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void mnuOpen_Click(object sender, RoutedEventArgs e)
