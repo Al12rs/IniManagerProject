@@ -1,29 +1,31 @@
-﻿using System;
+﻿using INIManagerProject.src.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using INIManagerProject.src.Model;
 
 namespace INIManagerProject.Model
 {
-    class MergeStructure
+    internal class MergeStructure
     {
         #region Fields
+
         private SectionCollection _sectionCollection;
-        #endregion
+
+        #endregion Fields
 
         #region Properties
-        internal SectionCollection SectionCollection { get => _sectionCollection; private  set => _sectionCollection = value; }
+
+        internal SectionCollection SectionCollection { get => _sectionCollection; private set => _sectionCollection = value; }
         internal Document Document { get; private set; }
-        #endregion
+
+        #endregion Properties
 
         #region Initialization
+
         public MergeStructure(Document doc)
         {
             Document = doc;
         }
-        #endregion
+
+        #endregion Initialization
 
         #region PublicMethods
 
@@ -42,7 +44,7 @@ namespace INIManagerProject.Model
                     while (editSectionEnumerator.MoveNext())
                     {
                         currentSectionName = editSectionEnumerator.Current.SectionName;
-                        
+
                         if (!SectionCollection.SectionsDictionary.ContainsKey(currentSectionName))
                         {
                             currentSection = new Section(currentSectionName);
@@ -52,16 +54,11 @@ namespace INIManagerProject.Model
                         {
                             currentSection = SectionCollection.SectionsDictionary[currentSectionName];
                         }
-
-
                     }
                 }
             }
-            
         }
 
-        #endregion
-
-
+        #endregion PublicMethods
     }
 }

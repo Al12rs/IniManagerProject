@@ -1,12 +1,7 @@
 ﻿using INIManagerProject.util;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IniParser;
-using IniParser.Model;
 using System.IO;
+using System.Linq;
 
 namespace INIManagerProject.Model
 {
@@ -15,7 +10,7 @@ namespace INIManagerProject.Model
     /// There is only one list for each Document.
     /// Order and status of the edits are stored in Profiles, not in EditList.
     /// </summary>
-    class EditListModel
+    internal class EditListModel
     {
         #region Fileds
 
@@ -23,12 +18,13 @@ namespace INIManagerProject.Model
         /// Dictionary of all edits EditId->Edit
         /// </summary>
         private Dictionary<int, Edit> _editMapById;
+
         /// <summary>
         /// Dictionary of all edits EditName->Edit
         /// </summary>
         private Dictionary<string, Edit> _editMapByName;
 
-        #endregion
+        #endregion Fileds
 
         #region Properties
 
@@ -39,7 +35,7 @@ namespace INIManagerProject.Model
         internal Dictionary<string, Edit> EditMapByName { get => _editMapByName; }
         internal Edit BaseFileEdit { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region Initialization
 
@@ -80,7 +76,7 @@ namespace INIManagerProject.Model
                 foreach (var editDirName in subdirs)
                 {
                     // Don't load base file into the editLists.
-                    if(editDirName != "Base File")
+                    if (editDirName != "Base File")
                     {
                         CreateEditFromDisk(editDirName);
                     }
@@ -92,7 +88,7 @@ namespace INIManagerProject.Model
             }
         }
 
-        #endregion
+        #endregion Initialization
 
         #region PublicMethods
 
@@ -108,7 +104,7 @@ namespace INIManagerProject.Model
             }
         }
 
-        #endregion
+        #endregion PublicMethods
 
         #region PrivateMethods
 
@@ -171,7 +167,6 @@ namespace INIManagerProject.Model
             return loadedEdit;
         }
 
-        #endregion
-
+        #endregion PrivateMethods
     }
 }

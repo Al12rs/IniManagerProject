@@ -1,10 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Windows;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace INIManagerProject.Model
 {
@@ -12,21 +9,22 @@ namespace INIManagerProject.Model
     /// Contains priority and status data for Edits of a specific document.
     /// There can be multiple profiles for each document.
     /// </summary>
-    class Profile
+    internal class Profile
     {
         #region Fields
 
         /// <summary>
         /// List of pairs Edit-Status ordered by priority (0 is lowest).
         /// </summary>
-        private List<KeyValuePair<Edit,bool>> _priorityList;
+        private List<KeyValuePair<Edit, bool>> _priorityList;
+
         /// <summary>
         /// List of pairs editNames-editStatus ordered by priority.
         /// This is what is read and saved on disk.
         /// </summary>
         private List<KeyValuePair<string, bool>> _editNamesAndStatusByPriority;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -37,7 +35,7 @@ namespace INIManagerProject.Model
         internal Document Document { get; }
         internal List<KeyValuePair<Edit, bool>> PriorityList { get => _priorityList; }
 
-        #endregion
+        #endregion Properties
 
         #region Initialization
 
@@ -63,13 +61,13 @@ namespace INIManagerProject.Model
                 Directory.CreateDirectory(ProfileFolder);
             }
             ProfileFilePath = Path.Combine(ProfileFolder, "editsOrder.txt");
-            if(!File.Exists(ProfileFilePath))
+            if (!File.Exists(ProfileFilePath))
             {
                 File.Create(ProfileFilePath).Dispose();
-            }            
+            }
         }
 
-        #endregion
+        #endregion Initialization
 
         #region PublicMethods
 
@@ -84,7 +82,7 @@ namespace INIManagerProject.Model
             string[] edits = rawStr.Split('\n');
             foreach (var line in edits)
             {
-                if(line.Length > 0)
+                if (line.Length > 0)
                 {
                     if (line[0] == '+')
                     {
@@ -98,14 +96,13 @@ namespace INIManagerProject.Model
                     }
                     //do nothing if it doesn't start with +/-
                 }
-
             }
         }
 
         /// <summary>
         /// Applies _editNamesAndStatusByPriority to the edits in the EditList
         /// all while populating the _priorityList.
-        /// Updates  _editNamesAndStatusByPriority removing edits that are missing from EditList and 
+        /// Updates  _editNamesAndStatusByPriority removing edits that are missing from EditList and
         /// adding the ones that are present in EditList but missing in _editNamesAndStatusByPriority.
         /// </summary>
         public void ValidateAndUpdatePriorityLists()
@@ -145,22 +142,20 @@ namespace INIManagerProject.Model
             UpdateNameListFromEditList();
         }
 
-
-
         /// <summary>
         /// Saves the _editNamesAndStatusByPriority to ProfileName.txt.
         /// </summary>
         internal void Persist()
         {
             StringBuilder sb = new StringBuilder();
-            for(int i=0; i< _editNamesAndStatusByPriority.Count; i++)
+            for (int i = 0; i < _editNamesAndStatusByPriority.Count; i++)
             {
-                sb.Append( ((_editNamesAndStatusByPriority[i].Value) ? "+" : "-") + _editNamesAndStatusByPriority[i].Key + "\n");
+                sb.Append(((_editNamesAndStatusByPriority[i].Value) ? "+" : "-") + _editNamesAndStatusByPriority[i].Key + "\n");
             }
             File.WriteAllText(ProfileFilePath, sb.ToString());
         }
 
-        #endregion
+        #endregion PublicMethods
 
         #region PrivateMethods
 
@@ -176,7 +171,6 @@ namespace INIManagerProject.Model
             }
         }
 
-        #endregion
-
+        #endregion PrivateMethods
     }
 }

@@ -1,27 +1,23 @@
-﻿using System;
+﻿using IniParser.Model;
+using IniParser.Parser;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IniParser;
-using IniParser.Model;
-using IniParser.Parser;
 
 namespace INIManagerProject.Model
 {
     /// <summary>
     /// Rappresents a gorup of ini lines entries to be added to the mergeTree.
     /// </summary>
-    class Edit
+    internal class Edit
     {
         #region Fields
+
         /// <summary>
         /// contins the raw ini lines and possibly comments of the edit.
         /// </summary>
         private string _rawContent;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -32,14 +28,15 @@ namespace INIManagerProject.Model
         public int EditId { get; private set; }
         public string EditName { get; set; }
         internal Document Document { get; private set; }
+
         /// <summary>
-        /// These are keyNodes from the mergestructure that contain values added by this 
+        /// These are keyNodes from the mergestructure that contain values added by this
         /// edit, for fast access.
         /// Needs to be considered if worth it.
         /// </summary>
         internal List<KeyNode> AffectedKeys { get; set; }
 
-        #endregion
+        #endregion Properties
 
         #region Initialization
 
@@ -88,7 +85,7 @@ namespace INIManagerProject.Model
             // TODO: Possibly update directoryTree. Possibly not.
         }
 
-        #endregion
+        #endregion Initialization
 
         #region PublicMethods
 
@@ -100,6 +97,6 @@ namespace INIManagerProject.Model
             File.WriteAllText(EditSourceFile, RawContent);
         }
 
-        #endregion
+        #endregion PublicMethods
     }
 }

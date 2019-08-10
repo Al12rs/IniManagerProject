@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace INIManagerProject.Model
 {
-    class Section
+    internal class Section
     {
         private string SectionName { get; set; }
         private List<KeyNode> _keyNodeList;

@@ -2,27 +2,28 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace INIManagerProject.Model
 {
     /// <summary>
     /// Class containing the list of open Documents (Managed ini files) and functionality to manage them.
-    /// Singleton, there is just one manager for iniApplication, there 
+    /// Singleton, there is just one manager for iniApplication, there
     /// can be multiple documents on the other hand.
     /// </summary>
-    class DocumentManager
+    internal class DocumentManager
     {
         #region Properties
+
         internal List<Document> DocumentList { get; private set; }
         internal IdBroker IdBroker { get; private set; }
         internal string DocumentsFolderPath { get; private set; }
-        #endregion
+
+        #endregion Properties
 
         #region Initialization
+
         /// <summary>
         /// Instantiates DocumentList, IdBroker.
         /// Populates DocumentsFolder.
@@ -34,15 +35,17 @@ namespace INIManagerProject.Model
             IdBroker = new IdBroker();
             var appAppdataFolder = ((App)Application.Current)
                 .IniApplication.ApplicationAppdataFolder;
-            DocumentsFolderPath =  Path.Combine(appAppdataFolder, "Documents");
+            DocumentsFolderPath = Path.Combine(appAppdataFolder, "Documents");
             if (!Directory.Exists(DocumentsFolderPath))
             {
                 Directory.CreateDirectory(DocumentsFolderPath);
             }
         }
-        #endregion
+
+        #endregion Initialization
 
         #region PublicMethods
+
         /// <summary>
         /// Generates a new Document given <paramref name="filePath"/> of an INI file to manage,
         /// and adds it to the list.
@@ -128,7 +131,7 @@ namespace INIManagerProject.Model
             Document currentDocument = null;
             for (int i = 0; i < DocumentList.Count; i++)
             {
-                if(DocumentList[i].DocumentId == documentId)
+                if (DocumentList[i].DocumentId == documentId)
                 {
                     currentDocument = DocumentList[i];
                     break;
@@ -136,6 +139,7 @@ namespace INIManagerProject.Model
             }
             return currentDocument;
         }
-        #endregion
+
+        #endregion PublicMethods
     }
 }

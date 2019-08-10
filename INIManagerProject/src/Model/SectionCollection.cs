@@ -1,9 +1,5 @@
 ﻿using INIManagerProject.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace INIManagerProject.src.Model
 {
@@ -11,7 +7,7 @@ namespace INIManagerProject.src.Model
     /// Class modelling the collection of Sections in an ini file.
     /// It also contains a special section for keys without a section.
     /// </summary>
-    class SectionCollection
+    internal class SectionCollection
     {
         #region Fields
 
@@ -19,19 +15,20 @@ namespace INIManagerProject.src.Model
         /// Contains the keys that are not iside any section.
         /// </summary>
         private Section _globalSection;
+
         /// <summary>
         /// Section name- Section object
         /// </summary>
         private Dictionary<string, Section> _sectionsDictionary;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
         internal Dictionary<string, Section> SectionsDictionary { get => _sectionsDictionary; set => _sectionsDictionary = value; }
         internal Section GlobalSection { get => _globalSection; set => _globalSection = value; }
 
-        #endregion
+        #endregion Properties
 
         #region Initialization
 
@@ -40,6 +37,6 @@ namespace INIManagerProject.src.Model
             _sectionsDictionary = new Dictionary<string, Section>();
         }
 
-        #endregion
+        #endregion Initialization
     }
 }

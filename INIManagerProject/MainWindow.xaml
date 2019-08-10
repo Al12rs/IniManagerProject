@@ -9,15 +9,19 @@
         Title="MainWindow" Height="700" Width="1220" Closed="MainWindow_Closed">
     <!---GRIGLIA PRINCIPALE -->
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" Name="MenuBar"/>
+            <RowDefinition Height="20" Name="MenuBar"/>
             <!--<RowDefinition Height="40" Name="DocBar" />-->
             <RowDefinition Height="*"  Name="Centre" />
-            <RowDefinition Height="30"  Name="BottomLayer" />
+            <RowDefinition Height="20"  Name="BottomLayer" />
         </Grid.RowDefinitions>
         <!-- Menu Bar -->
-        <Menu Grid.Row="0">
-            <MenuItem Header="_File">
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0">
+            <MenuItem Header="_Document">
                 <MenuItem Header="_New" Click="mnuNew_Click"/>
                 <MenuItem Header="_Open" Click="mnuOpen_Click" />
                 <MenuItem Header="_Save" />
@@ -29,36 +33,37 @@
             </MenuItem>
         </Menu>
         <!-- DocZone section -->
-      <!--<TabControl Grid.Row="1">
+        <!--<TabControl Grid.Row="1">
         <TabItem Header="Document1">
           <TextBlock >DocZone(test)</TextBlock>
         </TabItem>
         <TabItem Header="Security" />
       </TabControl>-->
-      <!-- Dynamic Tabs -->
-      <TabControl Grid.Row="1" Name="document" ItemsSource="{Binding}" SelectionChanged="document_SelectionChanged">
-        <TabControl.Resources>
-          <DataTemplate x:Key="TabHeader" DataType="TabItem">
-            <DockPanel>
-              <Button Name="btnDelete" DockPanel.Dock="Right" Margin="5,0,0,0" Padding="0" Click="btnDelete_Click" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Name}">
-                <Image Source="/delete.gif" Height="11" Width="11"></Image>
-              </Button>
-              <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Header}" />
-            </DockPanel>
-          </DataTemplate>
-          <Style TargetType="TextBox">
-            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
-            <Setter Property="AcceptsReturn" Value="True"></Setter>
-            <Setter Property="TextWrapping" Value="WrapWithOverflow"></Setter>
-            <Setter Property="MaxLines" Value="5000"></Setter>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"></Setter>
-          </Style>
-        </TabControl.Resources>
-      </TabControl>
+        <!-- Dynamic Tabs -->
+        <TabControl Grid.Row="1" Name="document" ItemsSource="{Binding}" SelectionChanged="document_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,0,0">
+            <TabControl.Resources>
+                <DataTemplate x:Key="TabHeader" DataType="TabItem">
+                    <DockPanel>
+                        <Button Name="btnDelete" DockPanel.Dock="Right" Margin="5,0,0,0" Padding="0" Click="btnDelete_Click" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Name}">
+                            <Image Source="/delete.gif" Height="11" Width="11"></Image>
+                        </Button>
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Header}" />
+                    </DockPanel>
+                </DataTemplate>
+                <Style TargetType="TextBox">
+                    <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                    <Setter Property="AcceptsReturn" Value="True"></Setter>
+                    <Setter Property="TextWrapping" Value="WrapWithOverflow"></Setter>
+                    <Setter Property="MaxLines" Value="5000"></Setter>
+                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
+                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"></Setter>
+                </Style>
+            </TabControl.Resources>
+        </TabControl>
 
-      <!--Mid Application Grid Zone -->
-      <!--<uc:DocumentView Grid.Row="2"/> -->
+        <!--Mid Application Grid Zone -->
+        <!--<uc:DocumentView Grid.Row="2"/> -->
+        <Label Grid.Row="2" Grid.ColumnSpan="2" Margin="0,-4,0,0"  >DocumentName</Label>
     </Grid>
 </Window>

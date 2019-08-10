@@ -1,12 +1,8 @@
 ﻿using INIManagerProject.util;
 using IniParser.Model;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace INIManagerProject.Model
 {
@@ -14,14 +10,16 @@ namespace INIManagerProject.Model
     /// Manages the profiles of a specific Document.
     /// Single instance for each Document object.
     /// </summary>
-    class ProfileManager
+    internal class ProfileManager
     {
         #region Fields
+
         /// <summary>
-        /// Dictionary of string ProfileNames->Profiles 
+        /// Dictionary of string ProfileNames->Profiles
         /// </summary>
         private Dictionary<string, Profile> _profileList;
-        #endregion
+
+        #endregion Fields
 
         #region Properties
 
@@ -30,9 +28,10 @@ namespace INIManagerProject.Model
         internal Document Document { get; set; }
         internal IdBroker IdBroker { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region Initialization
+
         public ProfileManager(Document document)
         {
             Document = document;
@@ -45,7 +44,8 @@ namespace INIManagerProject.Model
                 Directory.CreateDirectory(ProfilesFolder);
             }
         }
-        #endregion
+
+        #endregion Initialization
 
         #region PublicMethods
 
@@ -59,7 +59,7 @@ namespace INIManagerProject.Model
             string[] subdirs = Directory.GetDirectories(ProfilesFolder)
                              .Select(Path.GetFileName)
                              .ToArray();
-            if(subdirs == null || subdirs.Length < 1)
+            if (subdirs == null || subdirs.Length < 1)
             {
                 CreateDefaultProfile();
             }
@@ -83,7 +83,7 @@ namespace INIManagerProject.Model
                 = CurrentProfile.ProfileName;
         }
 
-        #endregion
+        #endregion PublicMethods
 
         #region PrivateMethods
 
@@ -131,7 +131,6 @@ namespace INIManagerProject.Model
             }
         }
 
-        #endregion
-
+        #endregion PrivateMethods
     }
 }

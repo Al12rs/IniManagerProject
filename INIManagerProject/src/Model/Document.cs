@@ -1,12 +1,6 @@
-﻿using IniParser.Model;
-using IniParser.Parser;
-using IniParser;
-using System;
-using System.Collections.Generic;
+﻿using IniParser;
+using IniParser.Model;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace INIManagerProject.Model
@@ -15,9 +9,10 @@ namespace INIManagerProject.Model
     /// Class modelling a managed INI, reference and base point for Profiles and EditsList.
     /// There can be multiple documents open and loaded at one moment, one will probably have the focus though.
     /// </summary>
-    class Document
+    internal class Document
     {
         #region Properties
+
         public int DocumentId { get; private set; }
         public string ManagedFilePath { get; set; }
         public string DocumentName { get; set; }
@@ -27,13 +22,14 @@ namespace INIManagerProject.Model
         internal ProfileManager ProfileManager { get; private set; }
         internal MergeStructure MergeTree { get; private set; }
         internal EditListModel EditListModel { get; private set; }
-        #endregion
+
+        #endregion Properties
 
         #region Initialization
 
         /// <summary>
         /// Generates an emty doc object.
-        /// Needs to be populated by either CreateNewFromIniFilePath(fileToManagePath) 
+        /// Needs to be populated by either CreateNewFromIniFilePath(fileToManagePath)
         /// or LoadFromDisk(docName).
         /// </summary>
         /// <param name="docId"></param>
@@ -62,7 +58,7 @@ namespace INIManagerProject.Model
             if (!File.Exists(DocumentSettingsFilePath))
             {
                 File.Create(DocumentSettingsFilePath).Dispose();
-            }                
+            }
             LoadDocumentSettings();
 
             ProfileManager = new ProfileManager(this);
@@ -74,7 +70,7 @@ namespace INIManagerProject.Model
 
         /// <summary>
         /// Populates an empty Document object given the name by loading it's data from disk.
-        /// Will fail if the Doc folder is missing or if there is no path to 
+        /// Will fail if the Doc folder is missing or if there is no path to
         /// the managedFile saved in the ini file.
         /// </summary>
         /// <param name="documentName"></param>
@@ -92,7 +88,7 @@ namespace INIManagerProject.Model
             LoadDocumentSettings();
             string filePath = ParsedDocumentSettings["General"]["managedFilePath"];
             if (filePath == null || filePath == "")
-               return false;
+                return false;
             ManagedFilePath = filePath;
 
             ProfileManager = new ProfileManager(this);
@@ -116,7 +112,7 @@ namespace INIManagerProject.Model
             parser.WriteFile(DocumentSettingsFilePath, ParsedDocumentSettings);
         }
 
-        #endregion
+        #endregion Initialization
 
         #region PrivateMethods
 
@@ -128,6 +124,7 @@ namespace INIManagerProject.Model
             var parser = new FileIniDataParser();
             ParsedDocumentSettings = parser.ReadFile(DocumentSettingsFilePath);
         }
-        #endregion
+
+        #endregion PrivateMethods
     }
 }

@@ -19,11 +19,13 @@
                 <RowDefinition Height="*" Name="EditList" />
             </Grid.RowDefinitions>
             <!-- Edit List (Combo box) -->
+            <!-- TODO: Add here Grid to distribute buttons and labels on this line.-->
             <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="20" VerticalAlignment="Center" >Profiles:</Label>
             <ComboBox Grid.Row="0" HorizontalAlignment="Center" Width="200" Height="25" Margin="0" Padding="10" VerticalAlignment="Center" />
             <!--  Edit List (List View Zone)  -->
             <ListView Grid.Row="1" HorizontalAlignment="Stretch" />
             <TextBlock Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" >LISTA 1</TextBlock>
+            <!--TODO: Add here grid where to place Calculate Merge Result and Apply buttons.-->
         </Grid>
         <!-- -->
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
