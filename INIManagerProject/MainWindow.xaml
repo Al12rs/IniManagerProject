@@ -64,6 +64,6 @@
 
         <!--Mid Application Grid Zone -->
         <!--<uc:DocumentView Grid.Row="2"/> -->
-        <Label Grid.Row="2" Grid.ColumnSpan="2" Margin="0,-4,0,0"  >DocumentName</Label>
+        <Label Grid.Row="2" Grid.ColumnSpan="2" Margin="0,-6,0,0"  >Managed/File/Path</Label>
     </Grid>
 </Window>

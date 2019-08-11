@@ -59,7 +59,7 @@ namespace INIManagerProject
 
             // create new tab item
             TabItem tab = new TabItem();
-            tab.Header = string.Format("Tab {0}", count);
+            tab.Header = string.Format("DocumentName {0}", count);
             tab.Name = string.Format("tab{0}", count);
             tab.HeaderTemplate = document.FindResource("TabHeader") as DataTemplate;
 

@@ -17,40 +17,142 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" Name="EditListMenu" />
                 <RowDefinition Height="*" Name="EditList" />
+                <RowDefinition Height="200" x:Name="Buttons" />
             </Grid.RowDefinitions>
             <!-- Edit List (Combo box) -->
             <!-- TODO: Add here Grid to distribute buttons and labels on this line.-->
-            <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="20" VerticalAlignment="Center" >Profiles:</Label>
-            <ComboBox Grid.Row="0" HorizontalAlignment="Center" Width="200" Height="25" Margin="0" Padding="10" VerticalAlignment="Center" />
-            <!--  Edit List (List View Zone)  -->
-            <ListView Grid.Row="1" HorizontalAlignment="Stretch" />
-            <TextBlock Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" >LISTA 1</TextBlock>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center" >Profiles:</Label>
+                <ComboBox Grid.Column="1"  Width="200" Height="25" Margin="0" Padding="5" VerticalAlignment="Center" HorizontalAlignment="Center" TextOptions.TextFormattingMode="Display">
+                    <ComboBoxItem Content="PROFILE 1" />
+
+
+                </ComboBox>
+                <Button Grid.Column="2" HorizontalAlignment="Center" Width="100" Height="25" VerticalAlignment="Center" Content="MANAGE" />
+            </Grid>
+        <!--  Edit List (List View Zone)  -->
+            <Border Grid.Row="1" Background="GhostWhite" BorderBrush="Gainsboro" Margin="10,0,10,0" BorderThickness="1">
+                <StackPanel>
+                    <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  VerticalAlignment="Top">
+                        <!--#BASE FILE -->
+                       
+                        <!--#endregion-->
+                        <ListView.View>
+                            <!--#region -->
+                            <GridView>
+                                <GridView.Columns>
+                                    <GridViewColumn>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Width="15" IsEnabled="{Binding Path=IsEnabled}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="NAME" Width="300" DisplayMemberBinding="{Binding EditName}"/>
+                                    <GridViewColumn Header="PRIORITY" Width="100" DisplayMemberBinding="{Binding EditPriority}"/>
+                                </GridView.Columns>
+                            </GridView>
+                            <!--#endregion-->                         
+                        </ListView.View>
+                    </ListView>
+                  <!--  <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" >LISTA 1</TextBlock> -->
+                </StackPanel>
+            </Border>
             <!--TODO: Add here grid where to place Calculate Merge Result and Apply buttons.-->
+            <Grid Grid.Row="2" VerticalAlignment="Center" Grid.RowSpan="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <!-- ROW 0 -->
+                <Button Grid.Row="0" Content="MERGE" Margin="5,0,0,0" Height="25" Width="100" />
+                <!-- ROW 1 -->
+                <Border Grid.Row="1" HorizontalAlignment="Stretch" Margin="50,0,50,0" Background="GhostWhite" BorderThickness="1">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"  HorizontalAlignment="Center">Merge Result</TextBlock>
+                        <Separator Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                        <TextBlock Grid.Column="2" HorizontalAlignment="Center" > 12/12/12</TextBlock>
+                    </Grid>
+                </Border>
+                <!-- ROW 2 -->
+                <StackPanel Grid.Row="2" Margin="0,10,0,0">
+                    <Button  Content="APPLY" Margin="5,0,0,0" Height="25" Width="100" />
+                </StackPanel>
+                <!-- ROW 3 -->
+                <Border Grid.Row="3" HorizontalAlignment="Stretch" Background="GhostWhite" Margin="50,0,50,0" BorderThickness="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center">File on disk</TextBlock>
+                        <Separator Grid.Column="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="2" HorizontalAlignment="Center">12/12/12</TextBlock>
+                    </Grid>
+                </Border>
+            </Grid>
         </Grid>
         <!-- -->
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
         <!-- Right Grid (Edit Content) -->
-        <Grid Grid.Column="2">
+        <Grid Grid.Column="2">  
             <Grid.RowDefinitions>
                 <RowDefinition Height="25" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="200" />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="14" >Edit Content:</Label>
+            <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="14" >Selected Edit Name:</Label>
             <!-- Tab control Edit Content-->
             <TabControl Grid.Row="1">
                 <TabItem Header="Content">
-                  <Grid>
-                        <TextBlock HorizontalAlignment="Stretch"> THIS IS A CONTENT SAMPLE </TextBlock>
-                  </Grid>
+                    <Grid>
+                 <!-- EXEMPLE TO DELETE LATER-->
+                        <TextBox  HorizontalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" >
+                           
+
+                        </TextBox>
+                           <!--     -->
+                    </Grid>
                 </TabItem>
-              <TabItem Header="Notes">
+             <!-- <TabItem Header="Conflicts">
                 <Grid>
-                  <TextBlock HorizontalAlignment="Stretch"> THIS IS A NOTE SAMPLE </TextBlock>
+                  <TextBlock HorizontalAlignment="Stretch"> THIS IS A CONFLICT SAMPLE </TextBlock>
                 </Grid>
               </TabItem>
-                <TabItem Header="Conflicts"/>
-            </TabControl>
+                <TabItem Header="notes"/> -->
+            </TabControl> 
+            
             <!-- -->
+            <Button Grid.Row="2" Content="SAVE" Width="100" Height="25" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,20,20,0"/>
         </Grid>
     </Grid>
 </UserControl>
+
+    
+    
+    <!--
+           <ListViewItem>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Content="NAME" HorizontalAlignment="Left"/>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
+        <Label Grid.Column="2" Content="PRIORITY" HorizontalAlignment="Right"/>
+    </Grid>
+    </ListViewItem>  -->

@@ -20,9 +20,26 @@ namespace INIManagerProject
     /// </summary>
     public partial class DocumentView : UserControl
     {
+
         public DocumentView()
         {
             InitializeComponent();
+            List<Edit> items = new List<Edit>();
+            items.Add(new Edit() { EditName = "BASE FILE",EditPriority="", IsEnabled=false});
+            items.Add(new Edit() { EditName = "Edit 1", EditPriority = "1", IsEnabled = true }) ;
+            items.Add(new Edit() { EditName = "Edit 2", EditPriority="2", IsEnabled = true});
+            items.Add(new Edit() { EditName = "Edit 3", EditPriority="3", IsEnabled = true});
+            lvEdit.ItemsSource = items;
+          
         }
     }
+
+    public class Edit
+    {
+        public string EditName { get; set;}
+        public String EditPriority { get; set;}
+        public bool IsEnabled { get; set; }
+    }
+
+
 }
