@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:INIManagerProject"
         mc:Ignorable="d"
-        Title="ProfileManagementView" Height="450" Width="800">
+        Title="Manage Profiles" Height="300" Width="500">
     <Grid>
+        <Grid.RowDefinitions>   
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+            <ListView x:Name="lvProfiles">
+            <ListView.View>
+                <GridView>
+                        <GridViewColumn Header="Nome" x:Name="col" DisplayMemberBinding="{Binding profName}"/>
+                    </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Grid.Column="1" Height="25" Grid.Row="0" Content="New Profile" VerticalAlignment="Top" Margin="5,25,5,0" />
+        <Button Grid.Column="1" Height="25" Grid.Row="0" Content="Delete Profile" Margin="5,25,5,0"></Button>
         
+        </Grid>
+     
+        <Button Content="Close" Grid.Row="1" Width="50" Height="25" HorizontalAlignment="Center" />
     </Grid>
 </Window>

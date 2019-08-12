@@ -32,6 +32,15 @@ namespace INIManagerProject
             lvEdit.ItemsSource = items;
           
         }
+
+        private void mnuManage_Click(object sender,RoutedEventArgs e )
+        {
+            var openManageProfileWindow = new ProfileManagementView();
+            openManageProfileWindow.Show();
+
+
+        }
+
     }
 
     public class Edit
@@ -41,5 +50,6 @@ namespace INIManagerProject
         public bool IsEnabled { get; set; }
     }
 
+   
 
 }

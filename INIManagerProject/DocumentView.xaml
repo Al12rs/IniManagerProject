@@ -33,7 +33,7 @@
 
 
                 </ComboBox>
-                <Button Grid.Column="2" HorizontalAlignment="Center" Width="100" Height="25" VerticalAlignment="Center" Content="MANAGE" />
+                <Button Grid.Column="2" HorizontalAlignment="Center" Width="100" Height="25" VerticalAlignment="Center" Content="MANAGE" Click="mnuManage_Click" />
             </Grid>
         <!--  Edit List (List View Zone)  -->
             <Border Grid.Row="1" Background="GhostWhite" BorderBrush="Gainsboro" Margin="10,0,10,0" BorderThickness="1">

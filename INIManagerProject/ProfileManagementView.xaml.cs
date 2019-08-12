@@ -22,6 +22,19 @@ namespace INIManagerProject
         public ProfileManagementView()
         {
             InitializeComponent();
+            List<Profile> lista = new List<Profile>();
+            lista.Add(new Profile { profName = "Default" });
+            lista.Add(new Profile { profName = "Performance" });
+            lista.Add(new Profile { profName = "Visuals" });
+            lvProfiles.ItemsSource = lista;
+
         }
+
+   
     }
+
+    public class Profile{
+        public String profName { get; set; }
+
+        }
 }
