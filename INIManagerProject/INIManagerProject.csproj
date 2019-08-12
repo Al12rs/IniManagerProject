@@ -64,6 +64,9 @@
     <Compile Include="OpenExistingDocumentWindow.xaml.cs">
       <DependentUpon>OpenExistingDocumentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProfileManagementView.xaml.cs">
+      <DependentUpon>ProfileManagementView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\util\IdBroker.cs" />
     <Page Include="DocumentView.xaml">
       <SubType>Designer</SubType>
@@ -82,6 +85,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="OpenExistingDocumentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProfileManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

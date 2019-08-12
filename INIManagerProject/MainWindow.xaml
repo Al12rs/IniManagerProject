@@ -6,7 +6,7 @@
         xmlns:uc="clr-namespace:INIManagerProject"
         xmlns:local="clr-namespace:INIManagerProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1220" Closed="MainWindow_Closed">
+        Title="INI Manager" Height="700" Width="1220" Closed="MainWindow_Closed">
     <!---GRIGLIA PRINCIPALE -->
     <Grid>
         <Grid.ColumnDefinitions>

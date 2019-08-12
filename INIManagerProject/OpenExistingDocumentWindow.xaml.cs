@@ -22,6 +22,12 @@ namespace INIManagerProject
         public OpenExistingDocumentWindow()
         {
             InitializeComponent();
+            List<Document> docList = new List<Document>();
+            docList.Add(new Document() { docName = "documento 1" , docPath="Path/of/Managed/file1.INI"});
+            docList.Add(new Document() { docName = "documento 2", docPath = "Path/of/Managed/file2.INI" });
+            lvDoc.ItemsSource = docList;
+
+
         }
 
         private void openButton_Click(object sender, RoutedEventArgs e)
@@ -34,5 +40,16 @@ namespace INIManagerProject
         {
             this.Close();
         }
+
+
+
+        public class Document
+        {
+            public String docName { get; set; }
+
+            public String docPath { get; set; }
+
+        }
+
     }
 }
