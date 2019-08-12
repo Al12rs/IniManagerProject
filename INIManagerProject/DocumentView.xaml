@@ -39,8 +39,12 @@
             <Border Grid.Row="1" Background="GhostWhite" BorderBrush="Gainsboro" Margin="10,0,10,0" BorderThickness="1">
                 <StackPanel>
                     <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  VerticalAlignment="Top">
-                        <!--#BASE FILE -->
-                       
+                        <!--#LIST PROPERTY -->                      
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" > </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
                         <!--#endregion-->
                         <ListView.View>
                             <!--#region -->
