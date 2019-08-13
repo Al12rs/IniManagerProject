@@ -106,6 +106,8 @@
     <Compile Include="src\Model\Section.cs" />
     <Compile Include="src\Model\SectionCollection.cs" />
     <Compile Include="src\Model\ValueNode.cs" />
+    <Compile Include="src\ViewModel\ViewModelBase.cs" />
+    <Compile Include="src\ViewModel\OpenDocumentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

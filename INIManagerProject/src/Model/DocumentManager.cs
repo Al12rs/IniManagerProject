@@ -1,4 +1,6 @@
 ﻿using INIManagerProject.util;
+using IniParser;
+using IniParser.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,9 +18,10 @@ namespace INIManagerProject.Model
     {
         #region Properties
 
-        internal List<Document> DocumentList { get; private set; }
+        public List<Document> DocumentList { get; private set; }
         internal IdBroker IdBroker { get; private set; }
         internal string DocumentsFolderPath { get; private set; }
+        public List<KeyValuePair<string, string>> SavedDocuments { get; private set; }
 
         #endregion Properties
 
@@ -40,6 +43,8 @@ namespace INIManagerProject.Model
             {
                 Directory.CreateDirectory(DocumentsFolderPath);
             }
+            SavedDocuments = new List<KeyValuePair<string, string>>();
+            PopulateSavedDocuments();
         }
 
         #endregion Initialization
@@ -140,6 +145,37 @@ namespace INIManagerProject.Model
             return currentDocument;
         }
 
+        /// <summary>
+        /// Populates the SavedDocuments.
+        /// Clears the previous contents.
+        /// Iterates on the DocumentFolders and reads the managed files.
+        /// </summary>
+        internal void PopulateSavedDocuments()
+        {
+            SavedDocuments.Clear();
+            var docDirs = Directory.GetDirectories(DocumentsFolderPath);
+            var parser = new FileIniDataParser();
+            IniData iniData;
+            foreach (var dir in docDirs)
+            {
+                var settingsPath = Path.Combine(dir, "DocumentSettings.ini");
+                if (File.Exists(settingsPath))
+                {
+                    iniData = parser.ReadFile(settingsPath);
+                    if (iniData != null && iniData["General"]["managedFilePath"] != null && iniData["General"]["managedFilePath"] != "")
+                    {
+                        SavedDocuments.Add(new KeyValuePair<string, string>(Path.GetFileName(dir), iniData["General"]["managedFilePath"]));
+                    }
+                }
+            }
+        }
+
         #endregion PublicMethods
+
+        #region PrivateMethods
+
+
+
+        #endregion
     }
 }

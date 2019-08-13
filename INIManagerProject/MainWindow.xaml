@@ -40,7 +40,7 @@
         <TabItem Header="Security" />
       </TabControl>-->
         <!-- Dynamic Tabs -->
-        <TabControl Grid.Row="1" Name="document" ItemsSource="{Binding}" SelectionChanged="document_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,0,0">
+        <TabControl Grid.Row="1" Name="document" ItemsSource="{Binding Path=DocumentList}" SelectionChanged="document_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,0,0">
             <TabControl.Resources>
                 <DataTemplate x:Key="TabHeader" DataType="TabItem">
                     <DockPanel>

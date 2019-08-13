@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using INIManagerProject.Model;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +24,14 @@ namespace INIManagerProject
     {
         private List<TabItem> _tabItems;
         private TabItem _tabAdd;
+        private DocumentManager _documentManager;
 
         public MainWindow()
         {
             try
             {
                 InitializeComponent();
-
+                _documentManager = ((App)Application.Current).IniApplication.DocumentManager;
                 // initialize tabItem array
                 _tabItems = new List<TabItem>();
 
@@ -40,10 +42,10 @@ namespace INIManagerProject
                // _tabItems.Add(tabAdd);
 
                 // add first tab
-                this.AddTabItem();
+                //this.AddTabItem();
 
                 // bind tab control
-                document.DataContext = _tabItems;
+                document.DataContext = _documentManager;
 
                 document.SelectedIndex = 0;
             }

@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using INIManagerProject.Model;
+using INIManagerProject.src.ViewModel;
 
 namespace INIManagerProject
 {
@@ -19,13 +21,19 @@ namespace INIManagerProject
     /// </summary>
     public partial class OpenExistingDocumentWindow : Window
     {
+        private DocumentManager _documentManager;
         public OpenExistingDocumentWindow()
         {
+            //OpenDocumentViewModel opvw = new OpenDocumentViewModel(((App)Application.Current).IniApplication.DocumentManager);
+            var opvw = ((App)Application.Current).IniApplication.DocumentManager;
+            DataContext = opvw;
+
             InitializeComponent();
-            List<Document> docList = new List<Document>();
+            
+            /*List<Document> docList = new List<Document>();
             docList.Add(new Document() { docName = "documento 1" , docPath="Path/of/Managed/file1.INI"});
-            docList.Add(new Document() { docName = "documento 2", docPath = "Path/of/Managed/file2.INI" });
-            lvDoc.ItemsSource = docList;
+            docList.Add(new Document() { docName = "documento 2", docPath = "Path/of/Managed/file2.INI" });*/
+            //lvDoc.ItemsSource = opvw();
 
 
         }
@@ -34,8 +42,9 @@ namespace INIManagerProject
         {
             //load selected document
             //((App)Application.Current).IniApplication.DocumentManager.CreateAndLoadDocumentFromName("Skyrim");
-            Document selectedItem = (Document)lvDoc.SelectedItem;
-            String docNameSelected = selectedItem.docName;
+            var selectedItem = (KeyValuePair<string, string>)lvDoc.SelectedItem;
+            String docNameSelected = selectedItem.Key;
+            _documentManager.CreateAndLoadDocumentFromName(docNameSelected);
             this.Close();
         }
         private void cancelButton_Click(object sender, RoutedEventArgs e)
