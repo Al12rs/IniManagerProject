@@ -34,6 +34,8 @@ namespace INIManagerProject
         {
             //load selected document
             //((App)Application.Current).IniApplication.DocumentManager.CreateAndLoadDocumentFromName("Skyrim");
+            Document selectedItem = (Document)lvDoc.SelectedItem;
+            String docNameSelected = selectedItem.docName;
             this.Close();
         }
         private void cancelButton_Click(object sender, RoutedEventArgs e)

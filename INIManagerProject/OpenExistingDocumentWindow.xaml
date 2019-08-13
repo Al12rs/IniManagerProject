@@ -38,7 +38,18 @@
         </Grid>
 
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">
-            <Button Name="OpenButton" Width="100" Content="Open" Click="openButton_Click"/>
+            <Button Name="OpenButton" Width="100" Click="openButton_Click"> Open
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=lvDoc,Path=SelectedIndex}" Value="-1">
+                                <Setter Property="Button.IsEnabled" Value="false"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
             <Button Name="CancelButton" Width="100" Content="Cancel" Click="cancelButton_Click"/>
         </StackPanel>
     </Grid>

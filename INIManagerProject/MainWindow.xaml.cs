@@ -34,10 +34,10 @@ namespace INIManagerProject
                 _tabItems = new List<TabItem>();
 
                 // add a tabItem with + in header 
-                TabItem tabAdd = new TabItem();
-                tabAdd.Header = "+";
+                //TabItem tabAdd = new TabItem();
+                //tabAdd.Header = "+";
 
-                _tabItems.Add(tabAdd);
+               // _tabItems.Add(tabAdd);
 
                 // add first tab
                 this.AddTabItem();
@@ -53,7 +53,7 @@ namespace INIManagerProject
             }
         }
 
-        private TabItem AddTabItem()
+       private TabItem AddTabItem()
         {
             int count = _tabItems.Count;
 
@@ -70,9 +70,9 @@ namespace INIManagerProject
             tab.Content = dv;
 
             // insert tab item right before the last (+) tab item
-            _tabItems.Insert(count - 1, tab);
+            _tabItems.Insert(count, tab);
             return tab;
-        }
+        } 
 
         private void document_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -82,12 +82,12 @@
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <!-- <ColumnDefinition/>
+                            <ColumnDefinition/> -->
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"  HorizontalAlignment="Center">Merge Result</TextBlock>
-                        <Separator Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                        <TextBlock Grid.Column="2" HorizontalAlignment="Center" > 12/12/12</TextBlock>
+                       <!-- <Separator Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" /> -->
+                       <!-- <TextBlock Grid.Column="2" HorizontalAlignment="Center" > 12/12/12</TextBlock> -->
                     </Grid>
                 </Border>
                 <!-- ROW 2 -->
@@ -99,12 +99,12 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                          <!--  <ColumnDefinition />
+                            <ColumnDefinition /> -->
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" HorizontalAlignment="Center">File on disk</TextBlock>
-                        <Separator Grid.Column="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Column="2" HorizontalAlignment="Center">12/12/12</TextBlock>
+                        <!-- <Separator Grid.Column="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Center" /> -->
+                       <!-- <TextBlock Grid.Column="2" HorizontalAlignment="Center">12/12/12</TextBlock> -->
                     </Grid>
                 </Border>
             </Grid>
