@@ -17,15 +17,15 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-            <ListView x:Name="lvProfiles">
+            <ListView x:Name="lvProfiles" ItemsSource="{Binding Path=ProfileList}">
             <ListView.View>
                 <GridView>
-                        <GridViewColumn Header="Nome" x:Name="col" DisplayMemberBinding="{Binding profName}"/>
+                        <GridViewColumn Header="Nome" x:Name="col" />
                     </GridView>
             </ListView.View>
         </ListView>
-        <Button Grid.Column="1" Height="25" Grid.Row="0" Content="New Profile" VerticalAlignment="Top" Margin="5,25,5,0" />
-        <Button Grid.Column="1" Height="25" Grid.Row="0" Content="Delete Profile" Margin="5,25,5,0"></Button>
+        <Button Grid.Column="1" Height="25" Grid.Row="0" Content="New Profile" Command="{Binding Path=NewProfile}"  VerticalAlignment="Top" Margin="5,25,5,0" />
+            <Button Grid.Column="1" Height="25" Grid.Row="0" Content="Delete Profile" Command="{Binding Path=DeleteProfile}" CommandParameter="{Binding ElementName=lvProfiles,Path=SelectedItem}" Margin="5,25,5,0"></Button>
         
         </Grid>
      

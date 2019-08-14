@@ -1,4 +1,5 @@
-﻿using System;
+﻿using INIManagerProject.src.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +22,13 @@ namespace INIManagerProject
     {
         public ProfileManagementView()
         {
+            DataContext = new ProfileManagementViewModel(((App)Application.Current).IniApplication.DocumentManager.CurrentDocument.ProfileManager);
             InitializeComponent();
-            List<Profile> lista = new List<Profile>();
+            /*List<Profile> lista = new List<Profile>();
             lista.Add(new Profile { profName = "Default" });
             lista.Add(new Profile { profName = "Performance" });
             lista.Add(new Profile { profName = "Visuals" });
-            lvProfiles.ItemsSource = lista;
+            lvProfiles.ItemsSource = lista;*/
 
         }
 

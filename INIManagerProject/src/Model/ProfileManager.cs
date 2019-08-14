@@ -27,6 +27,7 @@ namespace INIManagerProject.Model
         internal Profile CurrentProfile { get; private set; }
         internal Document Document { get; set; }
         internal IdBroker IdBroker { get; private set; }
+        public Dictionary<string, Profile> ProfileList { get => _profileList; }
 
         #endregion Properties
 
@@ -81,6 +82,31 @@ namespace INIManagerProject.Model
             CurrentProfile.Persist();
             Document.ParsedDocumentSettings["Profiles"]["currentProfile"]
                 = CurrentProfile.ProfileName;
+        }
+
+        /// <summary>
+        /// Temporary... create new profile using the existing private method
+        /// </summary>
+        /// <param name="profileName"></param>
+        public void CreateNewProfile(string profileName)
+        {
+            CreateProfileFromDisk(profileName);
+        }
+
+        /// <summary>
+        /// Delete the specified profile from the filesystem and the ProfileList
+        /// </summary>
+        /// <param name="profileName"></param>
+        /// <returns>A bool representing the success of the operation</returns>
+        public bool DeleteProfile(string profileName)
+        {
+            if(profileName != CurrentProfile.ProfileName)
+            {
+                Directory.Delete(Path.Combine(ProfilesFolder, profileName), true);
+                ProfileList.Remove(profileName);
+                return true;
+            }
+            return false;
         }
 
         #endregion PublicMethods

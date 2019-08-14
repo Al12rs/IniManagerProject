@@ -107,6 +107,7 @@
     <Compile Include="src\Model\SectionCollection.cs" />
     <Compile Include="src\Model\ValueNode.cs" />
     <Compile Include="src\ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="src\ViewModel\ProfileManagementViewModel.cs" />
     <Compile Include="src\ViewModel\ViewModelBase.cs" />
     <Compile Include="src\ViewModel\OpenDocumentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
