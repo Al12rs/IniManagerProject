@@ -170,7 +170,7 @@ namespace INIManagerProject
             openFileDialog.Filter = "INI files(*.ini)|*.ini";
             if (openFileDialog.ShowDialog() == true)
             {
-                ((App)Application.Current).IniApplication.DocumentManager.CreateNewDocument(openFileDialog.FileName);
+                ((App)Application.Current).IniApplication.DocumentManager.CurrentDocument = ((App)Application.Current).IniApplication.DocumentManager.CreateNewDocument(openFileDialog.FileName);
             }
 
         }
