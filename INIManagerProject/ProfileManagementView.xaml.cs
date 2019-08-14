@@ -24,15 +24,12 @@ namespace INIManagerProject
         {
             DataContext = new ProfileManagementViewModel(((App)Application.Current).IniApplication.DocumentManager.CurrentDocument.ProfileManager);
             InitializeComponent();
-            /*List<Profile> lista = new List<Profile>();
-            lista.Add(new Profile { profName = "Default" });
-            lista.Add(new Profile { profName = "Performance" });
-            lista.Add(new Profile { profName = "Visuals" });
-            lvProfiles.ItemsSource = lista;*/
-
         }
 
-   
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 
     public class Profile{

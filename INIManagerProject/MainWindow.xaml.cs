@@ -110,15 +110,15 @@ namespace INIManagerProject
             }*/
         }
 
-        private void btnCloseTab_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button)
+        //private void btnCloseTab_Click(object sender, RoutedEventArgs e)
+        //{
+            /*if (sender is Button button)
             {
                 var docName = button.Tag;
                 Document docToClose = _mainWindowViewModel.DocumentManager.DocumentList.Single(d => d.DocumentName == docName);
                 docToClose.Persist();
                 ((ObservableCollection<Document>) documentTabControl.ItemsSource).Remove(docToClose);
-            }
+            }*/
 
             //string tabName = (sender as Button).CommandParameter.ToString();
 
@@ -154,8 +154,8 @@ namespace INIManagerProject
                     }
                     tabControl.SelectedItem = selectedTab;
                 }
-            }*/
-        }
+            }
+        }*/
 
         private void mnuOpen_Click(object sender, RoutedEventArgs e)
         {
