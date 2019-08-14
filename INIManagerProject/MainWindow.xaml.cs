@@ -36,18 +36,18 @@ namespace INIManagerProject
                 _tabItems = new List<TabItem>();
 
                 // add a tabItem with + in header 
-                //TabItem tabAdd = new TabItem();
-                //tabAdd.Header = "+";
+                TabItem tabAdd = new TabItem();
+                tabAdd.Header = "+";
 
-               // _tabItems.Add(tabAdd);
+                _tabItems.Add(tabAdd);
 
                 // add first tab
-                //this.AddTabItem();
+                this.AddTabItem();
 
                 // bind tab control
-                document.DataContext = _documentManager;
+                tabControl.DataContext = _tabItems;
 
-                document.SelectedIndex = 0;
+                tabControl.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace INIManagerProject
             TabItem tab = new TabItem();
             tab.Header = string.Format("DocumentName {0}", count);
             tab.Name = string.Format("tab{0}", count);
-            tab.HeaderTemplate = document.FindResource("TabHeader") as DataTemplate;
+            tab.HeaderTemplate = tabControl.FindResource("TabHeader") as DataTemplate;
 
             // add controls to tab item, this case I added just a textbox
             TextBox txt = new TextBox();
@@ -72,29 +72,29 @@ namespace INIManagerProject
             tab.Content = dv;
 
             // insert tab item right before the last (+) tab item
-            _tabItems.Insert(count, tab);
+            _tabItems.Insert(count -1, tab);
             return tab;
         } 
 
         private void document_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TabItem tab = document.SelectedItem as TabItem;
+            TabItem tab = tabControl.SelectedItem as TabItem;
 
             if (tab != null && tab.Header != null)
             {
                 if (tab.Header.Equals("+"))
                 {
                     // clear tab control binding
-                    document.DataContext = null;
+                    tabControl.DataContext = null;
 
                     // add new tab
                     TabItem newTab = this.AddTabItem();
 
                     // bind tab control
-                    document.DataContext = _tabItems;
+                    tabControl.DataContext = _tabItems;
 
                     // select newly added tab item
-                    document.SelectedItem = newTab;
+                    tabControl.SelectedItem = newTab;
                 }
                 else
                 {
@@ -107,7 +107,7 @@ namespace INIManagerProject
         {
             string tabName = (sender as Button).CommandParameter.ToString();
 
-            var item = document.Items.Cast<TabItem>().Where(i => i.Name.Equals(tabName)).SingleOrDefault();
+            var item = tabControl.Items.Cast<TabItem>().Where(i => i.Name.Equals(tabName)).SingleOrDefault();
 
             TabItem tab = item as TabItem;
 
@@ -121,22 +121,22 @@ namespace INIManagerProject
                     "Remove Tab", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     // get selected tab
-                    TabItem selectedTab = document.SelectedItem as TabItem;
+                    TabItem selectedTab = tabControl.SelectedItem as TabItem;
 
                     // clear tab control binding
-                    document.DataContext = null;
+                    tabControl.DataContext = null;
 
                     _tabItems.Remove(tab);
 
                     // bind tab control
-                    document.DataContext = _tabItems;
+                    tabControl.DataContext = _tabItems;
 
                     // select previously selected tab. if that is removed then select first tab
                     if (selectedTab == null || selectedTab.Equals(tab))
                     {
                         selectedTab = _tabItems[0];
                     }
-                    document.SelectedItem = selectedTab;
+                    tabControl.SelectedItem = selectedTab;
                 }
             }
         }
