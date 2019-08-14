@@ -25,8 +25,8 @@ namespace INIManagerProject
         public OpenExistingDocumentWindow()
         {
             //OpenDocumentViewModel opvw = new OpenDocumentViewModel(((App)Application.Current).IniApplication.DocumentManager);
-            var opvw = ((App)Application.Current).IniApplication.DocumentManager;
-            DataContext = opvw;
+            _documentManager = ((App)Application.Current).IniApplication.DocumentManager;
+            DataContext = _documentManager;
 
             InitializeComponent();
             
@@ -44,7 +44,8 @@ namespace INIManagerProject
             //((App)Application.Current).IniApplication.DocumentManager.CreateAndLoadDocumentFromName("Skyrim");
             var selectedItem = (KeyValuePair<string, string>)lvDoc.SelectedItem;
             String docNameSelected = selectedItem.Key;
-            _documentManager.CreateAndLoadDocumentFromName(docNameSelected);
+            Document newDoc = _documentManager.CreateAndLoadDocumentFromName(docNameSelected);
+            _documentManager.CurrentDocument = newDoc;
             this.Close();
         }
         private void cancelButton_Click(object sender, RoutedEventArgs e)
@@ -52,15 +53,6 @@ namespace INIManagerProject
             this.Close();
         }
 
-
-
-        public class Document
-        {
-            public String docName { get; set; }
-
-            public String docPath { get; set; }
-
-        }
 
     }
 }

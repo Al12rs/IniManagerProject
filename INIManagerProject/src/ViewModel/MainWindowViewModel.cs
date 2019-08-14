@@ -13,7 +13,7 @@ namespace INIManagerProject.src.ViewModel
 
     
 
-    class MainWindowViewModel
+    class MainWindowViewModel : ViewModelBase
     {
         private DocumentManager documentManager;
 

@@ -65,10 +65,12 @@
         <TabControl Grid.Row="1" Name="documentTabControl" ItemsSource="{Binding DocumentManager.DocumentList}" SelectedValue="{Binding DocumentManager.CurrentDocument}" Grid.ColumnSpan="2"  Margin="0,0,0,0">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-
-
-                    <TextBlock  Text="{Binding DocumentName}"></TextBlock>
-
+                    <DockPanel>
+                        <TextBlock  Text="{Binding DocumentName}"></TextBlock>
+                        <Button Tag="{Binding DocumentName}" Name="btnCloseTab" DockPanel.Dock="Right" Margin="5,0,0,0" Padding="0" Click="btnCloseTab_Click">
+                            <Image Source="/delete.gif" Height="11" Width="11"></Image>
+                        </Button>
+                    </DockPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>

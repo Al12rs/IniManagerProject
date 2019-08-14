@@ -8,6 +8,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Linq;
+using System.ComponentModel;
 
 namespace INIManagerProject.Model
 {
@@ -16,12 +17,33 @@ namespace INIManagerProject.Model
     /// Singleton, there is just one manager for iniApplication, there
     /// can be multiple documents on the other hand.
     /// </summary>
-    internal class DocumentManager
+    internal class DocumentManager : INotifyPropertyChanged
     {
+
+        #region Events
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Fields
+
+        private Document _currentDocument;
+
+        #endregion
+
         #region Properties
 
         public ObservableCollection<Document> DocumentList { get; private set; }
-        public Document CurrentDocument { get; set; }
+        public Document CurrentDocument
+        {
+            get => _currentDocument;
+            set
+            {
+                _currentDocument = value;
+                OnPropertyChanged("CurrentDocument");
+            }
+        }
         internal IdBroker IdBroker { get; private set; }
         internal string DocumentsFolderPath { get; private set; }
         public List<KeyValuePair<string, string>> SavedDocuments { get; private set; }
@@ -49,6 +71,7 @@ namespace INIManagerProject.Model
             SavedDocuments = new List<KeyValuePair<string, string>>();
             PopulateSavedDocuments();
         }
+
 
         #endregion Initialization
 
@@ -137,7 +160,12 @@ namespace INIManagerProject.Model
             }
             ((App)Application.Current)
                 .IniApplication.ParsedApplicationSettings["General"]["loadedDocuments"] = openDocuments.ToString();
-            // TODO: write parsed application settings to file.
+            if(CurrentDocument!= null)
+            {
+                ((App)Application.Current)
+                .IniApplication.ParsedApplicationSettings["General"]["selectedDocument"] = CurrentDocument.DocumentName;
+            }
+            
         }
 
         /// <summary>
@@ -188,7 +216,14 @@ namespace INIManagerProject.Model
 
         #region PrivateMethods
 
-
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
 
         #endregion
     }

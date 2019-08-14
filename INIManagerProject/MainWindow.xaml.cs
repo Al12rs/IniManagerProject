@@ -59,7 +59,8 @@ namespace INIManagerProject
             }
         }
 
-       private TabItem AddTabItem()
+        // Should not be needed.
+        private TabItem AddTabItem()
         {
             /*int count = _tabItems.Count;
 
@@ -81,6 +82,7 @@ namespace INIManagerProject
             return null;
         } 
 
+        // Should not be needed.
         private void document_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             /*TabItem tab = tabControl.SelectedItem as TabItem;
@@ -108,10 +110,19 @@ namespace INIManagerProject
             }*/
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void btnCloseTab_Click(object sender, RoutedEventArgs e)
         {
-            /*string tabName = (sender as Button).CommandParameter.ToString();
+            if (sender is Button button)
+            {
+                var docName = button.Tag;
+                Document docToClose = _mainWindowViewModel.DocumentManager.DocumentList.Single(d => d.DocumentName == docName);
+                docToClose.Persist();
+                ((ObservableCollection<Document>) documentTabControl.ItemsSource).Remove(docToClose);
+            }
 
+            //string tabName = (sender as Button).CommandParameter.ToString();
+
+            /*
             var item = tabControl.Items.Cast<TabItem>().Where(i => i.Name.Equals(tabName)).SingleOrDefault();
 
             TabItem tab = item as TabItem;
@@ -148,10 +159,6 @@ namespace INIManagerProject
 
         private void mnuOpen_Click(object sender, RoutedEventArgs e)
         {
-
-            // Placeholder: hardcoded to open skyrim.ini document.
-            ((App)Application.Current).IniApplication.DocumentManager.CreateAndLoadDocumentFromName("Skyrim");
-            //generate new window
             var openDocumentWindow = new OpenExistingDocumentWindow();
             openDocumentWindow.Show();
 
