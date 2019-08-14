@@ -3,9 +3,11 @@ using IniParser;
 using IniParser.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Windows;
+using System.Linq;
 
 namespace INIManagerProject.Model
 {
@@ -18,7 +20,8 @@ namespace INIManagerProject.Model
     {
         #region Properties
 
-        public List<Document> DocumentList { get; private set; }
+        public ObservableCollection<Document> DocumentList { get; private set; }
+        public Document CurrentDocument { get; set; }
         internal IdBroker IdBroker { get; private set; }
         internal string DocumentsFolderPath { get; private set; }
         public List<KeyValuePair<string, string>> SavedDocuments { get; private set; }
@@ -34,7 +37,7 @@ namespace INIManagerProject.Model
         /// </summary>
         public DocumentManager()
         {
-            DocumentList = new List<Document>();
+            DocumentList = new ObservableCollection<Document>();
             IdBroker = new IdBroker();
             var appAppdataFolder = ((App)Application.Current)
                 .IniApplication.ApplicationAppdataFolder;
@@ -88,7 +91,18 @@ namespace INIManagerProject.Model
                     }
                 }
             }
-            // TODO: Potentially set one of the documents as the one with focus.
+            string lastDocumentWithFocus = ((App)Application.Current)
+                .IniApplication.ParsedApplicationSettings["General"]["selectedDocument"];
+            if (lastDocumentWithFocus != null && DocumentList.Any(d => d.DocumentName == lastDocumentWithFocus))
+            {
+                CurrentDocument = DocumentList.Single(d => d.DocumentName == lastDocumentWithFocus);
+            } else
+            {
+                if (DocumentList.Count > 0)
+                {
+                    CurrentDocument = DocumentList[DocumentList.Count - 1];
+                }
+            }
         }
 
         /// <summary>

@@ -10,8 +10,8 @@
     <!---GRIGLIA PRINCIPALE -->
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" Name="MenuBar"/>
@@ -20,7 +20,7 @@
             <RowDefinition Height="20"  Name="BottomLayer" />
         </Grid.RowDefinitions>
         <!-- Menu Bar -->
-        <Menu Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0">
+        <Menu Grid.Row="0" Margin="0,0,0,0">
             <MenuItem Header="_Document">
                 <MenuItem Header="_New" Click="mnuNew_Click"/>
                 <MenuItem Header="_Open" Click="mnuOpen_Click" />
@@ -40,7 +40,7 @@
         <TabItem Header="Security" />
       </TabControl>-->
         <!-- Dynamic Tabs -->
-        <TabControl Grid.Row="1" Name="tabControl" ItemsSource="{Binding }" SelectionChanged="document_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,0,0">
+        <!--<TabControl Grid.Row="1" Name="tabControl" ItemsSource="{Binding }" SelectionChanged="document_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,0,0">
             <TabControl.Resources>
                 <DataTemplate x:Key="TabHeader" DataType="TabItem">
                     <DockPanel>
@@ -60,10 +60,28 @@
                     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"></Setter>
                 </Style>
             </TabControl.Resources>
+        </TabControl>-->
+
+        <TabControl Grid.Row="1" Name="documentTabControl" ItemsSource="{Binding DocumentManager.DocumentList}" SelectedValue="{Binding DocumentManager.CurrentDocument}" Grid.ColumnSpan="2"  Margin="0,0,0,0">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+
+
+                    <TextBlock  Text="{Binding DocumentName}"></TextBlock>
+
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <local:DocumentView>
+
+                    </local:DocumentView>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
         </TabControl>
 
         <!--Mid Application Grid Zone -->
         <!--<uc:DocumentView Grid.Row="2"/> -->
-        <Label Grid.Row="2" Grid.ColumnSpan="2" Margin="0,-6,0,0"  >Managed/File/Path</Label>
+        <Label Grid.Row="1" Margin="0,623,0,0" Grid.RowSpan="2"  >Managed/File/Path</Label>
     </Grid>
 </Window>

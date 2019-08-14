@@ -1,7 +1,9 @@
 ﻿using INIManagerProject.Model;
+using INIManagerProject.src.ViewModel;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,32 +24,34 @@ namespace INIManagerProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<TabItem> _tabItems;
-        private TabItem _tabAdd;
-        private DocumentManager _documentManager;
+        MainWindowViewModel _mainWindowViewModel;
 
         public MainWindow()
         {
             try
             {
                 InitializeComponent();
-                _documentManager = ((App)Application.Current).IniApplication.DocumentManager;
+                _mainWindowViewModel = new MainWindowViewModel();
+                documentTabControl.DataContext = _mainWindowViewModel;
+                
                 // initialize tabItem array
-                _tabItems = new List<TabItem>();
+
+                //New stuff
+
 
                 // add a tabItem with + in header 
-                TabItem tabAdd = new TabItem();
-                tabAdd.Header = "+";
+                //TabItem tabAdd = new TabItem();
+                //tabAdd.Header = "+";
 
-                _tabItems.Add(tabAdd);
+               // _tabItems.Add(tabAdd);
 
                 // add first tab
-                this.AddTabItem();
+                //this.AddTabItem();
 
                 // bind tab control
-                tabControl.DataContext = _tabItems;
+                //tabControl.DataContext = _tabItems;
 
-                tabControl.SelectedIndex = 0;
+                //tabControl.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -57,7 +61,7 @@ namespace INIManagerProject
 
        private TabItem AddTabItem()
         {
-            int count = _tabItems.Count;
+            /*int count = _tabItems.Count;
 
             // create new tab item
             TabItem tab = new TabItem();
@@ -73,12 +77,13 @@ namespace INIManagerProject
 
             // insert tab item right before the last (+) tab item
             _tabItems.Insert(count -1, tab);
-            return tab;
+            return tab;*/
+            return null;
         } 
 
         private void document_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TabItem tab = tabControl.SelectedItem as TabItem;
+            /*TabItem tab = tabControl.SelectedItem as TabItem;
 
             if (tab != null && tab.Header != null)
             {
@@ -100,12 +105,12 @@ namespace INIManagerProject
                 {
                     // your code here...
                 }
-            }
+            }*/
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            string tabName = (sender as Button).CommandParameter.ToString();
+            /*string tabName = (sender as Button).CommandParameter.ToString();
 
             var item = tabControl.Items.Cast<TabItem>().Where(i => i.Name.Equals(tabName)).SingleOrDefault();
 
@@ -138,7 +143,7 @@ namespace INIManagerProject
                     }
                     tabControl.SelectedItem = selectedTab;
                 }
-            }
+            }*/
         }
 
         private void mnuOpen_Click(object sender, RoutedEventArgs e)
