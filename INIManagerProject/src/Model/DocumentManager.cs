@@ -17,12 +17,11 @@ namespace INIManagerProject.Model
     /// Singleton, there is just one manager for iniApplication, there
     /// can be multiple documents on the other hand.
     /// </summary>
-    internal class DocumentManager : INotifyPropertyChanged
+    internal class DocumentManager : ViewModelBase
     {
 
         #region Events
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
@@ -216,14 +215,6 @@ namespace INIManagerProject.Model
 
         #region PrivateMethods
 
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
 
         #endregion
     }
