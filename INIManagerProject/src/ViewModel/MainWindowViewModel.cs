@@ -14,7 +14,7 @@ namespace INIManagerProject.src.ViewModel
     class MainWindowViewModel : ViewModelBase
     {
         private DocumentManager documentManager;
-        private DelegateCommand _closeDocument;
+        private readonly DelegateCommand _closeDocument;
         public ICommand CloseDocumentCommand => _closeDocument;
 
         public MainWindowViewModel()

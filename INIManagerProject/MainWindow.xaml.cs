@@ -24,7 +24,8 @@ namespace INIManagerProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainWindowViewModel _mainWindowViewModel;
+        private MainWindowViewModel _mainWindowViewModel;
+        MainWindowViewModel MainWindowViewModel => _mainWindowViewModel;
 
         public MainWindow()
         {

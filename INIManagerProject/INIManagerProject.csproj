@@ -107,6 +107,7 @@
     <Compile Include="src\Model\SectionCollection.cs" />
     <Compile Include="src\Model\ValueNode.cs" />
     <Compile Include="src\ViewModel\DelegateCommand.cs" />
+    <Compile Include="src\ViewModel\DocumentViewModel.cs" />
     <Compile Include="src\ViewModel\MainWindowViewModel.cs" />
     <Compile Include="src\ViewModel\ProfileManagementViewModel.cs" />
     <Compile Include="src\ViewModel\ViewModelBase.cs" />

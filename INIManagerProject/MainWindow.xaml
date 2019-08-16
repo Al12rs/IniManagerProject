@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:INIManagerProject"
         xmlns:local="clr-namespace:INIManagerProject"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="INI Manager" Height="700" Width="1220" Closed="MainWindow_Closed">
     <!---GRIGLIA PRINCIPALE -->
@@ -69,7 +70,7 @@
                         <TextBlock  Text="{Binding Path=DocumentName}"></TextBlock>
                         <Button Tag="{Binding DocumentName}" CommandParameter="{Binding Path=.}" Name="btnCloseTab" 
                                 DockPanel.Dock="Right" Margin="5,0,0,0" Padding="0" 
-                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.CloseDocumentCommand}">
+                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabControl,AncestorLevel=1}, Path=DataContext.CloseDocumentCommand}">
                             <Image Source="/delete.gif" Height="11" Width="11"></Image>
                         </Button>
                     </DockPanel>

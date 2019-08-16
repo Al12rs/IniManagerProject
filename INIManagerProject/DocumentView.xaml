@@ -102,7 +102,7 @@
                           <!--  <ColumnDefinition />
                             <ColumnDefinition /> -->
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" HorizontalAlignment="Center">File on disk</TextBlock>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center" Text="{Binding Path=ManagedFilePath}"></TextBlock>
                         <!-- <Separator Grid.Column="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Center" /> -->
                        <!-- <TextBlock Grid.Column="2" HorizontalAlignment="Center">12/12/12</TextBlock> -->
                     </Grid>
