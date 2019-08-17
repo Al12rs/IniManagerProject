@@ -67,7 +67,7 @@
     <Compile Include="ProfileManagementView.xaml.cs">
       <DependentUpon>ProfileManagementView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\util\IdBroker.cs" />
+    <Compile Include="src\Utils\IdBroker.cs" />
     <Page Include="DocumentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
