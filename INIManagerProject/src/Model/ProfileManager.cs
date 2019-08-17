@@ -1,4 +1,4 @@
-﻿using INIManagerProject.Utils;
+﻿using INIManagerProject.Model.Utils;
 using IniParser.Model;
 using System.Collections.Generic;
 using System.IO;

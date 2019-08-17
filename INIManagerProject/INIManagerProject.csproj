@@ -67,7 +67,7 @@
     <Compile Include="ProfileManagementView.xaml.cs">
       <DependentUpon>ProfileManagementView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\Utils\IdBroker.cs" />
+    <Compile Include="src\Model\Utils\IdBroker.cs" />
     <Page Include="DocumentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,7 +106,8 @@
     <Compile Include="src\Model\Section.cs" />
     <Compile Include="src\Model\SectionCollection.cs" />
     <Compile Include="src\Model\ValueNode.cs" />
-    <Compile Include="src\ViewModel\DelegateCommand.cs" />
+    <Compile Include="src\ViewModel\Utils\ObservableViewModelCollection.cs" />
+    <Compile Include="src\ViewModel\Utils\DelegateCommand.cs" />
     <Compile Include="src\ViewModel\DocumentViewModel.cs" />
     <Compile Include="src\ViewModel\MainWindowViewModel.cs" />
     <Compile Include="src\ViewModel\ProfileManagementViewModel.cs" />
@@ -138,5 +139,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

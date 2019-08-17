@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace INIManagerProject.Utils
+namespace INIManagerProject.Model.Utils
 {
     /// <summary>
     /// Very simple class to generate session unique Ids.
