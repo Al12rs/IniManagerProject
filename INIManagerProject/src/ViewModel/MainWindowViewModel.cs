@@ -63,14 +63,7 @@ namespace INIManagerProject.src.ViewModel
         {
             get
             {
-                try
-                {
-                    return _documentViewModelList.Single(docVM => docVM.Document == DocumentManager.CurrentDocument);
-                }
-                catch (InvalidOperationException e)
-                {
-                    return null;
-                }
+                return _documentViewModelList.SingleOrDefault(docVM => docVM.Document == DocumentManager.CurrentDocument);
             }
             set
             {
@@ -78,7 +71,6 @@ namespace INIManagerProject.src.ViewModel
                 {
                     DocumentManager.CurrentDocument = value.Document;
                 }
-                //OnPropertyChanged("CurrentDocumentViewModel");
             }
         }
     }
