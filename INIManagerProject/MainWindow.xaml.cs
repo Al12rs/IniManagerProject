@@ -33,7 +33,7 @@ namespace INIManagerProject
             {
                 InitializeComponent();
                 _mainWindowViewModel = new MainWindowViewModel();
-                documentTabControl.DataContext = _mainWindowViewModel;
+                MainWindowControl.DataContext = _mainWindowViewModel;
                 
                 // initialize tabItem array
 

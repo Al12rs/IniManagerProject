@@ -36,7 +36,10 @@ namespace INIManagerProject.Model
         public ObservableCollection<Document> DocumentList { get; private set; }
         public Document CurrentDocument
         {
-            get => _currentDocument;
+            get
+            {
+                return _currentDocument;
+            }
             set
             {
                 _currentDocument = value;
@@ -209,6 +212,27 @@ namespace INIManagerProject.Model
                     }
                 }
             }
+        }
+
+        internal Document CalculateNewCurrentDocument()
+        {
+            var currentIndex = DocumentList.IndexOf(CurrentDocument);
+            var docListCount = DocumentList.Count;
+            if (currentIndex > 0)
+            {
+                // Set the tab to the first one if available.
+                CurrentDocument = DocumentList[0];
+            } else if (docListCount > 1)
+            {
+                // We are on the leftMost tab already but there are other tabs so take
+                // the first to the right.
+                CurrentDocument = DocumentList[1];
+            } else
+            {
+                // The current tab was the last on the list.
+                CurrentDocument = null;
+            }
+            return CurrentDocument;
         }
 
         #endregion PublicMethods

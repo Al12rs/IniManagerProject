@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:INIManagerProject"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="INI Manager" Height="700" Width="1220" Closed="MainWindow_Closed">
+        Title="INI Manager" Height="700" Width="1220" Closed="MainWindow_Closed"
+        Name="MainWindowControl">
     <!---GRIGLIA PRINCIPALE -->
     <Grid>
         <Grid.ColumnDefinitions>
@@ -63,14 +64,14 @@
             </TabControl.Resources>
         </TabControl>-->
 
-        <TabControl Grid.Row="1" Name="documentTabControl" ItemsSource="{Binding Path=DocumentManager.DocumentList}" SelectedValue="{Binding DocumentManager.CurrentDocument}" Grid.ColumnSpan="2"  Margin="0,0,0,0">
+        <TabControl Grid.Row="1" Name="documentTabControl" ItemsSource="{Binding Path=DocumentViewModelList}" SelectedValue="{Binding CurrentDocumentViewModel}" Grid.ColumnSpan="2"  Margin="0,0,0,0">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <DockPanel>
-                        <TextBlock  Text="{Binding Path=DocumentName}"></TextBlock>
-                        <Button Tag="{Binding DocumentName}" CommandParameter="{Binding Path=.}" Name="btnCloseTab" 
+                        <TextBlock  Text="{Binding Path=Document.DocumentName}"></TextBlock>
+                        <Button Tag="{Binding Document.DocumentName}" CommandParameter="{Binding Path=.}" Name="btnCloseTab" 
                                 DockPanel.Dock="Right" Margin="5,0,0,0" Padding="0" 
-                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabControl,AncestorLevel=1}, Path=DataContext.CloseDocumentCommand}">
+                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabControl}, Path=DataContext.CloseDocumentCommand}">
                             <Image Source="/src/Resources/deleteButton.png" Height="15" Width="15"></Image>
                         </Button>
                     </DockPanel>
