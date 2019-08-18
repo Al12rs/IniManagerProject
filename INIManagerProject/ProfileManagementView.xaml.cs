@@ -1,4 +1,4 @@
-﻿using INIManagerProject.src.ViewModel;
+﻿using INIManagerProject.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +31,4 @@ namespace INIManagerProject
             this.Close();
         }
     }
-
-    public class Profile{
-        public String profName { get; set; }
-
-        }
 }

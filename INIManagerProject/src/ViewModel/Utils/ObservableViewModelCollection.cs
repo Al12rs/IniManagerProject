@@ -1,4 +1,4 @@
-﻿using INIManagerProject.src.ViewModel;
+﻿using INIManagerProject.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace INIManagerProject.src.ViewModel.Utils
+namespace INIManagerProject.ViewModel.Utils
 {
     public class ObservableViewModelCollection<TViewModel, TModel> : ObservableCollection<TViewModel>
     {

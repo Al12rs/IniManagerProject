@@ -1,5 +1,5 @@
 ﻿using INIManagerProject.Model;
-using INIManagerProject.src.ViewModel.Utils;
+using INIManagerProject.ViewModel.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace INIManagerProject.src.ViewModel
+namespace INIManagerProject.ViewModel
 {
     class ProfileManagementViewModel : ViewModelBase
     {

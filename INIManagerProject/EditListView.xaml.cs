@@ -18,7 +18,7 @@ namespace INIManagerProject
     /// <summary>
     /// Logica di interazione per EditListView.xaml
     /// </summary>
-    public partial class EditListView : Page
+    public partial class EditListView : UserControl
     {
         public EditListView()
         {

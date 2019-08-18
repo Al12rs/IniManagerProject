@@ -29,11 +29,11 @@ namespace INIManagerProject.Model
         #region Properties
 
         public string ProfileFolder { get; set; }
-        internal string ProfileFilePath { get; set; }
-        internal int ProfileID { get; }
-        internal string ProfileName { get; set; }
-        internal Document Document { get; }
-        internal List<KeyValuePair<Edit, bool>> PriorityList { get => _priorityList; }
+        public string ProfileFilePath { get; set; }
+        public int ProfileID { get; }
+        public string ProfileName { get; set; }
+        public Document Document { get; }
+        public List<KeyValuePair<Edit, bool>> PriorityList { get => _priorityList; }
 
         #endregion Properties
 

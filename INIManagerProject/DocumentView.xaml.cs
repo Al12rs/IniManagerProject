@@ -1,5 +1,5 @@
 ﻿using INIManagerProject.Model;
-using INIManagerProject.src.ViewModel;
+using INIManagerProject.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,17 +27,12 @@ namespace INIManagerProject
         public DocumentView()
         {
             InitializeComponent();
-            // HACK: Pretty sure this does not work correctly but heh.
-            //_documentViewModel = new DocumentViewModel((Document)DataContext);
-            //DataContext = _documentViewModel;
         }
 
         private void mnuManage_Click(object sender,RoutedEventArgs e )
         {
             var openManageProfileWindow = new ProfileManagementView();
             openManageProfileWindow.Show();
-
-
         }
 
     }

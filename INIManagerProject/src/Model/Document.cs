@@ -19,9 +19,9 @@ namespace INIManagerProject.Model
         public string DocumentFolderPath { get; set; }
         internal string DocumentSettingsFilePath { get; private set; }
         internal IniData ParsedDocumentSettings { get; private set; }
-        internal ProfileManager ProfileManager { get; private set; }
+        public ProfileManager ProfileManager { get; private set; }
         internal MergeStructure MergeTree { get; private set; }
-        internal EditListModel EditListModel { get; private set; }
+        public EditListModel EditListModel { get; private set; }
 
         #endregion Properties
 

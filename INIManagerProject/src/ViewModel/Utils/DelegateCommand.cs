@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace INIManagerProject.src.ViewModel.Utils
+namespace INIManagerProject.ViewModel.Utils
 {
     class DelegateCommand : ICommand
     {

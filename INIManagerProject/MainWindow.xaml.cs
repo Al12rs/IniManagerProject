@@ -1,5 +1,5 @@
 ﻿using INIManagerProject.Model;
-using INIManagerProject.src.ViewModel;
+using INIManagerProject.ViewModel;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;

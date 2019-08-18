@@ -1,6 +1,7 @@
 ﻿using INIManagerProject.Model.Utils;
 using IniParser.Model;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 
@@ -24,9 +25,9 @@ namespace INIManagerProject.Model
         #region Properties
 
         public string ProfilesFolder { get; private set; }
-        internal Profile CurrentProfile { get; private set; }
-        internal Document Document { get; set; }
-        internal IdBroker IdBroker { get; private set; }
+        public Profile CurrentProfile { get; set; }
+        public Document Document { get; set; }
+        public IdBroker IdBroker { get; private set; }
         public Dictionary<string, Profile> ProfileList { get => _profileList; }
 
         #endregion Properties

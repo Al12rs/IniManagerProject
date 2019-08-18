@@ -27,46 +27,20 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center" >Profiles:</Label>
-                <ComboBox Grid.Column="1"  Width="200" Height="25" Margin="0" Padding="5" VerticalAlignment="Center" HorizontalAlignment="Center" TextOptions.TextFormattingMode="Display">
-                    <ComboBoxItem Content="PROFILE 1" />
-
-
+                <Label Grid.Column="0" HorizontalAlignment="Center" FontSize="20" 
+                          VerticalAlignment="Center" >Profiles:</Label>
+                <ComboBox Grid.Column="1"  Width="200" Height="25" Margin="0" Padding="5" 
+                          VerticalAlignment="Center" HorizontalAlignment="Center" 
+                          TextOptions.TextFormattingMode="Display"
+                          ItemsSource="{Binding Document.ProfileManager.ProfileList.Keys}"
+                          SelectedItem="{Binding Document.ProfileManager.CurrentProfile.ProfileName}">
                 </ComboBox>
                 <Button Grid.Column="2" HorizontalAlignment="Center" Width="100" Height="25" VerticalAlignment="Center" Content="MANAGE" Click="mnuManage_Click" />
             </Grid>
         <!--  Edit List (List View Zone)  -->
-            <Border Grid.Row="1" Background="GhostWhite" BorderBrush="Gainsboro" Margin="10,0,10,0" BorderThickness="1">
-                <StackPanel>
-                    <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  VerticalAlignment="Top">
-                        <!--#LIST PROPERTY -->                      
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" > </Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <!--#endregion-->
-                        <ListView.View>
-                            <!--#region -->
-                            <GridView>
-                                <GridView.Columns>
-                                    <GridViewColumn>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <CheckBox Width="15" IsEnabled="{Binding Path=IsEnabled}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="NAME" Width="300" DisplayMemberBinding="{Binding EditName}"/>
-                                    <GridViewColumn Header="PRIORITY" Width="100" DisplayMemberBinding="{Binding EditPriority}"/>
-                                </GridView.Columns>
-                            </GridView>
-                            <!--#endregion-->                         
-                        </ListView.View>
-                    </ListView>
-                  <!--  <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" >LISTA 1</TextBlock> -->
-                </StackPanel>
-            </Border>
+            <local:EditListView Grid.Row="1" x:Name="editListControl">
+                
+            </local:EditListView>
             <!--TODO: Add here grid where to place Calculate Merge Result and Apply buttons.-->
             <Grid Grid.Row="2" VerticalAlignment="Center" Grid.RowSpan="5">
                 <Grid.RowDefinitions>
@@ -120,43 +94,12 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="14" >Selected Edit Name:</Label>
             <!-- Tab control Edit Content-->
-            <TabControl Grid.Row="1">
-                <TabItem Header="Content">
-                    <Grid>
-                 <!-- EXEMPLE TO DELETE LATER-->
-                        <TextBox  HorizontalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" >
-                           
-
-                        </TextBox>
-                           <!--     -->
-                    </Grid>
-                </TabItem>
-             <!-- <TabItem Header="Conflicts">
-                <Grid>
-                  <TextBlock HorizontalAlignment="Stretch"> THIS IS A CONFLICT SAMPLE </TextBlock>
-                </Grid>
-              </TabItem>
-                <TabItem Header="notes"/> -->
-            </TabControl> 
+            <local:EditContentView Grid.Row="1" x:Name="editContentControl">
+                
+            </local:EditContentView> 
             
             <!-- -->
             <Button Grid.Row="2" Content="SAVE" Width="100" Height="25" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,20,20,0"/>
         </Grid>
     </Grid>
 </UserControl>
-
-    
-    
-    <!--
-           <ListViewItem>
-    <Grid >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Content="NAME" HorizontalAlignment="Left"/>
-        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
-        <Label Grid.Column="2" Content="PRIORITY" HorizontalAlignment="Right"/>
-    </Grid>
-    </ListViewItem>  -->

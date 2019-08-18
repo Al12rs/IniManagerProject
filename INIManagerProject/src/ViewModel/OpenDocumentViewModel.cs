@@ -7,7 +7,7 @@ using INIManagerProject.Model;
 using System.Collections.ObjectModel;
 using System.Windows;
 
-namespace INIManagerProject.src.ViewModel
+namespace INIManagerProject.ViewModel
 {
     class OpenDocumentViewModel : ViewModelBase
     {

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using INIManagerProject.Model;
-using INIManagerProject.src.ViewModel;
+using INIManagerProject.ViewModel;
 
 namespace INIManagerProject
 {

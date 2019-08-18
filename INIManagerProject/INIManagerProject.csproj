@@ -120,6 +120,8 @@
     <Compile Include="src\Model\Section.cs" />
     <Compile Include="src\Model\SectionCollection.cs" />
     <Compile Include="src\Model\ValueNode.cs" />
+    <Compile Include="src\ViewModel\EditContentViewModel.cs" />
+    <Compile Include="src\ViewModel\EditListViewModel.cs" />
     <Compile Include="src\ViewModel\Utils\ObservableViewModelCollection.cs" />
     <Compile Include="src\ViewModel\Utils\DelegateCommand.cs" />
     <Compile Include="src\ViewModel\DocumentViewModel.cs" />
