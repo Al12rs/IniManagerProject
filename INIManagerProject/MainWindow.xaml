@@ -71,7 +71,7 @@
                         <Button Tag="{Binding DocumentName}" CommandParameter="{Binding Path=.}" Name="btnCloseTab" 
                                 DockPanel.Dock="Right" Margin="5,0,0,0" Padding="0" 
                                 Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabControl,AncestorLevel=1}, Path=DataContext.CloseDocumentCommand}">
-                            <Image Source="/delete.gif" Height="11" Width="11"></Image>
+                            <Image Source="/src/Resources/deleteButton.png" Height="15" Width="15"></Image>
                         </Button>
                     </DockPanel>
                 </DataTemplate>
