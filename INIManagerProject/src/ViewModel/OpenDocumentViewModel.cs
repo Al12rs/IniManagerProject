@@ -5,23 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using INIManagerProject.Model;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace INIManagerProject.src.ViewModel
 {
     class OpenDocumentViewModel : ViewModelBase
     {
-        private DocumentManager _documentManager;
+        private readonly DocumentManager _documentManager;
         public List<KeyValuePair<string, string>> SavedDocuments { get; set; }
 
-        public OpenDocumentViewModel(DocumentManager documentManager)
+        public OpenDocumentViewModel()
         {
-            _documentManager = documentManager;
+            _documentManager = ((App)Application.Current).IniApplication.DocumentManager;
             _documentManager.PopulateSavedDocuments();
-            SavedDocuments = _documentManager.SavedDocuments;
-            //SavedDocuments = new List<KeyValuePair<string, string>>();
-            //SavedDocuments.Add(new KeyValuePair<string, string>("Alex", "boss"));
+
+            //Only show the savedDocuments that are not already opened.
+            SavedDocuments = new List<KeyValuePair<string, string>>(_documentManager.SavedDocuments);
+            SavedDocuments.RemoveAll(pair => _documentManager.DocumentList.Any(d=> d.DocumentName == pair.Key));            
         }
-
-
     }
 }

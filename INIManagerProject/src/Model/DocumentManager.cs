@@ -62,7 +62,7 @@ namespace INIManagerProject.Model
         public DocumentManager()
         {
             DocumentList = new ObservableCollection<Document>();
-            DocumentList.DefaultIfEmpty(null);
+            DocumentList.DefaultIfEmpty();
             IdBroker = new IdBroker();
             var appAppdataFolder = ((App)Application.Current)
                 .IniApplication.ApplicationAppdataFolder;
