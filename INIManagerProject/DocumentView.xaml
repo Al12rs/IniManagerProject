@@ -33,8 +33,9 @@
                 <ComboBox Grid.Column="1"  Width="200" Height="25" Margin="0" Padding="5" 
                           VerticalAlignment="Center" HorizontalAlignment="Center" 
                           TextOptions.TextFormattingMode="Display"
-                          ItemsSource="{Binding Document.ProfileManager.ProfileList.Keys}"
-                          SelectedItem="{Binding Document.ProfileManager.CurrentProfile.ProfileName}">
+                          ItemsSource="{Binding Document.ProfileManager.ProfileList}"
+                          DisplayMemberPath="ProfileName"
+                          SelectedItem="{Binding Document.ProfileManager.CurrentProfile}">
                 </ComboBox>
                 <Button Grid.Column="2" HorizontalAlignment="Center" Width="100" Height="25" VerticalAlignment="Center" Content="MANAGE" Click="mnuManage_Click" />
             </Grid>

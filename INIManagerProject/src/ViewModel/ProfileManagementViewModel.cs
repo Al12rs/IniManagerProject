@@ -23,7 +23,7 @@ namespace INIManagerProject.ViewModel
         public ProfileManagementViewModel(ProfileManager profileManager)
         {
             _profileManager = profileManager;
-            ProfileList = new ObservableCollection<String>(_profileManager.ProfileList.Keys);
+            ProfileList = new ObservableCollection<String>(_profileManager.ProfileList.Select(p => p.ProfileName));
             _newProfile = new DelegateCommand(OnNewProfile);
             _deleteProfile = new DelegateCommand(OnDeleteProfile);
         }

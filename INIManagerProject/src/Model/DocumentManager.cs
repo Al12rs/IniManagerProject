@@ -158,8 +158,11 @@ namespace INIManagerProject.Model
             StringBuilder openDocuments = new StringBuilder();
             foreach (var doc in DocumentList)
             {
-                openDocuments.Append(doc.DocumentName + ",");
                 doc.Persist();
+            }
+            foreach (var docName in DocumentList.GroupBy(d => d.DocumentName).Select(e => e.Key))
+            {
+                openDocuments.Append(docName + ",");
             }
             ((App)Application.Current)
                 .IniApplication.ParsedApplicationSettings["General"]["loadedDocuments"] = openDocuments.ToString();

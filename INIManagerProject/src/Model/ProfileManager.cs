@@ -18,7 +18,8 @@ namespace INIManagerProject.Model
         /// <summary>
         /// Dictionary of string ProfileNames->Profiles
         /// </summary>
-        private Dictionary<string, Profile> _profileList;
+        //private Dictionary<string, Profile> _profileList;
+        private ObservableCollection<Profile> _profileList;
 
         #endregion Fields
 
@@ -28,7 +29,7 @@ namespace INIManagerProject.Model
         public Profile CurrentProfile { get; set; }
         public Document Document { get; set; }
         public IdBroker IdBroker { get; private set; }
-        public Dictionary<string, Profile> ProfileList { get => _profileList; }
+        public ObservableCollection<Profile> ProfileList { get => _profileList; }
 
         #endregion Properties
 
@@ -37,7 +38,7 @@ namespace INIManagerProject.Model
         public ProfileManager(Document document)
         {
             Document = document;
-            _profileList = new Dictionary<string, Profile>();
+            _profileList = new ObservableCollection<Profile>();
             IdBroker = new IdBroker();
 
             ProfilesFolder = Path.Combine(Document.DocumentFolderPath, "Profiles");
@@ -104,7 +105,10 @@ namespace INIManagerProject.Model
             if(profileName != CurrentProfile.ProfileName)
             {
                 Directory.Delete(Path.Combine(ProfilesFolder, profileName), true);
-                ProfileList.Remove(profileName);
+                if(ProfileList.Any(pr => pr.ProfileName == profileName))
+                {
+                    ProfileList.Remove(ProfileList.Where(p => p.ProfileName == profileName).Single());
+                }
                 return true;
             }
             return false;
@@ -124,7 +128,7 @@ namespace INIManagerProject.Model
         {
             int newId = IdBroker.NextId;
             var loadedProfile = new Profile(newId, profileName, Document);
-            _profileList.Add(profileName, loadedProfile);
+            _profileList.Add(loadedProfile);
             loadedProfile.ReadNameListFromDisk();
             return loadedProfile;
         }
@@ -147,14 +151,14 @@ namespace INIManagerProject.Model
             IniData documentSettings = Document.ParsedDocumentSettings;
             var currentProfileName = documentSettings["Profiles"]["currentProfile"];
             Profile foundProfile;
-            if (currentProfileName != null && _profileList.TryGetValue(currentProfileName, out foundProfile))
+            if (currentProfileName != null && ProfileList.Any(p => p.ProfileName == currentProfileName))
             {
-                CurrentProfile = foundProfile;
+                CurrentProfile = ProfileList.Single(p => p.ProfileName == currentProfileName);
             }
             else
             {
                 //set the current profile to a random one from the list.
-                CurrentProfile = _profileList.First().Value;
+                CurrentProfile = _profileList.First();
             }
         }
 
