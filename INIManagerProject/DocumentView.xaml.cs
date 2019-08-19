@@ -29,10 +29,17 @@ namespace INIManagerProject
             InitializeComponent();
         }
 
-        private void mnuManage_Click(object sender,RoutedEventArgs e )
+
+
+        private void mnuManage_Click(object sender, RoutedEventArgs e)
         {
             var openManageProfileWindow = new ProfileManagementView();
             openManageProfileWindow.Show();
+        }
+
+        private void DocumentView_Loaded(object sender, RoutedEventArgs e)
+        {
+            _documentViewModel = DataContext as DocumentViewModel;
         }
 
     }

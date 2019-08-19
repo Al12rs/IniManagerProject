@@ -1,5 +1,6 @@
 ﻿using INIManagerProject.Model.Utils;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 
@@ -24,6 +25,8 @@ namespace INIManagerProject.Model
         /// </summary>
         private Dictionary<string, Edit> _editMapByName;
 
+        private ObservableCollection<Edit> _modelList;
+
         #endregion Fileds
 
         #region Properties
@@ -33,6 +36,7 @@ namespace INIManagerProject.Model
         internal string EditsFolder { get; private set; }
         internal Dictionary<int, Edit> EditMapById { get => _editMapById; }
         internal Dictionary<string, Edit> EditMapByName { get => _editMapByName; }
+        public ObservableCollection<Edit> ModelList { get => _modelList; set => _modelList = value; }
         internal Edit BaseFileEdit { get; private set; }
 
         #endregion Properties
@@ -49,6 +53,7 @@ namespace INIManagerProject.Model
             Document = document;
             _editMapById = new Dictionary<int, Edit>();
             _editMapByName = new Dictionary<string, Edit>();
+            _modelList = new ObservableCollection<Edit>();
             IdBroker = new IdBroker();
 
             EditsFolder = Path.Combine(Document.DocumentFolderPath, "Edits");
@@ -163,6 +168,7 @@ namespace INIManagerProject.Model
             var loadedEdit = new Edit(newId, editName, Document);
             _editMapById.Add(newId, loadedEdit);
             _editMapByName.Add(editName, loadedEdit);
+            ModelList.Add(loadedEdit);
             loadedEdit.UpdateFromDisk();
             return loadedEdit;
         }

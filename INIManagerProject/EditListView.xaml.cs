@@ -1,4 +1,5 @@
-﻿using System;
+﻿using INIManagerProject.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +21,18 @@ namespace INIManagerProject
     /// </summary>
     public partial class EditListView : UserControl
     {
+
+        private EditListViewModel _editListViewModel;
+
         public EditListView()
         {
             InitializeComponent();
         }
 
-        private void LvEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
+        private void EditListView_Loaded(object sender, EventArgs e)
+        {
+            _editListViewModel = (this.DataContext as EditListViewModel); ;
         }
     }
 }

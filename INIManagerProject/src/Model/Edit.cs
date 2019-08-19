@@ -27,6 +27,17 @@ namespace INIManagerProject.Model
         public string RawContent { get => _rawContent; private set => _rawContent = value; }
         public int EditId { get; private set; }
         public string EditName { get; set; }
+        public int Priority
+        {
+            get
+            {
+                return 0;
+            }
+            set
+            {
+
+            }
+        }
         internal Document Document { get; private set; }
 
         /// <summary>

@@ -5,12 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:INIManagerProject"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800">
+      d:DesignHeight="450" d:DesignWidth="800"
+      Loaded="EditListView_Loaded">
 
     <Grid>
         <Border Background="GhostWhite" BorderBrush="Gainsboro" Margin="10,0,10,0" BorderThickness="1">
             <StackPanel>
-                <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  VerticalAlignment="Top" SelectionChanged="LvEdit_SelectionChanged">
+                <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  VerticalAlignment="Top" ItemsSource="{Binding EditListModel.ModelList}">
                     <!--#LIST PROPERTY -->
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -25,12 +26,12 @@
                                 <GridViewColumn>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <CheckBox Width="15" IsEnabled="{Binding Path=IsEnabled}"/>
+                                            <CheckBox Width="15" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="NAME" Width="300"  DisplayMemberBinding="{Binding EditName}"/>
-                                <GridViewColumn Header="PRIORITY" Width="450" DisplayMemberBinding="{Binding EditPriority}"/>
+                                <GridViewColumn Header="PRIORITY" Width="450" DisplayMemberBinding="{Binding Priority}"/>
                             </GridView.Columns>
                         </GridView>
                         <!--#endregion-->

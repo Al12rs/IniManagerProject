@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:INIManagerProject"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800"
+             Loaded="DocumentView_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" Name="Grid1"/>
@@ -38,7 +39,7 @@
                 <Button Grid.Column="2" HorizontalAlignment="Center" Width="100" Height="25" VerticalAlignment="Center" Content="MANAGE" Click="mnuManage_Click" />
             </Grid>
         <!--  Edit List (List View Zone)  -->
-            <local:EditListView Grid.Row="1" x:Name="editListControl">
+            <local:EditListView Grid.Row="1" x:Name="editListControl" DataContext="{Binding EditListViewModel}">
                 
             </local:EditListView>
             <!--TODO: Add here grid where to place Calculate Merge Result and Apply buttons.-->
