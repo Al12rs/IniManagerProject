@@ -34,36 +34,6 @@
                 <MenuItem Header="_New Edit"/>
             </MenuItem>
         </Menu>
-        <!-- DocZone section -->
-        <!--<TabControl Grid.Row="1">
-        <TabItem Header="Document1">
-          <TextBlock >DocZone(test)</TextBlock>
-        </TabItem>
-        <TabItem Header="Security" />
-      </TabControl>-->
-        <!-- Dynamic Tabs -->
-        <!--<TabControl Grid.Row="1" Name="tabControl" ItemsSource="{Binding }" SelectionChanged="document_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,0,0">
-            <TabControl.Resources>
-                <DataTemplate x:Key="TabHeader" DataType="TabItem">
-                    <DockPanel>
-                        <Button Name="btnDelete" DockPanel.Dock="Right" Margin="5,0,0,0" Padding="0" Click="btnDelete_Click" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Name}">
-                            <Image Source="/delete.gif" Height="11" Width="11"></Image>
-                        </Button>
-                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabItem}}, Path=Header}" />
-                    </DockPanel>
-                </DataTemplate>
-                <Style TargetType="TextBox">
-                    <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
-                    <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
-                    <Setter Property="AcceptsReturn" Value="True"></Setter>
-                    <Setter Property="TextWrapping" Value="WrapWithOverflow"></Setter>
-                    <Setter Property="MaxLines" Value="5000"></Setter>
-                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
-                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"></Setter>
-                </Style>
-            </TabControl.Resources>
-        </TabControl>-->
-
         <TabControl Grid.Row="1" Name="documentTabControl" ItemsSource="{Binding Path=DocumentViewModelList}" SelectedValue="{Binding CurrentDocumentViewModel}" Grid.ColumnSpan="2"  Margin="0,0,0,0">
             <TabControl.ItemTemplate>
                 <DataTemplate>
