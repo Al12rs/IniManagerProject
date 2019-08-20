@@ -67,6 +67,7 @@
     <Compile Include="EditListView.xaml.cs">
       <DependentUpon>EditListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\ViewModel\View\Utils\GridViewSort.cs" />
     <Compile Include="OpenExistingDocumentWindow.xaml.cs">
       <DependentUpon>OpenExistingDocumentWindow.xaml</DependentUpon>
     </Compile>

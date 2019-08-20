@@ -1,5 +1,6 @@
 ﻿using IniParser.Model;
 using IniParser.Parser;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -8,7 +9,7 @@ namespace INIManagerProject.Model
     /// <summary>
     /// Rappresents a gorup of ini lines entries to be added to the mergeTree.
     /// </summary>
-    internal class Edit
+    internal class Edit : ViewModelBase
     {
         #region Fields
 
@@ -16,6 +17,8 @@ namespace INIManagerProject.Model
         /// contins the raw ini lines and possibly comments of the edit.
         /// </summary>
         private string _rawContent;
+        private int _priorityCache;
+        private bool _statusCache;
 
         #endregion Fields
 
@@ -27,15 +30,22 @@ namespace INIManagerProject.Model
         public string RawContent { get => _rawContent; private set => _rawContent = value; }
         public int EditId { get; private set; }
         public string EditName { get; set; }
-        public int Priority
+        public Boolean StatusCache
         {
-            get
-            {
-                return 0;
-            }
+            get => _statusCache;
             set
             {
-
+                _statusCache = value;
+                OnPropertyChanged("StatusCache");
+            }
+        }
+        public int PriorityCache
+        {
+            get => _priorityCache;
+            set
+            {
+                _priorityCache = value;
+                OnPropertyChanged("PriorityCache");
             }
         }
         internal Document Document { get; private set; }

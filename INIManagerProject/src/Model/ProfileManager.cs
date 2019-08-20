@@ -18,15 +18,15 @@ namespace INIManagerProject.Model
         /// <summary>
         /// Dictionary of string ProfileNames->Profiles
         /// </summary>
-        //private Dictionary<string, Profile> _profileList;
         private ObservableCollection<Profile> _profileList;
+        private Profile _currentProfile;
 
         #endregion Fields
 
         #region Properties
 
         public string ProfilesFolder { get; private set; }
-        public Profile CurrentProfile { get; set; }
+        public Profile CurrentProfile { get => _currentProfile; set => _currentProfile = value; }
         public Document Document { get; set; }
         public IdBroker IdBroker { get; private set; }
         public ObservableCollection<Profile> ProfileList { get => _profileList; }
@@ -102,10 +102,10 @@ namespace INIManagerProject.Model
         /// <returns>A bool representing the success of the operation</returns>
         public bool DeleteProfile(string profileName)
         {
-            if(profileName != CurrentProfile.ProfileName)
+            if (profileName != CurrentProfile.ProfileName)
             {
                 Directory.Delete(Path.Combine(ProfilesFolder, profileName), true);
-                if(ProfileList.Any(pr => pr.ProfileName == profileName))
+                if (ProfileList.Any(pr => pr.ProfileName == profileName))
                 {
                     ProfileList.Remove(ProfileList.Where(p => p.ProfileName == profileName).Single());
                 }
@@ -150,7 +150,6 @@ namespace INIManagerProject.Model
         {
             IniData documentSettings = Document.ParsedDocumentSettings;
             var currentProfileName = documentSettings["Profiles"]["currentProfile"];
-            Profile foundProfile;
             if (currentProfileName != null && ProfileList.Any(p => p.ProfileName == currentProfileName))
             {
                 CurrentProfile = ProfileList.Single(p => p.ProfileName == currentProfileName);

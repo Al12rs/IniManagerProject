@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace INIManagerProject.Model
@@ -100,8 +101,8 @@ namespace INIManagerProject.Model
         }
 
         /// <summary>
-        /// Applies _editNamesAndStatusByPriority to the edits in the EditList
-        /// all while populating the _priorityList.
+        /// Uses _editNamesAndStatusByPriority to populate the priorityStatus list,
+        /// adds new edits at the bottom with disabled status.
         /// Updates  _editNamesAndStatusByPriority removing edits that are missing from EditList and
         /// adding the ones that are present in EditList but missing in _editNamesAndStatusByPriority.
         /// </summary>
@@ -113,6 +114,8 @@ namespace INIManagerProject.Model
             foreach (var nameStatusPair in _editNamesAndStatusByPriority)
             {
                 Edit currentEdit;
+                // TODO: Change following call to EditMapByName to use ModelList instead if we don't use the map anywhere else.
+                // ModelList contains the baseEdit, so there might be the need to address that.
                 if (editListModel.EditMapByName.TryGetValue(nameStatusPair.Key, out currentEdit))
                 {
                     _priorityList.Add(new KeyValuePair<Edit, bool>(currentEdit, nameStatusPair.Value));
@@ -120,25 +123,19 @@ namespace INIManagerProject.Model
             }
 
             //Add new Edits to bottom of prioritylist
-            foreach (Edit edit in editListModel.EditMapByName.Values)
+            foreach (Edit editListEdit in editListModel.ModelList)
             {
-                bool missing = true;
-                for (int i = 0; i < _priorityList.Count; i++)
+                if (editListEdit.EditName != "Base File")
                 {
-                    if (edit == _priorityList[i].Key)
+                    if (!_priorityList.Any(e => e.Key.EditName == editListEdit.EditName))
                     {
-                        //This edit is already present
-                        missing = false;
-                        break;
+                        _priorityList.Add(new KeyValuePair<Edit, bool>(editListEdit, false));
                     }
-                }
-                if (missing)
-                {
-                    _priorityList.Add(new KeyValuePair<Edit, bool>(edit, false));
                 }
             }
 
-            //now priorityList is complete and _editNamesAndStatusByPriority can be updated to reflect it.
+            // Now priorityList is complete and _editNamesAndStatusByPriority can be updated to reflect it.
+            // Will add new edits and remove missing edits.
             UpdateNameListFromEditList();
         }
 

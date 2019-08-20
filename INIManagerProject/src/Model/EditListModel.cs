@@ -109,6 +109,26 @@ namespace INIManagerProject.Model
             }
         }
 
+        /// <summary>
+        /// Applies the passed profile to the list of Edits,
+        /// populating their priority and status caches.
+        /// Assumes that the passed profile is the current profile as
+        /// Document should be the one responsible for profile change.
+        /// </summary>
+        /// <param name="newProfile"></param>
+        public void ApplyProfile(Profile newProfile)
+        {
+            newProfile.ValidateAndUpdatePriorityLists();
+            for (int i = 0; i < newProfile.PriorityList.Count; i++)
+            {
+                var editInfo = newProfile.PriorityList[i];
+                editInfo.Key.StatusCache = editInfo.Value;
+                // We use the index + 1 because the 0 position is occupied by the BaseEdit.
+                editInfo.Key.PriorityCache = i + 1;
+            }
+            //The sorting is applied with CollectionViewSource class in viewModel using PriorityCache.
+        }
+
         #endregion PublicMethods
 
         #region PrivateMethods
@@ -128,7 +148,10 @@ namespace INIManagerProject.Model
             int newId = IdBroker.NextId;
             var baseEdit = new Edit(newId, "Base File", Document);
             baseEdit.UpdateFromDisk();
+            baseEdit.PriorityCache = 0;
+            baseEdit.StatusCache = true;
             BaseFileEdit = baseEdit;
+            ModelList.Add(baseEdit);
             return baseEdit;
         }
 
@@ -151,7 +174,10 @@ namespace INIManagerProject.Model
             int newId = IdBroker.NextId;
             var baseEdit = new Edit(newId, "Base File", Document);
             baseEdit.UpdateFromDisk();
+            baseEdit.PriorityCache = 0;
+            baseEdit.StatusCache = true;
             BaseFileEdit = baseEdit;
+            ModelList.Add(baseEdit);
             return baseEdit;
         }
 

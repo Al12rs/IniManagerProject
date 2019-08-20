@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:INIManagerProject"
+      xmlns:utils="clr-namespace:INIManagerProject.View.Utils"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Loaded="EditListView_Loaded">
@@ -11,7 +12,10 @@
     <Grid>
         <Border Background="GhostWhite" BorderBrush="Gainsboro" Margin="10,0,10,0" BorderThickness="1">
             <StackPanel>
-                <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  VerticalAlignment="Top" ItemsSource="{Binding EditListModel.ModelList}">
+                <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  
+                          VerticalAlignment="Top" 
+                          ItemsSource="{Binding EditListModel.ModelList}"
+                          utils:GridViewSort.AutoSort="True">
                     <!--#LIST PROPERTY -->
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -22,17 +26,19 @@
                     <ListView.View>
                         <!--#region -->
                         <GridView>
-                            <GridView.Columns>
-                                <GridViewColumn>
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <CheckBox Width="15" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="NAME" Width="300"  DisplayMemberBinding="{Binding EditName}"/>
-                                <GridViewColumn Header="PRIORITY" Width="450" DisplayMemberBinding="{Binding Priority}"/>
-                            </GridView.Columns>
+                            <GridViewColumn Header="Status">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Width="15" IsChecked="{Binding StatusCache}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Edit Name" Width="300"  
+                                            DisplayMemberBinding="{Binding EditName}"
+                                            utils:GridViewSort.PropertyName="EditName"/>
+                            <GridViewColumn Header="Priority" Width="450" 
+                                            DisplayMemberBinding="{Binding PriorityCache}"
+                                            utils:GridViewSort.PropertyName="PriorityCache"/>
                         </GridView>
                         <!--#endregion-->
                     </ListView.View>

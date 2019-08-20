@@ -93,9 +93,9 @@ namespace INIManagerProject.Model
 
             ProfileManager = new ProfileManager(this);
             EditListModel = new EditListModel(this);
-            EditListModel.LoadEditsFromDisk();
             ProfileManager.LoadProfilesFromDisk();
-            ProfileManager.CurrentProfile.ValidateAndUpdatePriorityLists();
+            EditListModel.LoadEditsFromDisk();
+            EditListModel.ApplyProfile(ProfileManager.CurrentProfile);
             return true;
         }
 
@@ -113,6 +113,23 @@ namespace INIManagerProject.Model
         }
 
         #endregion Initialization
+
+        #region PublicMethods
+
+        /// <summary>
+        /// This is the only function to use to change the current Profile, 
+        /// it will make the previos profile Persist and apply the new profile 
+        /// to the Edit List.
+        /// </summary>
+        /// <param name="newCurrentProfile"></param>
+        public void SetCurrentProfile(Profile newCurrentProfile)
+        {
+            ProfileManager.CurrentProfile.Persist();
+            ProfileManager.CurrentProfile = newCurrentProfile;
+            EditListModel.ApplyProfile(newCurrentProfile);
+        }
+
+        #endregion
 
         #region PrivateMethods
 
