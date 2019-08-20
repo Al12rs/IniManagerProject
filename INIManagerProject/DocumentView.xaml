@@ -35,7 +35,7 @@
                           TextOptions.TextFormattingMode="Display"
                           ItemsSource="{Binding Document.ProfileManager.ProfileList}"
                           DisplayMemberPath="ProfileName"
-                          SelectedItem="{Binding Document.ProfileManager.CurrentProfile}">
+                          SelectedItem="{Binding CurrentProfileCache}">
                 </ComboBox>
                 <Button Grid.Column="2" HorizontalAlignment="Center" Width="100" Height="25" VerticalAlignment="Center" Content="MANAGE" Click="mnuManage_Click" />
             </Grid>

@@ -11,7 +11,7 @@ namespace INIManagerProject.Model
     /// Manages the profiles of a specific Document.
     /// Single instance for each Document object.
     /// </summary>
-    internal class ProfileManager
+    internal class ProfileManager : ViewModelBase
     {
         #region Fields
 
@@ -26,7 +26,15 @@ namespace INIManagerProject.Model
         #region Properties
 
         public string ProfilesFolder { get; private set; }
-        public Profile CurrentProfile { get => _currentProfile; set => _currentProfile = value; }
+        public Profile CurrentProfile
+        {
+            get => _currentProfile;
+            set
+            {
+                _currentProfile = value;
+                OnPropertyChanged("CurrentProfile");
+            }
+        }
         public Document Document { get; set; }
         public IdBroker IdBroker { get; private set; }
         public ObservableCollection<Profile> ProfileList { get => _profileList; }

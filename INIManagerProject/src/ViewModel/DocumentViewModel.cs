@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace INIManagerProject.ViewModel
 {
@@ -17,7 +18,17 @@ namespace INIManagerProject.ViewModel
 
         public Document Document { get => _document; private set => _document = value; }
         public EditListViewModel EditListViewModel { get => _editListViewModel; set => _editListViewModel = value; }
-        internal Profile CurrentProfileCache { get => _currentProfileCache; set => _currentProfileCache = value; }
+        public Profile CurrentProfileCache
+        {
+            // Does not currently listen to chages from ProfileManager.
+            get => _currentProfileCache;
+            set
+            {
+                Document.SetCurrentProfile(value);
+                _currentProfileCache = value;
+                CollectionViewSource.GetDefaultView(Document.EditListModel.ModelList).Refresh();
+            }
+        }
 
         public DocumentViewModel(Document document)
         {

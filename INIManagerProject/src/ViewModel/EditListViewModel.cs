@@ -15,18 +15,18 @@ namespace INIManagerProject.ViewModel
     {
         private EditListModel _editListModel;
 
-        private CollectionViewSource _viewList;
+        private ICollectionView _viewList;
 
         public EditListViewModel(DocumentViewModel docViewModel)
         {
             _editListModel = docViewModel.Document.EditListModel;
-            _viewList = new CollectionViewSource();
-            _viewList.Source = EditListModel.ModelList;
+            _viewList = CollectionViewSource.GetDefaultView(_editListModel.ModelList);
             _viewList.SortDescriptions.Add(new SortDescription("PriorityCache", ListSortDirection.Ascending));
+            _viewList.Refresh();
 
         }
 
         public EditListModel EditListModel { get => _editListModel; set => _editListModel = value; }
-        public CollectionViewSource ViewList { get => _viewList; set => _viewList = value; }
+        public ICollectionView ViewList { get => _viewList; set => _viewList = value; }
     }
 }
