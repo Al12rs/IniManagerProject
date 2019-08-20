@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using INIManagerProject.View;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -15,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace INIManagerProject
+namespace INIManagerProject.View
 {
     /// <summary>
     /// Logica di interazione per DocumentView.xaml

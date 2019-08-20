@@ -1,4 +1,5 @@
-﻿using INIManagerProject.Model;
+﻿using INIManagerProject.View;
+using INIManagerProject.Model;
 using INIManagerProject.ViewModel.Utils;
 using System;
 using System.Collections.Generic;

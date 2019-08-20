@@ -1,9 +1,9 @@
-﻿<Window x:Class="INIManagerProject.OpenExistingDocumentWindow"
+﻿<Window x:Class="INIManagerProject.View.OpenExistingDocumentWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:INIManagerProject"
+        xmlns:local="clr-namespace:INIManagerProject.View"
         mc:Ignorable="d"
         Title="Open Document" Height="450" Width="800">    
     <Grid>

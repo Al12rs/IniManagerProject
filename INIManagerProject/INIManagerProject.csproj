@@ -58,36 +58,36 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DocumentView.xaml.cs">
+    <Compile Include="src\View\DocumentView.xaml.cs">
       <DependentUpon>DocumentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditContentView.xaml.cs">
+    <Compile Include="src\View\EditContentView.xaml.cs">
       <DependentUpon>EditContentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditListView.xaml.cs">
+    <Compile Include="src\View\EditListView.xaml.cs">
       <DependentUpon>EditListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\ViewModel\View\Utils\GridViewSort.cs" />
-    <Compile Include="OpenExistingDocumentWindow.xaml.cs">
+    <Compile Include="src\View\Utils\GridViewSort.cs" />
+    <Compile Include="src\View\OpenExistingDocumentWindow.xaml.cs">
       <DependentUpon>OpenExistingDocumentWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProfileManagementView.xaml.cs">
+    <Compile Include="src\View\ProfileManagementView.xaml.cs">
       <DependentUpon>ProfileManagementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\Model\Utils\IdBroker.cs" />
-    <Page Include="DocumentView.xaml">
+    <Page Include="src\View\DocumentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EditContentView.xaml">
+    <Page Include="src\View\EditContentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EditListView.xaml">
+    <Page Include="src\View\EditListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="src\View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -95,15 +95,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="src\View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="OpenExistingDocumentWindow.xaml">
+    <Page Include="src\View\OpenExistingDocumentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProfileManagementView.xaml">
+    <Page Include="src\View\ProfileManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

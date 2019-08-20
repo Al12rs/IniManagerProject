@@ -1,4 +1,5 @@
 ﻿using INIManagerProject.Model;
+using INIManagerProject.View;
 using INIManagerProject.ViewModel;
 using Microsoft.Win32;
 using System;
@@ -17,7 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace INIManagerProject
+namespace INIManagerProject.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

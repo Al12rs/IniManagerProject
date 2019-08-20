@@ -1,4 +1,6 @@
-﻿using System;
+﻿using INIManagerProject.View;
+using INIManagerProject.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +15,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace INIManagerProject
+namespace INIManagerProject.View
 {
     /// <summary>
-    /// Logica di interazione per EditContentView.xaml
+    /// Logica di interazione per EditListView.xaml
     /// </summary>
-    public partial class EditContentView : UserControl
+    public partial class EditListView : UserControl
     {
-        public EditContentView()
+
+        private EditListViewModel _editListViewModel;
+
+        public EditListView()
         {
             InitializeComponent();
+        }
+
+
+        private void EditListView_Loaded(object sender, EventArgs e)
+        {
+            _editListViewModel = (this.DataContext as EditListViewModel); ;
         }
     }
 }

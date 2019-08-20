@@ -12,9 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using INIManagerProject.Model;
+using INIManagerProject.View;
 using INIManagerProject.ViewModel;
 
-namespace INIManagerProject
+namespace INIManagerProject.View
 {
     /// <summary>
     /// Interaction logic for OpenExistingDocumentWindow.xaml

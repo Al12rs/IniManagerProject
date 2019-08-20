@@ -1,4 +1,5 @@
 ﻿using INIManagerProject.ViewModel;
+using INIManagerProject.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,28 +12,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace INIManagerProject
+namespace INIManagerProject.View
 {
     /// <summary>
-    /// Logica di interazione per EditListView.xaml
+    /// Logica di interazione per ProfileManagementView.xaml
     /// </summary>
-    public partial class EditListView : UserControl
+    public partial class ProfileManagementView : Window
     {
-
-        private EditListViewModel _editListViewModel;
-
-        public EditListView()
+        public ProfileManagementView()
         {
+            DataContext = new ProfileManagementViewModel(((App)Application.Current).IniApplication.DocumentManager.CurrentDocument.ProfileManager);
             InitializeComponent();
         }
 
-
-        private void EditListView_Loaded(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
-            _editListViewModel = (this.DataContext as EditListViewModel); ;
+            this.Close();
         }
     }
 }
