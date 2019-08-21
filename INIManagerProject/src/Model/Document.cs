@@ -65,7 +65,7 @@ namespace INIManagerProject.Model
             EditListModel = new EditListModel(this);
             EditListModel.LoadEditsFromDisk();
             ProfileManager.LoadProfilesFromDisk();
-            ProfileManager.CurrentProfile.ValidateAndUpdatePriorityLists();
+            EditListModel.ApplyProfile(ProfileManager.CurrentProfile);
         }
 
         /// <summary>
@@ -124,7 +124,6 @@ namespace INIManagerProject.Model
         /// <param name="newCurrentProfile"></param>
         public void SetCurrentProfile(Profile newCurrentProfile)
         {
-            ProfileManager.CurrentProfile.Persist();
             ProfileManager.CurrentProfile = newCurrentProfile;
             EditListModel.ApplyProfile(newCurrentProfile);
         }

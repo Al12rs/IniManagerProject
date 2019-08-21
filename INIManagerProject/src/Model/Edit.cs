@@ -30,13 +30,17 @@ namespace INIManagerProject.Model
         public string RawContent { get => _rawContent; private set => _rawContent = value; }
         public int EditId { get; private set; }
         public string EditName { get; set; }
-        public Boolean StatusCache
+        public bool StatusCache
         {
             get => _statusCache;
             set
             {
-                _statusCache = value;
-                OnPropertyChanged("StatusCache");
+                if(_statusCache != value)
+                {
+                    // TODO: Update profile to reflect change.
+                    _statusCache = value;
+                    OnPropertyChanged("StatusCache");
+                }
             }
         }
         public int PriorityCache

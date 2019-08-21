@@ -31,8 +31,14 @@ namespace INIManagerProject.Model
             get => _currentProfile;
             set
             {
-                _currentProfile = value;
-                OnPropertyChanged("CurrentProfile");
+                if(_currentProfile != value)
+                {
+                    // TODO: possibly move this into an listener to the change, but note that we would need the previous value.
+                    _currentProfile?.Persist();
+                    _currentProfile = value;
+                    _currentProfile.ReadNameListFromDisk();
+                    OnPropertyChanged("CurrentProfile");
+                }
             }
         }
         public Document Document { get; set; }
@@ -137,7 +143,9 @@ namespace INIManagerProject.Model
             int newId = IdBroker.NextId;
             var loadedProfile = new Profile(newId, profileName, Document);
             _profileList.Add(loadedProfile);
-            loadedProfile.ReadNameListFromDisk();
+            // Don't read nameList yet. We could have a lot of profiles, so this should be
+            // performed lazily.
+            //loadedProfile.ReadNameListFromDisk();
             return loadedProfile;
         }
 
