@@ -7,16 +7,27 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 
+
     <Grid>
-        <TabControl>
-            <TabItem Header="Content">
-                <Grid>
-                    <TextBox  HorizontalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="200" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="14" >Selected Edit Name:</Label>
+        <Grid Grid.Row="1">
+            <TabControl>
+                <TabItem Header="Content">
+                    <Grid>
+                        <TextBox  HorizontalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" >
 
 
-                    </TextBox>
-                </Grid>
-            </TabItem>
-        </TabControl>
+                        </TextBox>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <Button Grid.Row="2" Content="SAVE" Width="100" Height="25" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,20,20,0"/>
     </Grid>
+    
 </UserControl>

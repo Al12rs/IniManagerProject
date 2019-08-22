@@ -88,20 +88,9 @@
         <!-- -->
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
         <!-- Right Grid (Edit Content) -->
-        <Grid Grid.Column="2">  
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="200" />
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="14" >Selected Edit Name:</Label>
-            <!-- Tab control Edit Content-->
-            <local:EditContentView Grid.Row="1" x:Name="editContentControl">
-                
-            </local:EditContentView> 
-            
-            <!-- -->
-            <Button Grid.Row="2" Content="SAVE" Width="100" Height="25" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,20,20,0"/>
-        </Grid>
+        <local:EditContentView Grid.Column="2" x:Name="editContentControl" DataContext="{Binding EditContentViewModel}">
+
+        </local:EditContentView>
+       
     </Grid>
 </UserControl>
