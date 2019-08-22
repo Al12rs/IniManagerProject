@@ -14,7 +14,7 @@ namespace INIManagerProject.Model
         #region Properties
 
         public int DocumentId { get; private set; }
-        public string ManagedFilePath { get; set; }
+        public ManagedFile ManagedFile { get; set; }
         public string DocumentName { get; set; }
         public string DocumentFolderPath { get; set; }
         internal string DocumentSettingsFilePath { get; private set; }
@@ -36,6 +36,7 @@ namespace INIManagerProject.Model
         public Document(int docId)
         {
             DocumentId = docId;
+            ManagedFile = new ManagedFile();
         }
 
         /// <summary>
@@ -45,7 +46,8 @@ namespace INIManagerProject.Model
         /// <param name="filePath"></param>
         public void CreateNewFromIniFilePath(string filePath)
         {
-            ManagedFilePath = filePath;
+            ManagedFile.ManagedFilePath = filePath;
+            ManagedFile.Initialize();
             // TODO: create unique document name.
             DocumentName = Path.GetFileNameWithoutExtension(filePath);
             var documentsFolder = ((App)Application.Current).IniApplication.DocumentManager.DocumentsFolderPath;
@@ -89,7 +91,8 @@ namespace INIManagerProject.Model
             string filePath = ParsedDocumentSettings["General"]["managedFilePath"];
             if (filePath == null || filePath == "")
                 return false;
-            ManagedFilePath = filePath;
+            ManagedFile.ManagedFilePath = filePath;
+            ManagedFile.Initialize();
 
             ProfileManager = new ProfileManager(this);
             EditListModel = new EditListModel(this);
@@ -105,7 +108,7 @@ namespace INIManagerProject.Model
         /// </summary>
         public void Persist()
         {
-            ParsedDocumentSettings["General"]["managedFilePath"] = ManagedFilePath;
+            ParsedDocumentSettings["General"]["managedFilePath"] = ManagedFile.ManagedFilePath;
             ProfileManager.Persist();
             EditListModel.Persist();
             var parser = new FileIniDataParser();

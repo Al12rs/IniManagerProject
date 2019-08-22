@@ -58,6 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\Model\IRawContentProvider.cs" />
+    <Compile Include="src\Model\ManagedFile.cs" />
     <Compile Include="src\View\DocumentView.xaml.cs">
       <DependentUpon>DocumentView.xaml</DependentUpon>
     </Compile>
@@ -75,6 +77,7 @@
       <DependentUpon>ProfileManagementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\Model\Utils\IdBroker.cs" />
+    <Compile Include="src\View\Utils\InverseBooleanConverter.cs" />
     <Page Include="src\View\DocumentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

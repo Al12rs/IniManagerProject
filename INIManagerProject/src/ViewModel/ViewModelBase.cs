@@ -14,18 +14,14 @@ public abstract class ViewModelBase : INotifyPropertyChanged
         if (!EqualityComparer<T>.Default.Equals(field, newValue))
         {
             field = newValue;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            OnPropertyChanged(propertyName);
             return true;
         }
         return false;
     }
 
-    protected void OnPropertyChanged(string name)
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-        PropertyChangedEventHandler handler = PropertyChanged;
-        if (handler != null)
-        {
-            handler(this, new PropertyChangedEventArgs(name));
-        }
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

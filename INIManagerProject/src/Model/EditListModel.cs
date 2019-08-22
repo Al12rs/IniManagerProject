@@ -144,7 +144,7 @@ namespace INIManagerProject.Model
             {
                 Directory.CreateDirectory(baseEditFolder);
             }
-            File.Copy(Document.ManagedFilePath, Path.Combine(baseEditFolder, "Base File.ini"), overwrite: true);
+            File.Copy(Document.ManagedFile.ManagedFilePath, Path.Combine(baseEditFolder, "Base File.ini"), overwrite: true);
             int newId = IdBroker.NextId;
             var baseEdit = new Edit(newId, "Base File", Document);
             baseEdit.UpdateFromDisk();

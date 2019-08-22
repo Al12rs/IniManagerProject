@@ -9,7 +9,7 @@ namespace INIManagerProject.Model
     /// <summary>
     /// Rappresents a gorup of ini lines entries to be added to the mergeTree.
     /// </summary>
-    internal class Edit : ViewModelBase
+    internal class Edit : ViewModelBase, IRawContentProvider
     {
         #region Fields
 
@@ -27,7 +27,26 @@ namespace INIManagerProject.Model
         public IniData ParsedData { get; private set; }
         public string EditSourceFile { get; private set; }
         public string EditFolderPath { get; private set; }
-        public string RawContent { get => _rawContent; private set => _rawContent = value; }
+        public string RawContent
+        {
+            get => _rawContent;
+            set
+            {
+                if (_rawContent != value)
+                {
+                    string previousValue = _rawContent;
+                    _rawContent = value;
+                    if (!this.UpdateFromRawContent())
+                    {
+                        _rawContent = previousValue;
+                    }
+                    else
+                    {
+                        this.Persist();
+                    }
+                }
+            }
+        }
         public int EditId { get; private set; }
         public string EditName { get; set; }
         public bool StatusCache
@@ -98,7 +117,12 @@ namespace INIManagerProject.Model
             }
 
             RawContent = File.ReadAllText(EditSourceFile);
+            return UpdateFromRawContent();
+            // TODO: Possibly update directoryTree. Possibly not.
+        }
 
+        private bool UpdateFromRawContent()
+        {
             var parser = new IniDataParser();
             parser.Configuration.ThrowExceptionsOnError = false;
             IniData ParsedData = parser.Parse(RawContent);
@@ -107,7 +131,6 @@ namespace INIManagerProject.Model
                 return false;
             }
             return true;
-            // TODO: Possibly update directoryTree. Possibly not.
         }
 
         #endregion Initialization

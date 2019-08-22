@@ -11,40 +11,38 @@
 
     <Grid>
         <Border Background="GhostWhite" BorderBrush="Gainsboro" Margin="10,0,10,0" BorderThickness="1">
-            <StackPanel>
-                <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  
+            <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  
                           VerticalAlignment="Top" 
                           ItemsSource="{Binding EditListModel.ModelList}"
                           utils:GridViewSort.AutoSort="True">
-                    <!--#LIST PROPERTY -->
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" ></Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <!--#endregion-->
-                    <ListView.View>
-                        <!--#region -->
-                        <GridView>
-                            <GridViewColumn Header="Status">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Width="15" IsChecked="{Binding StatusCache}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Edit Name" Width="300"  
+                <!--#LIST PROPERTY -->
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" ></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <!--#endregion-->
+                <ListView.View>
+                    <!--#region -->
+                    <GridView>
+                        <GridViewColumn Header="Status">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Width="15" IsChecked="{Binding StatusCache}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Edit Name" Width="300"  
                                             DisplayMemberBinding="{Binding EditName}"
                                             utils:GridViewSort.PropertyName="EditName"/>
-                            <GridViewColumn Header="Priority" Width="450" 
+                        <GridViewColumn Header="Priority" Width="450" 
                                             DisplayMemberBinding="{Binding PriorityCache}"
                                             utils:GridViewSort.PropertyName="PriorityCache"/>
-                        </GridView>
-                        <!--#endregion-->
-                    </ListView.View>
-                </ListView>
-                <!--  <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" >LISTA 1</TextBlock> -->
-            </StackPanel>
+                    </GridView>
+                    <!--#endregion-->
+                </ListView.View>
+            </ListView>
+            <!--  <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" >LISTA 1</TextBlock> -->
         </Border>
 
     </Grid>

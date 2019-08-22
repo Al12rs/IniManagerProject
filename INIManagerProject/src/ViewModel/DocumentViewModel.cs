@@ -39,9 +39,8 @@ namespace INIManagerProject.ViewModel
             _editListViewModel = new EditListViewModel(this);
             _editContentViewModel = new EditContentViewModel();
             _currentProfileCache = Document.ProfileManager.CurrentProfile;
-            
-            // TODO: Use a single ViewModel with properties that can be set from the other viewModels.
-            // Pass the EditContentViewModel to the EditListViewModel so that it can populate it correctly when the selection is changed.
+            _editContentViewModel.ContentSource = Document.ManagedFile;
+            _editContentViewModel.CanSave = true;            
         }
     }
 }

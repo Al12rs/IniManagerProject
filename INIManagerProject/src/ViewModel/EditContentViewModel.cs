@@ -14,19 +14,32 @@ namespace INIManagerProject.src.ViewModel
     {
         private Edit _edit;
         private string _textContent;
-        private string _contentSource;
+        private IRawContentProvider _contentSource;
         private string _header;
         private DelegateCommand _saveContent;
         private bool _canSave;
 
-        public string TextContent { get => _textContent; set => _textContent = value; }
+        public string TextContent
+        {
+            get => _textContent;
+            set
+            {
+                SetProperty(ref _textContent, value, "TextContent");
+            }
+        }
         public string Header { get => _header; set => _header = value; }
-        public Edit Edit { get => _edit; set => _edit = value; }
         public ICommand SaveContent => _saveContent;
-        public string ContentSource { get => _contentSource; set => _contentSource = value; }
+        public IRawContentProvider ContentSource
+        {
+            get => _contentSource;
+            set
+            {
+                _contentSource = value;
+                TextContent = _contentSource.RawContent;
+            }
+        }
         public bool CanSave { get => _canSave; set => _canSave = value; }
 
-        public event EventHandler SaveContentPressed;
 
         public EditContentViewModel()
         {
@@ -36,7 +49,13 @@ namespace INIManagerProject.src.ViewModel
 
         private void OnSaveContentPressed(object commandParameters)
         {
-            SaveContentPressed?.Invoke(this, EventArgs.Empty);
+            if (CanSave)
+            {
+                if(ContentSource.RawContent != TextContent)
+                {
+                    ContentSource.RawContent = TextContent;
+                }
+            }
         }
     }
 }
