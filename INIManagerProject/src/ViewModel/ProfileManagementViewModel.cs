@@ -15,9 +15,10 @@ namespace INIManagerProject.ViewModel
     class ProfileManagementViewModel : ViewModelBase
     {
         private ProfileManager _profileManager;
-        public ObservableCollection<String> ProfileList { get; private set; }
         private readonly DelegateCommand _newProfile;
         private readonly DelegateCommand _deleteProfile;
+
+        public ObservableCollection<String> ProfileList { get; private set; }
         public ICommand NewProfile => _newProfile;
         public ICommand DeleteProfile => _deleteProfile;
 

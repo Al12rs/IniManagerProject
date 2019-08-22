@@ -40,7 +40,7 @@
                 <Button Grid.Column="2" HorizontalAlignment="Center" Width="100" Height="25" VerticalAlignment="Center" Content="MANAGE" Click="mnuManage_Click" />
             </Grid>
         <!--  Edit List (List View Zone)  -->
-            <local:EditListView Grid.Row="1" x:Name="editListControl" DataContext="{Binding EditListViewModel}">
+            <local:EditListView Grid.Row="1" x:Name="editListControl" DataContext="{Binding Path=EditListViewModel}">
                 
             </local:EditListView>
             <!--TODO: Add here grid where to place Calculate Merge Result and Apply buttons.-->
@@ -88,7 +88,7 @@
         <!-- -->
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
         <!-- Right Grid (Edit Content) -->
-        <local:EditContentView Grid.Column="2" x:Name="editContentControl" DataContext="{Binding EditContentViewModel}">
+        <local:EditContentView Grid.Column="2" x:Name="editContentControl" DataContext="{Binding Path=EditContentViewModel}">
 
         </local:EditContentView>
        
