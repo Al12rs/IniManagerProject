@@ -18,7 +18,7 @@
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="Document" x:Name="col1" Width="300" DisplayMemberBinding="{Binding Key}"/>
+                        <GridViewColumn Header="Document" x:Name="col1" Width="300"  DisplayMemberBinding="{Binding Key}"/>
                         <GridViewColumn Header="Path " Width="{Binding ElementName=helperField,Path=ActualWidth}" DisplayMemberBinding="{Binding Value}"/>                                              
                     </GridView.Columns>
                 </GridView>
