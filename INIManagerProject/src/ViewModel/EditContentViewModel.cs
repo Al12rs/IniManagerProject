@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using INIManagerProject.ViewModel.Utils;
 using System.Windows.Input;
+using INIManagerProject.ViewModel;
 
 namespace INIManagerProject.src.ViewModel
 {
@@ -27,7 +28,8 @@ namespace INIManagerProject.src.ViewModel
                 SetProperty(ref _textContent, value, "TextContent");
             }
         }
-        public string Header { get => _header; set => _header = value; }
+        public string Header { get => _header; set { SetProperty(ref _header, value, "Header"); } }
+        public DocumentViewModel DocumentViewModel { get; set; }
         public ICommand SaveContent => _saveContent;
         public IRawContentProvider ContentSource
         {
@@ -41,8 +43,9 @@ namespace INIManagerProject.src.ViewModel
         public bool CanSave { get => _canSave; set => _canSave = value; }
 
 
-        public EditContentViewModel()
+        public EditContentViewModel(DocumentViewModel docViewModel)
         {
+            DocumentViewModel = docViewModel;
             CanSave = false;
             _saveContent = new DelegateCommand(OnSaveContentPressed);
         }
