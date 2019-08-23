@@ -47,6 +47,13 @@ namespace INIManagerProject.src.ViewModel
             _saveContent = new DelegateCommand(OnSaveContentPressed);
         }
 
+        public void Populate(string header, IRawContentProvider rawContentProvider, bool canSave)
+        {
+            ContentSource = rawContentProvider;
+            CanSave = true;
+            Header = header;
+        }
+
         private void OnSaveContentPressed(object commandParameters)
         {
             if (CanSave)

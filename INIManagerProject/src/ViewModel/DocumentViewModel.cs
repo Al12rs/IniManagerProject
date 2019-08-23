@@ -40,9 +40,12 @@ namespace INIManagerProject.ViewModel
             _editListViewModel = new EditListViewModel(this);
             _editContentViewModel = new EditContentViewModel();
             _currentProfileCache = Document.ProfileManager.CurrentProfile;
-            _editContentViewModel.ContentSource = Document.ManagedFile;
-            _editContentViewModel.CanSave = true;
-            _editContentViewModel.Header = "Managed File: " + Document.ManagedFile.FileName;
+            ShowManagedFileContents();
+        }
+
+        public void ShowManagedFileContents()
+        {
+            _editContentViewModel.Populate("Managed File: " + Document.ManagedFile.FileName, Document.ManagedFile, canSave: true);
         }
     }
 }
