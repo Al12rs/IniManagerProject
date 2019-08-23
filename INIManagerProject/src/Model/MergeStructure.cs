@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 namespace INIManagerProject.Model
 {
-    internal class MergeStructure
+    internal class MergeStructure : IRawContentProvider
     {
         #region Fields
 
+        private string _rawContent;
         private SectionCollection _sectionCollection;
 
         #endregion Fields
@@ -15,6 +16,7 @@ namespace INIManagerProject.Model
 
         internal SectionCollection SectionCollection { get => _sectionCollection; private set => _sectionCollection = value; }
         internal Document Document { get; private set; }
+        public string RawContent { get => _rawContent; set { } }
 
         #endregion Properties
 
