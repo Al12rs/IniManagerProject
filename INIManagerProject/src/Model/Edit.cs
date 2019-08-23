@@ -116,7 +116,7 @@ namespace INIManagerProject.Model
                 File.Create(EditSourceFile).Dispose();
             }
 
-            RawContent = File.ReadAllText(EditSourceFile);
+            _rawContent = File.ReadAllText(EditSourceFile);
             return UpdateFromRawContent();
             // TODO: Possibly update directoryTree. Possibly not.
         }
@@ -125,7 +125,7 @@ namespace INIManagerProject.Model
         {
             var parser = new IniDataParser();
             parser.Configuration.ThrowExceptionsOnError = false;
-            IniData ParsedData = parser.Parse(RawContent);
+            IniData ParsedData = parser.Parse(_rawContent);
             if (ParsedData == null)
             {
                 return false;
@@ -142,7 +142,7 @@ namespace INIManagerProject.Model
         /// </summary>
         public void Persist()
         {
-            File.WriteAllText(EditSourceFile, RawContent);
+            File.WriteAllText(EditSourceFile, _rawContent);
         }
 
         #endregion PublicMethods
