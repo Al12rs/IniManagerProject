@@ -11,8 +11,9 @@
 
     <Grid>
         <Border Background="GhostWhite" BorderBrush="Gainsboro" Margin="10,0,10,0" BorderThickness="1">
-            <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  
-                          VerticalAlignment="Top" 
+            <DockPanel>
+                <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  
+                           DockPanel.Dock="Top"
                           ItemsSource="{Binding EditListModel.ModelList}"
                           utils:GridViewSort.AutoSort="True">
                 <!--#LIST PROPERTY -->
@@ -42,6 +43,7 @@
                     <!--#endregion-->
                 </ListView.View>
             </ListView>
+            </DockPanel>
             <!--  <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" >LISTA 1</TextBlock> -->
         </Border>
 
