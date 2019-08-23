@@ -8,20 +8,29 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using INIManagerProject.src.ViewModel;
 using System.IO;
+using System.Windows.Input;
+using INIManagerProject.ViewModel.Utils;
 
 namespace INIManagerProject.ViewModel
 {
-    class DocumentViewModel: ViewModelBase
+    class DocumentViewModel : ViewModelBase
     {
 
         private Document _document;
         private EditListViewModel _editListViewModel;
         private EditContentViewModel _editContentViewModel;
         private Profile _currentProfileCache;
+        private readonly DelegateCommand _mergeResultSelected;
+        private DelegateCommand _managedFileSelectged;
+
 
         public Document Document { get => _document; private set => _document = value; }
         public EditContentViewModel EditContentViewModel { get => _editContentViewModel; set => _editContentViewModel = value; }
         public EditListViewModel EditListViewModel { get => _editListViewModel; set => _editListViewModel = value; }
+        public int MergeResultSelectionIndex { get; set; }
+        public int ManagedFileSelectionIndex { get; set; }
+        public ICommand MergeResultSelected => _mergeResultSelected;
+        public ICommand ManagedFileSelected => _managedFileSelectged;
         public Profile CurrentProfileCache
         {
             // Does not currently listen to chages from ProfileManager.
@@ -37,8 +46,12 @@ namespace INIManagerProject.ViewModel
         public DocumentViewModel(Document document)
         {
             _document = document;
+            _mergeResultSelected = new DelegateCommand(OnMergeResultSelected);
+            _managedFileSelectged = new DelegateCommand(OnManagedFileSelected);
+
+
             _editListViewModel = new EditListViewModel(this);
-            _editContentViewModel = new EditContentViewModel();
+            _editContentViewModel = new EditContentViewModel(this);
             _currentProfileCache = Document.ProfileManager.CurrentProfile;
             ShowManagedFileContents();
         }
@@ -46,6 +59,36 @@ namespace INIManagerProject.ViewModel
         public void ShowManagedFileContents()
         {
             _editContentViewModel.Populate("Managed File: " + Document.ManagedFile.FileName, Document.ManagedFile, canSave: true);
+        }
+
+        public void ShowMergeResultContents()
+        {
+            _editContentViewModel.Populate("Merge Result: ", Document.MergeTree, canSave: false);
+        }
+
+        public void ShowSelectedEditContents()
+        {
+            if (EditListViewModel.SelectedItem != null)
+            {
+                MergeResultSelectionIndex = -1;
+                ManagedFileSelectionIndex = -1;
+                _editContentViewModel.Populate("Edit: " + EditListViewModel.SelectedItem.EditName, EditListViewModel.SelectedItem, canSave: true);
+            }
+        }
+
+        private void OnMergeResultSelected(object commandParameter)
+        {
+            ManagedFileSelectionIndex = -1;
+            EditListViewModel.SelectedItem = null;
+            // TODO: Uncomment this once RawContent of Mergestructure isn't null.
+            //ShowMergeResultContents();
+        }
+
+        private void OnManagedFileSelected(object commandParameter)
+        {
+            MergeResultSelectionIndex = -1;
+            EditListViewModel.SelectedIndex = -1;
+            ShowManagedFileContents();
         }
     }
 }

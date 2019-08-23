@@ -5,35 +5,43 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:INIManagerProject.View"
       xmlns:utils="clr-namespace:INIManagerProject.View.Utils"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Loaded="EditListView_Loaded">
-    
+
     <Grid>
         <Border Background="GhostWhite" BorderBrush="Gainsboro" Margin="10,0,10,0" BorderThickness="1">
             <DockPanel>
                 <ListView x:Name="lvEdit"  HorizontalAlignment="Stretch"  
-                           DockPanel.Dock="Top"
+                          DockPanel.Dock="Top"
                           ItemsSource="{Binding EditListModel.ModelList}"
+                          SelectedItem="{Binding Path=SelectedItem}"
+                          SelectedIndex="{Binding Path=SelectedIndex}"
                           utils:GridViewSort.AutoSort="True">
-                <!--#LIST PROPERTY -->
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Center" ></Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <!--#endregion-->
-                <ListView.View>
-                    <!--#region -->
-                    <GridView>
-                        <GridViewColumn  Width="40">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding Path=SelectionChanged}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <!--#LIST PROPERTY -->
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" ></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <!--#endregion-->
+                    <ListView.View>
+                        <!--#region -->
+                        <GridView>
+                            <GridViewColumn  Width="40">
                                 <GridViewColumnHeader Content="Status" SizeChanged="GridViewColumnHeader_SizeChanged"/>
                                 <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox Width="15" IsChecked="{Binding StatusCache}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                                    <DataTemplate>
+                                        <CheckBox Width="15" IsChecked="{Binding StatusCache}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                             <GridViewColumn Width="300"  
                                             DisplayMemberBinding="{Binding EditName}"
                                             utils:GridViewSort.PropertyName="EditName">
@@ -45,9 +53,9 @@
                                 <GridViewColumnHeader Content="Priority" SizeChanged="GridViewColumnHeader_SizeChanged_1" />
                             </GridViewColumn>
                         </GridView>
-                    <!--#endregion-->
-                </ListView.View>
-            </ListView>
+                        <!--#endregion-->
+                    </ListView.View>
+                </ListView>
             </DockPanel>
             <!--  <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" >LISTA 1</TextBlock> -->
         </Border>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:INIManagerProject.View"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800"
@@ -61,7 +62,15 @@
                             <!-- <ColumnDefinition/>
                             <ColumnDefinition/> -->
                         </Grid.ColumnDefinitions>
-                        <ListView Grid.Column="0" HorizontalAlignment="Stretch"  HorizontalContentAlignment="Center">
+                        <ListView Grid.Column="0" 
+                                  HorizontalAlignment="Stretch"  
+                                  HorizontalContentAlignment="Center"
+                                  SelectedIndex="{Binding MergeResultSelectionIndex}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="GotFocus">
+                                    <i:InvokeCommandAction Command="{Binding Path=MergeResultSelected}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <ListViewItem Content="Merge Result" />
                         </ListView>
                        <!-- <Separator Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" /> -->
@@ -80,8 +89,20 @@
                           <!--  <ColumnDefinition />
                             <ColumnDefinition /> -->
                         </Grid.ColumnDefinitions>
-                        <ListView Background="Transparent" HorizontalAlignment="Stretch" BorderThickness="0" Grid.Column="0" HorizontalContentAlignment="Center">
-                            <ListViewItem  Content="{Binding Path=Document.ManagedFile.ManagedFilePath}"/>
+                        <ListView Background="Transparent" 
+                                  HorizontalAlignment="Stretch" 
+                                  BorderThickness="0" 
+                                  Grid.Column="0" 
+                                  HorizontalContentAlignment="Center"
+                                  SelectedIndex="{Binding ManagedFileSelectionIndex}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="GotFocus">
+                                    <i:InvokeCommandAction Command="{Binding Path=ManagedFileSelected}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ListViewItem  Content="{Binding Path=Document.ManagedFile.ManagedFilePath}">
+                                
+                            </ListViewItem>
                         </ListView>
                         <!-- <Separator Grid.Column="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Center" /> -->
                        <!-- <TextBlock Grid.Column="2" HorizontalAlignment="Center">12/12/12</TextBlock> -->
