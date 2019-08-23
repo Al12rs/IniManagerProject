@@ -35,5 +35,22 @@ namespace INIManagerProject.View
         {
             _editListViewModel = (this.DataContext as EditListViewModel); ;
         }
+
+        private void GridViewColumnHeader_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+             if (e.NewSize.Width <= 40) {
+            e.Handled = true;
+            ((GridViewColumnHeader) sender).Column.Width = 40;
+        }
+        }
+
+        private void GridViewColumnHeader_SizeChanged_1(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width <= 100)
+            {
+                e.Handled = true;
+                ((GridViewColumnHeader)sender).Column.Width = 100;
+            }
+        }
     }
 }

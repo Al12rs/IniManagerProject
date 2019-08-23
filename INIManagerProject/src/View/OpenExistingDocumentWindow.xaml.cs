@@ -54,6 +54,14 @@ namespace INIManagerProject.View
             this.Close();
         }
 
+        private void GridViewColumnHeader_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width <= 140)
+            {
+                e.Handled = true;
+                ((GridViewColumnHeader)sender).Column.Width = 140;
+            }
 
+        }
     }
 }

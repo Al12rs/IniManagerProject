@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:INIManagerProject.View"
         mc:Ignorable="d"
-        Title="Open Document" Height="450" Width="800">    
+        Title="Open Document" Height="450" Width="800" MinWidth="500" MinHeight="300">    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" Name="LabelHeader"/>
@@ -18,8 +18,12 @@
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="Document" x:Name="col1" Width="300"  DisplayMemberBinding="{Binding Key}"/>
-                        <GridViewColumn Header="Path " Width="{Binding ElementName=helperField,Path=ActualWidth}" DisplayMemberBinding="{Binding Value}"/>                                              
+                        <GridViewColumn  x:Name="col1" Width="300"  DisplayMemberBinding="{Binding Key}">
+                            <GridViewColumnHeader Content="Document" SizeChanged="GridViewColumnHeader_SizeChanged" />
+                        </GridViewColumn>
+                        <GridViewColumn  Width="{Binding ElementName=helperField,Path=ActualWidth}" DisplayMemberBinding="{Binding Value}">
+                            <GridViewColumnHeader Content="Path" SizeChanged="GridViewColumnHeader_SizeChanged" />
+                        </GridViewColumn>
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
