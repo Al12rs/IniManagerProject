@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using INIManagerProject.src.ViewModel;
+using System.IO;
 
 namespace INIManagerProject.ViewModel
 {
@@ -40,7 +41,8 @@ namespace INIManagerProject.ViewModel
             _editContentViewModel = new EditContentViewModel();
             _currentProfileCache = Document.ProfileManager.CurrentProfile;
             _editContentViewModel.ContentSource = Document.ManagedFile;
-            _editContentViewModel.CanSave = true;            
+            _editContentViewModel.CanSave = true;
+            _editContentViewModel.Header = "Managed File: " + Document.ManagedFile.FileName;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace INIManagerProject.Model
         private string _rawContent;
 
         public IniData ParsedData { get; private set; }
+        public string FileName { get; set; }
         public string RawContent
         {
             get => _rawContent;
@@ -35,6 +36,7 @@ namespace INIManagerProject.Model
 
         public void Initialize()
         {
+            FileName = Path.GetFileName(ManagedFilePath);
             if (File.Exists(ManagedFilePath))
             {
                 RawContent = File.ReadAllText(ManagedFilePath);
