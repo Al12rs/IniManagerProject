@@ -19,6 +19,15 @@
                           SelectedItem="{Binding Path=SelectedItem}"
                           SelectedIndex="{Binding Path=SelectedIndex}"
                           utils:GridViewSort.AutoSort="True">
+                    <ListView.Resources>
+                        <ContextMenu x:Key="ItemContextMenu">
+                            <MenuItem Header="Add Edit..." Command="{Binding Path=DataContext.AddEdit, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" />
+                            <MenuItem Header="Remove Edit" 
+                                      CommandParameter="{Binding EditName}" 
+                                      Command="{Binding Path=DataContext.RemoveEdit, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
+                                      CommandTarget="{Binding Path=PlacementTarget,RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"/>
+                        </ContextMenu>
+                    </ListView.Resources>
                     <ListView.ContextMenu>
                         <ContextMenu>
                             <MenuItem Command="{Binding AddEdit}"  Header="Add Edit..."/>
@@ -33,6 +42,7 @@
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Center" ></Setter>
+                            <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}"/>
                         </Style>
                     </ListView.ItemContainerStyle>
                     <!--#endregion-->

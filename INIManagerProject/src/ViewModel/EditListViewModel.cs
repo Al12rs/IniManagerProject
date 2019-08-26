@@ -34,9 +34,9 @@ namespace INIManagerProject.ViewModel
         public EditListViewModel(DocumentViewModel docViewModel)
         {
             DocumentViewModel = docViewModel;
-            _addEdit = new DelegateCommand(OnSelectionChanged);
+            _removeEdit = new DelegateCommand(OnRemoveEditPressed, CanExecuteRemoveEdit);
+            _addEdit = new DelegateCommand(OnAddEditPressed);
             _selectionChanged = new DelegateCommand(OnSelectionChanged);
-            _removeEdit = new DelegateCommand(OnSelectionChanged);
             _editListModel = docViewModel.Document.EditListModel;
             _viewList = CollectionViewSource.GetDefaultView(_editListModel.ModelList);
             _viewList.SortDescriptions.Add(new SortDescription("PriorityCache", ListSortDirection.Ascending));
@@ -56,6 +56,14 @@ namespace INIManagerProject.ViewModel
         private void OnRemoveEditPressed(object commandParameter)
         {
 
+        }
+
+        private bool CanExecuteRemoveEdit(object commandParameter)
+        {
+            string selectedEdit = commandParameter as string;
+            if (selectedEdit != null && selectedEdit != "Base File")
+                return true;
+            return false;
         }
     }
 }
