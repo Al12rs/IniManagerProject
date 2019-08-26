@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace INIManagerProject.Model
 {
-    internal class KeyNode
+    public class KeyNode
     {
         private Section _fatherSection;
         private String _keyName;
         private List<ValueNode> _alternativeValues;
-        internal Section FatherSection { get => _fatherSection; set => _fatherSection = value; }
+        public Section FatherSection { get => _fatherSection; set => _fatherSection = value; }
     }
 }

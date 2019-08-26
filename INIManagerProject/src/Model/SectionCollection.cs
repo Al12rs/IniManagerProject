@@ -7,7 +7,7 @@ namespace INIManagerProject.src.Model
     /// Class modelling the collection of Sections in an ini file.
     /// It also contains a special section for keys without a section.
     /// </summary>
-    internal class SectionCollection
+    public class SectionCollection
     {
         #region Fields
 
@@ -25,8 +25,8 @@ namespace INIManagerProject.src.Model
 
         #region Properties
 
-        internal Dictionary<string, Section> SectionsDictionary { get => _sectionsDictionary; set => _sectionsDictionary = value; }
-        internal Section GlobalSection { get => _globalSection; set => _globalSection = value; }
+        public Dictionary<string, Section> SectionsDictionary { get => _sectionsDictionary; set => _sectionsDictionary = value; }
+        public Section GlobalSection { get => _globalSection; set => _globalSection = value; }
 
         #endregion Properties
 

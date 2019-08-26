@@ -9,7 +9,7 @@ namespace INIManagerProject.Model
     /// Class modelling a managed INI, reference and base point for Profiles and EditsList.
     /// There can be multiple documents open and loaded at one moment, one will probably have the focus though.
     /// </summary>
-    internal class Document
+    public class Document
     {
         #region Properties
 
@@ -17,10 +17,10 @@ namespace INIManagerProject.Model
         public ManagedFile ManagedFile { get; set; }
         public string DocumentName { get; set; }
         public string DocumentFolderPath { get; set; }
-        internal string DocumentSettingsFilePath { get; private set; }
-        internal IniData ParsedDocumentSettings { get; private set; }
+        public string DocumentSettingsFilePath { get; private set; }
+        public IniData ParsedDocumentSettings { get; private set; }
         public ProfileManager ProfileManager { get; private set; }
-        internal MergeStructure MergeTree { get; private set; }
+        public MergeStructure MergeTree { get; private set; }
         public EditListModel EditListModel { get; private set; }
 
         #endregion Properties

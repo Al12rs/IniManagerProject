@@ -11,7 +11,7 @@ namespace INIManagerProject.Model
     /// Manages the profiles of a specific Document.
     /// Single instance for each Document object.
     /// </summary>
-    internal class ProfileManager : ViewModelBase
+    public class ProfileManager : ViewModelBase
     {
         #region Fields
 

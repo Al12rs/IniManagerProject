@@ -10,7 +10,7 @@ namespace INIManagerProject.Model.Utils
     /// Very simple class to generate session unique Ids.
     /// Ids are int and start from 0. Negative Ids can be considered invalid values.
     /// </summary>
-    class IdBroker
+    public class IdBroker
     {
         private int _nextId;
 

@@ -17,7 +17,7 @@ namespace INIManagerProject.Model
     /// Singleton, there is just one manager for iniApplication, there
     /// can be multiple documents on the other hand.
     /// </summary>
-    internal class DocumentManager : ViewModelBase
+    public class DocumentManager : ViewModelBase
     {
 
         #region Events
@@ -46,8 +46,8 @@ namespace INIManagerProject.Model
                 OnPropertyChanged("CurrentDocument");
             }
         }
-        internal IdBroker IdBroker { get; private set; }
-        internal string DocumentsFolderPath { get; private set; }
+        public IdBroker IdBroker { get; private set; }
+        public string DocumentsFolderPath { get; private set; }
         public List<KeyValuePair<string, string>> SavedDocuments { get; private set; }
 
         #endregion Properties
@@ -86,7 +86,7 @@ namespace INIManagerProject.Model
         /// </summary>
         /// <param name="filePath">Path to the ini file to manage.</param>
         /// <returns>Generated document.</returns>
-        internal Document CreateNewDocument(String filePath)
+        public Document CreateNewDocument(String filePath)
         {
             Document newDocument = new Document(IdBroker.NextId);
             newDocument.CreateNewFromIniFilePath(filePath);
@@ -98,7 +98,7 @@ namespace INIManagerProject.Model
         /// Instantiates and loads Documents that were open from last session.
         /// Might not load anything if no documents were open.
         /// </summary>
-        internal void LoadActiveDocumentsFromDisk()
+        public void LoadActiveDocumentsFromDisk()
         {
             string loadedDocuments = ((App)Application.Current)
                 .IniApplication.ParsedApplicationSettings["General"]["loadedDocuments"];
@@ -136,7 +136,7 @@ namespace INIManagerProject.Model
         /// </summary>
         /// <param name="folderName"></param>
         /// <returns>Document created or null if failed to load.</returns>
-        internal Document CreateAndLoadDocumentFromName(string docName)
+        public Document CreateAndLoadDocumentFromName(string docName)
         {
             Document loadedDocument = new Document(IdBroker.NextId);
             if (loadedDocument.LoadFromDisk(docName))
@@ -153,7 +153,7 @@ namespace INIManagerProject.Model
         /// <summary>
         /// Handles persisting of list of open documents as well as calling persist on all of them.
         /// </summary>
-        internal void Persist()
+        public void Persist()
         {
             StringBuilder openDocuments = new StringBuilder();
             foreach (var doc in DocumentList)
@@ -179,7 +179,7 @@ namespace INIManagerProject.Model
         /// </summary>
         /// <param name="documentId"></param>
         /// <returns>Matching document or null if not found.</returns>
-        internal Document GetDocumentById(int documentId)
+        public Document GetDocumentById(int documentId)
         {
             Document currentDocument = null;
             for (int i = 0; i < DocumentList.Count; i++)
@@ -198,7 +198,7 @@ namespace INIManagerProject.Model
         /// Clears the previous contents.
         /// Iterates on the DocumentFolders and reads the managed files.
         /// </summary>
-        internal void PopulateSavedDocuments()
+        public void PopulateSavedDocuments()
         {
             SavedDocuments.Clear();
             var docDirs = Directory.GetDirectories(DocumentsFolderPath);
@@ -218,7 +218,7 @@ namespace INIManagerProject.Model
             }
         }
 
-        internal Document CalculateNewCurrentDocument()
+        public Document CalculateNewCurrentDocument()
         {
             var currentIndex = DocumentList.IndexOf(CurrentDocument);
             var docListCount = DocumentList.Count;

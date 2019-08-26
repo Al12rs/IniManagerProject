@@ -20,10 +20,10 @@ namespace INIManagerProject.Model
     {
         #region Properties
 
-        internal string ApplicationAppdataFolder { get; set; }
-        internal string ApplicationSettingsFilePath { get; private set; }
-        internal IniData ParsedApplicationSettings { get; private set; }
-        internal DocumentManager DocumentManager { get; private set; }
+        public string ApplicationAppdataFolder { get; set; }
+        public string ApplicationSettingsFilePath { get; private set; }
+        public IniData ParsedApplicationSettings { get; private set; }
+        public DocumentManager DocumentManager { get; private set; }
 
         #endregion Properties
 
