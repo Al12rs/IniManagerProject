@@ -19,6 +19,11 @@
                           SelectedItem="{Binding Path=SelectedItem}"
                           SelectedIndex="{Binding Path=SelectedIndex}"
                           utils:GridViewSort.AutoSort="True">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding AddEdit}"  Header="Add Edit..."/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding Path=SelectionChanged}"/>

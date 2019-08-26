@@ -19,18 +19,24 @@ namespace INIManagerProject.ViewModel
 
         private ICollectionView _viewList;
         private readonly DelegateCommand _selectionChanged;
+        private readonly DelegateCommand _addEdit;
+        private readonly DelegateCommand _removeEdit;
 
         public Edit SelectedItem { get; set; }
         public DocumentViewModel DocumentViewModel { get; set;}
         public EditListModel EditListModel { get => _editListModel; set => _editListModel = value; }
         public ICollectionView ViewList { get => _viewList; set => _viewList = value; }
         public ICommand SelectionChanged => _selectionChanged;
+        public ICommand AddEdit => _addEdit;
+        public ICommand RemoveEdit => _removeEdit;
         public int SelectedIndex { get; set; }
 
         public EditListViewModel(DocumentViewModel docViewModel)
         {
             DocumentViewModel = docViewModel;
+            _addEdit = new DelegateCommand(OnSelectionChanged);
             _selectionChanged = new DelegateCommand(OnSelectionChanged);
+            _removeEdit = new DelegateCommand(OnSelectionChanged);
             _editListModel = docViewModel.Document.EditListModel;
             _viewList = CollectionViewSource.GetDefaultView(_editListModel.ModelList);
             _viewList.SortDescriptions.Add(new SortDescription("PriorityCache", ListSortDirection.Ascending));
@@ -40,6 +46,16 @@ namespace INIManagerProject.ViewModel
         private void OnSelectionChanged(object commandParameter)
         {
             DocumentViewModel.ShowSelectedEditContents();
+        }
+
+        private void OnAddEditPressed(object commandParameter)
+        {
+
+        }
+
+        private void OnRemoveEditPressed(object commandParameter)
+        {
+
         }
     }
 }
