@@ -66,6 +66,7 @@
     </ApplicationDefinition>
     <Compile Include="src\Model\IRawContentProvider.cs" />
     <Compile Include="src\Model\ManagedFile.cs" />
+    <Compile Include="src\Model\Utils\Pair.cs" />
     <Compile Include="src\View\DocumentView.xaml.cs">
       <DependentUpon>DocumentView.xaml</DependentUpon>
     </Compile>

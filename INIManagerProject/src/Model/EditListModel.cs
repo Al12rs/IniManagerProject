@@ -11,7 +11,7 @@ namespace INIManagerProject.Model
     /// There is only one list for each Document.
     /// Order and status of the edits are stored in Profiles, not in EditList.
     /// </summary>
-    internal class EditListModel
+    public class EditListModel
     {
         #region Fileds
 
@@ -31,13 +31,13 @@ namespace INIManagerProject.Model
 
         #region Properties
 
-        internal Document Document { get; }
-        internal IdBroker IdBroker { get; }
-        internal string EditsFolder { get; private set; }
-        internal Dictionary<int, Edit> EditMapById { get => _editMapById; }
-        internal Dictionary<string, Edit> EditMapByName { get => _editMapByName; }
+        public Document Document { get; }
+        public IdBroker IdBroker { get; }
+        public string EditsFolder { get; private set; }
+        public Dictionary<int, Edit> EditMapById { get => _editMapById; }
+        public Dictionary<string, Edit> EditMapByName { get => _editMapByName; }
         public ObservableCollection<Edit> ModelList { get => _modelList; set => _modelList = value; }
-        internal Edit BaseFileEdit { get; private set; }
+        public Edit BaseFileEdit { get; private set; }
 
         #endregion Properties
 
@@ -118,16 +118,30 @@ namespace INIManagerProject.Model
         /// <param name="newProfile"></param>
         public void ApplyProfile(Profile newProfile)
         {
-            newProfile.ValidateAndUpdatePriorityLists();
-            for (int i = 0; i < newProfile.PriorityList.Count; i++)
+            newProfile.ClearDanglingEditNames();
+            foreach (Edit edit in ModelList)
             {
-                var editInfo = newProfile.PriorityList[i];
-                editInfo.Key.StatusCache = editInfo.Value;
+                if (edit == BaseFileEdit)
+                {
+                    // Don't set the baseEdit priority or status as those are fixed.
+                    continue;
+                }
+                // The profile list is ordered by priority.
+                int index = newProfile.EditNamesAndStatusByPriority.FindIndex(pair => pair.Key == edit.EditName);
+                if (index < 0)
+                {
+                    // Edit from ModelList is missing in the profile so we add
+                    // it at the bottom disabled.
+                    index = newProfile.EditNamesAndStatusByPriority.Count;
+                    newProfile.EditNamesAndStatusByPriority.Add(new Pair<string, bool>(edit.EditName, false));
+                }
                 // We use the index + 1 because the 0 position is occupied by the BaseEdit.
-                editInfo.Key.PriorityCache = i + 1;
+                edit.PriorityCache = index + 1;
+                edit.SetStatus(newProfile.EditNamesAndStatusByPriority[index].Value);
             }
-            //The sorting is applied with CollectionViewSource class in viewModel using PriorityCache.
+            // The sorting is applied with CollectionViewSource class in viewModel using PriorityCache.
         }
+
 
         #endregion PublicMethods
 
@@ -149,7 +163,7 @@ namespace INIManagerProject.Model
             var baseEdit = new Edit(newId, "Base File", Document);
             baseEdit.UpdateFromDisk();
             baseEdit.PriorityCache = 0;
-            baseEdit.StatusCache = true;
+            baseEdit.SetStatus(true);
             BaseFileEdit = baseEdit;
             ModelList.Add(baseEdit);
             return baseEdit;
@@ -175,7 +189,7 @@ namespace INIManagerProject.Model
             var baseEdit = new Edit(newId, "Base File", Document);
             baseEdit.UpdateFromDisk();
             baseEdit.PriorityCache = 0;
-            baseEdit.StatusCache = true;
+            baseEdit.SetStatus(true);
             BaseFileEdit = baseEdit;
             ModelList.Add(baseEdit);
             return baseEdit;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using INIManagerProject.Model.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,20 +11,15 @@ namespace INIManagerProject.Model
     /// Contains priority and status data for Edits of a specific document.
     /// There can be multiple profiles for each document.
     /// </summary>
-    internal class Profile
+    public class Profile
     {
         #region Fields
-
-        /// <summary>
-        /// List of pairs Edit-Status ordered by priority (0 is lowest).
-        /// </summary>
-        private List<KeyValuePair<Edit, bool>> _priorityList;
 
         /// <summary>
         /// List of pairs editNames-editStatus ordered by priority.
         /// This is what is read and saved on disk.
         /// </summary>
-        private List<KeyValuePair<string, bool>> _editNamesAndStatusByPriority;
+        private List<Pair<string, bool>> _editNamesAndStatusByPriority;
 
         #endregion Fields
 
@@ -34,7 +30,8 @@ namespace INIManagerProject.Model
         public int ProfileID { get; }
         public string ProfileName { get; set; }
         public Document Document { get; }
-        public List<KeyValuePair<Edit, bool>> PriorityList { get => _priorityList; }
+        internal List<Pair<string, bool>> EditNamesAndStatusByPriority { get => _editNamesAndStatusByPriority; set => _editNamesAndStatusByPriority = value; }
+
 
         #endregion Properties
 
@@ -53,8 +50,7 @@ namespace INIManagerProject.Model
             ProfileID = profileId;
             ProfileName = profileName;
             Document = doc;
-            _priorityList = new List<KeyValuePair<Edit, bool>>();
-            _editNamesAndStatusByPriority = new List<KeyValuePair<string, bool>>();
+            _editNamesAndStatusByPriority = new List<Pair<string, bool>>();
             var profilesFolder = Document.ProfileManager.ProfilesFolder;
             ProfileFolder = Path.Combine(profilesFolder, ProfileName);
             if (!Directory.Exists(ProfileFolder))
@@ -74,9 +70,8 @@ namespace INIManagerProject.Model
 
         /// <summary>
         /// Loads the content of editsOrder.txt to _editNamesAndStatusByPriority.
-        /// Does not populate _priorityList.
         /// </summary>
-        internal void ReadNameListFromDisk()
+        public void ReadNameListFromDisk()
         {
             _editNamesAndStatusByPriority.Clear();
             string rawStr = File.ReadAllText(ProfileFilePath);
@@ -87,62 +82,23 @@ namespace INIManagerProject.Model
                 {
                     if (line[0] == '+')
                     {
-                        var entry = new KeyValuePair<string, bool>(line.Substring(1), true);
+                        var entry = new Pair<string, bool>(line.Substring(1), true);
                         _editNamesAndStatusByPriority.Add(entry);
                     }
                     else if (line[0] == '-')
                     {
-                        var entry = new KeyValuePair<string, bool>(line.Substring(1), false);
+                        var entry = new Pair<string, bool>(line.Substring(1), false);
                         _editNamesAndStatusByPriority.Add(entry);
                     }
-                    //do nothing if it doesn't start with +/-
+                    // Do nothing if it doesn't start with +/-.
                 }
             }
-        }
-
-        /// <summary>
-        /// Uses _editNamesAndStatusByPriority to populate the priorityStatus list,
-        /// adds new edits at the bottom with disabled status.
-        /// Updates  _editNamesAndStatusByPriority removing edits that are missing from EditList and
-        /// adding the ones that are present in EditList but missing in _editNamesAndStatusByPriority.
-        /// </summary>
-        public void ValidateAndUpdatePriorityLists()
-        {
-            EditListModel editListModel = Document.EditListModel;
-            _priorityList.Clear();
-            //Add listed Edits to prioritylist
-            foreach (var nameStatusPair in _editNamesAndStatusByPriority)
-            {
-                Edit currentEdit;
-                // TODO: Change following call to EditMapByName to use ModelList instead if we don't use the map anywhere else.
-                // ModelList contains the baseEdit, so there might be the need to address that.
-                if (editListModel.EditMapByName.TryGetValue(nameStatusPair.Key, out currentEdit))
-                {
-                    _priorityList.Add(new KeyValuePair<Edit, bool>(currentEdit, nameStatusPair.Value));
-                }
-            }
-
-            //Add new Edits to bottom of prioritylist
-            foreach (Edit editListEdit in editListModel.ModelList)
-            {
-                if (editListEdit.EditName != "Base File")
-                {
-                    if (!_priorityList.Any(e => e.Key.EditName == editListEdit.EditName))
-                    {
-                        _priorityList.Add(new KeyValuePair<Edit, bool>(editListEdit, false));
-                    }
-                }
-            }
-
-            // Now priorityList is complete and _editNamesAndStatusByPriority can be updated to reflect it.
-            // Will add new edits and remove missing edits.
-            UpdateNameListFromEditList();
         }
 
         /// <summary>
         /// Saves the _editNamesAndStatusByPriority to ProfileName.txt.
         /// </summary>
-        internal void Persist()
+        public void Persist()
         {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < _editNamesAndStatusByPriority.Count; i++)
@@ -152,21 +108,19 @@ namespace INIManagerProject.Model
             File.WriteAllText(ProfileFilePath, sb.ToString());
         }
 
+        /// <summary>
+        /// Removes from _editNamesAndStatusByPriority all edit names that 
+        /// are missing from the current ModelList
+        /// </summary>
+        public void ClearDanglingEditNames()
+        {
+            var modelList = Document.EditListModel.ModelList;
+            _editNamesAndStatusByPriority.RemoveAll(pair => ! modelList.Any(edit => edit.EditName == pair.Key));
+        }
+
         #endregion PublicMethods
 
         #region PrivateMethods
-
-        /// <summary>
-        /// Takes a fully populated _priorityList and generates t
-        /// </summary>
-        private void UpdateNameListFromEditList()
-        {
-            _editNamesAndStatusByPriority.Clear();
-            for (int i = 0; i < _priorityList.Count; i++)
-            {
-                _editNamesAndStatusByPriority.Add(new KeyValuePair<string, bool>(_priorityList[i].Key.EditName, _priorityList[i].Value));
-            }
-        }
 
         #endregion PrivateMethods
     }

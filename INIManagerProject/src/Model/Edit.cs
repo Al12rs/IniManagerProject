@@ -9,7 +9,7 @@ namespace INIManagerProject.Model
     /// <summary>
     /// Rappresents a gorup of ini lines entries to be added to the mergeTree.
     /// </summary>
-    internal class Edit : ViewModelBase, IRawContentProvider
+    public class Edit : ViewModelBase, IRawContentProvider
     {
         #region Fields
 
@@ -49,6 +49,11 @@ namespace INIManagerProject.Model
         }
         public int EditId { get; private set; }
         public string EditName { get; set; }
+        /// <summary>
+        /// Contains the status of the edit, is directly mapped to the checkboxes of the list.
+        /// It will update the Profile to reflect the change.
+        /// Don't use this from within codebut instead use SetStatus to avoid changing the Profile unnecessarely.
+        /// </summary>
         public bool StatusCache
         {
             get => _statusCache;
@@ -56,7 +61,8 @@ namespace INIManagerProject.Model
             {
                 if(_statusCache != value)
                 {
-                    // TODO: Update profile to reflect change.
+                    // Update the profile when the status changes.
+                    Document.ProfileManager.CurrentProfile.EditNamesAndStatusByPriority[PriorityCache - 1].Value = value;
                     _statusCache = value;
                     OnPropertyChanged("StatusCache");
                 }
@@ -71,14 +77,14 @@ namespace INIManagerProject.Model
                 OnPropertyChanged("PriorityCache");
             }
         }
-        internal Document Document { get; private set; }
+        public Document Document { get; private set; }
 
         /// <summary>
         /// These are keyNodes from the mergestructure that contain values added by this
         /// edit, for fast access.
         /// Needs to be considered if worth it.
         /// </summary>
-        internal List<KeyNode> AffectedKeys { get; set; }
+        public List<KeyNode> AffectedKeys { get; set; }
 
         #endregion Properties
 
@@ -143,6 +149,19 @@ namespace INIManagerProject.Model
         public void Persist()
         {
             File.WriteAllText(EditSourceFile, _rawContent);
+        }
+
+        /// <summary>
+        /// Allows to circumnvent the updating of the profile that instead happens when using the normal proprety.
+        /// </summary>
+        /// <param name="status"></param>
+        public void SetStatus(bool status)
+        {
+            if (_statusCache != status)
+            {
+                _statusCache = status;
+                OnPropertyChanged("StatusCache");
+            }
         }
 
         #endregion PublicMethods
