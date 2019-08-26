@@ -15,16 +15,6 @@ namespace INIManagerProject.Model
     {
         #region Fileds
 
-        /// <summary>
-        /// Dictionary of all edits EditId->Edit
-        /// </summary>
-        private Dictionary<int, Edit> _editMapById;
-
-        /// <summary>
-        /// Dictionary of all edits EditName->Edit
-        /// </summary>
-        private Dictionary<string, Edit> _editMapByName;
-
         private ObservableCollection<Edit> _modelList;
 
         #endregion Fileds
@@ -34,8 +24,6 @@ namespace INIManagerProject.Model
         public Document Document { get; }
         public IdBroker IdBroker { get; }
         public string EditsFolder { get; private set; }
-        public Dictionary<int, Edit> EditMapById { get => _editMapById; }
-        public Dictionary<string, Edit> EditMapByName { get => _editMapByName; }
         public ObservableCollection<Edit> ModelList { get => _modelList; set => _modelList = value; }
         public Edit BaseFileEdit { get; private set; }
 
@@ -51,8 +39,6 @@ namespace INIManagerProject.Model
         public EditListModel(Document document)
         {
             Document = document;
-            _editMapById = new Dictionary<int, Edit>();
-            _editMapByName = new Dictionary<string, Edit>();
             _modelList = new ObservableCollection<Edit>();
             IdBroker = new IdBroker();
 
@@ -103,7 +89,7 @@ namespace INIManagerProject.Model
         public void Persist()
         {
             BaseFileEdit.Persist();
-            foreach (var edit in _editMapById.Values)
+            foreach (var edit in ModelList)
             {
                 edit.Persist();
             }
@@ -142,6 +128,40 @@ namespace INIManagerProject.Model
             // The sorting is applied with CollectionViewSource class in viewModel using PriorityCache.
         }
 
+        public Edit AddEdit(string editName)
+        {
+            if (ModelList.Any(e => e.EditName == editName))
+            {
+                return null;
+            }
+            Edit result = new Edit(IdBroker.NextId, editName, Document);
+            result.SetStatus(false);
+            var profileList = Document.ProfileManager.CurrentProfile.EditNamesAndStatusByPriority;
+            result.PriorityCache = profileList.Count + 1;
+            profileList.Add(new Pair<string, bool>(editName, false));
+            ModelList.Add(result);
+            return result;
+        }
+
+        public bool RemoveEdit(string editName)
+        {
+            // Obtain Edit from name.
+            Edit edit = ModelList.SingleOrDefault(e => e.EditName == editName);
+            if (edit == null)
+            {
+                return false;
+            }
+            return RemoveEdit(edit);
+        }
+
+        public bool RemoveEdit(Edit edit)
+        {
+            var profileList = Document.ProfileManager.CurrentProfile.EditNamesAndStatusByPriority;
+            profileList.RemoveAll(pair => pair.Key == edit.EditName);
+            ModelList.Remove(edit);
+            Directory.Delete(edit.EditFolderPath, recursive: true);
+            return true;
+        }
 
         #endregion PublicMethods
 
@@ -206,8 +226,6 @@ namespace INIManagerProject.Model
         {
             int newId = IdBroker.NextId;
             var loadedEdit = new Edit(newId, editName, Document);
-            _editMapById.Add(newId, loadedEdit);
-            _editMapByName.Add(editName, loadedEdit);
             ModelList.Add(loadedEdit);
             loadedEdit.UpdateFromDisk();
             return loadedEdit;

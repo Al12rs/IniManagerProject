@@ -102,6 +102,7 @@ namespace INIManagerProject.Model
             EditId = editId;
             EditName = editName;
             Document = doc;
+            _rawContent = "";
             EditFolderPath = Path.Combine(Document.EditListModel.EditsFolder, EditName);
             if (!Directory.Exists(EditFolderPath))
             {
@@ -148,6 +149,10 @@ namespace INIManagerProject.Model
         /// </summary>
         public void Persist()
         {
+            if (!File.Exists(EditSourceFile))
+            {
+                File.Create(EditSourceFile).Dispose();
+            }
             File.WriteAllText(EditSourceFile, _rawContent);
         }
 
