@@ -14,7 +14,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="200" />
         </Grid.RowDefinitions>
@@ -27,6 +27,7 @@
                                   TextWrapping="Wrap" 
                                   AcceptsReturn="True" 
                                   AcceptsTab="True" 
+                                  FontFamily="Courier New"
                                   Text="{Binding TextContent}"
                                   IsReadOnly="{Binding Path=CanSave, Converter={StaticResource InverseBooleanConverter}}"/>
                     </Grid>
