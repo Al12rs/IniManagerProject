@@ -27,6 +27,7 @@ namespace INIManagerProject.Model
         public IniData ParsedData { get; private set; }
         public string EditSourceFile { get; private set; }
         public string EditFolderPath { get; private set; }
+        public bool IsRegular { get { return EditName != "Base File"; } }
         public string RawContent
         {
             get => _rawContent;

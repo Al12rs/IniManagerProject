@@ -23,9 +23,10 @@
                         <ContextMenu x:Key="ItemContextMenu">
                             <MenuItem Header="Add Edit..." Command="{Binding Path=DataContext.AddEdit, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" />
                             <MenuItem Header="Remove Edit" 
-                                      CommandParameter="{Binding EditName}" 
+                                      CommandParameter="{Binding}" 
                                       Command="{Binding Path=DataContext.RemoveEdit, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
-                                      CommandTarget="{Binding Path=PlacementTarget,RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"/>
+                                      CommandTarget="{Binding Path=PlacementTarget,RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                                      IsEnabled="{Binding IsRegular}"/>
                         </ContextMenu>
                     </ListView.Resources>
                     <ListView.ContextMenu>
@@ -53,7 +54,7 @@
                                 <GridViewColumnHeader Content="Status" SizeChanged="GridViewColumnHeader_SizeChanged"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <CheckBox Width="15" IsChecked="{Binding StatusCache}"/>
+                                        <CheckBox Width="15" IsChecked="{Binding StatusCache}" IsEnabled="{Binding IsRegular}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -72,7 +73,6 @@
                     </ListView.View>
                 </ListView>
             </DockPanel>
-            <!--  <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" >LISTA 1</TextBlock> -->
         </Border>
 
     </Grid>
