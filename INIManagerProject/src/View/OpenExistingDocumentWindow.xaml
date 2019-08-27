@@ -54,7 +54,7 @@
                 </Button.Style>
             </Button>
 
-            <Button Name="CancelButton" Width="100" Content="Cancel" Click="cancelButton_Click"/>
+            <Button Name="CancelButton" Width="100" Content="Cancel" Click="cancelButton_Click" IsCancel="True"/>
         </StackPanel>
     </Grid>
 

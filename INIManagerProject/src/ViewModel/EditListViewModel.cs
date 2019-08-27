@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.IO;
 
 namespace INIManagerProject.ViewModel
 {
@@ -50,7 +51,32 @@ namespace INIManagerProject.ViewModel
 
         private void OnAddEditPressed(object commandParameter)
         {
+            var dialog = new InputDialogue("Insert name of new Edit:");
+            while (dialog.ShowDialog() == true)
+            {
+                string folderName = dialog.Answer;
+                if(folderName == "" || EditListModel.ModelList.Any(e=> e.EditName == folderName))
+                {
+                    dialog = new InputDialogue("Name already in use or invalid, please select a different name:");
+                    continue;
+                }
+                string folderPath;
+                try
+                {
+                    folderPath = Path.Combine(EditListModel.EditsFolder, folderName);
 
+                }
+                catch (Exception ex)
+                {
+                    dialog = new InputDialogue("Name already in use or invalid, please select a different name:");
+                    continue;
+                }
+                if (EditListModel.AddEdit(folderName) != null)
+                {
+                    break;
+                }
+            }
+            
         }
 
         private void OnRemoveEditPressed(object commandParameter)

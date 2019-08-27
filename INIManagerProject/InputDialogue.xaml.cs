@@ -22,8 +22,8 @@ namespace INIManagerProject
         public InputDialogue(string question, string defaultAnswer="")
         {
             InitializeComponent();
-            questionLabel.Content = question;
-            textAnswer.Text = defaultAnswer;
+            QuestionLabel.Content = question;
+            TextAnswer.Text = defaultAnswer;
         }
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
         {
@@ -32,13 +32,13 @@ namespace INIManagerProject
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            textAnswer.SelectAll();
-            textAnswer.Focus();
+            TextAnswer.SelectAll();
+            TextAnswer.Focus();
         }
 
         public string Answer
         {
-            get { return textAnswer.Text; }
+            get { return TextAnswer.Text; }
         }
 
     }
