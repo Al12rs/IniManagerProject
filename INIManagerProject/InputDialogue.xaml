@@ -5,15 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:INIManagerProject"
         mc:Ignorable="d"
-        Title="InputDialogue" Height="122.472" Width="304.494">
+        Title="InputDialogue" 
+        Height="120" Width="300"  
+        MaxHeight="360" MaxWidth="450" 
+        MinHeight="120" MinWidth="240" 
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <Label Name="QuestionLabel"  Grid.Row="0"/>
-        <TextBox x:Name="TextAnswer" VerticalAlignment="Center" Grid.Row="1" />
+        <TextBlock Name="QuestionLabel"  Grid.Row="0" Height="auto" Width="auto" Margin="5,0,5,0"/>
+        <TextBox x:Name="TextAnswer" Grid.Row="1" VerticalAlignment="Center" Height="auto" TextWrapping="Wrap" Margin="5,5,5,0"/>
         <WrapPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,15,0,0">
             <Button IsDefault="True" Name="btnDialogOk" Click="btnDialogOk_Click" MinWidth="60" Margin="0,0,10,0">_Ok</Button>
             <Button IsCancel="True" MinWidth="60">_Cancel</Button>

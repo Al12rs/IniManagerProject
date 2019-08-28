@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.IO;
 
 namespace INIManagerProject.ViewModel
 {
@@ -32,10 +33,34 @@ namespace INIManagerProject.ViewModel
 
         private void OnNewProfile(object commandParameter)
         {
-            int count = ProfileList.Count;
-            ProfileList.Add("Profile" + count);
-            _profileManager.CreateNewProfile("Profile" + count);
+            var dialog = new InputDialogue("Insert name of new Profile:");
+            while(dialog.ShowDialog() == true)
+            {
+                string profileName = dialog.Answer;
+                if (profileName == "" || _profileManager.ProfileList.Any(e => e.ProfileName == profileName)){
+
+                    dialog = new InputDialogue("Name already in use or invalid, please select a different name:");
+                    continue;
+                }
+                string folderPath;
+                try
+                {
+                    folderPath = Path.Combine(_profileManager.ProfilesFolder, profileName);
+                }
+                catch (Exception ex)
+                {
+                    dialog = new InputDialogue("Name already in use or invalid, please select a different name:");
+                    continue;
+                }
+
+
+                ProfileList.Add(profileName);
+                _profileManager.CreateNewProfile(profileName);
+                return;
+            }
         }
+         
+        
 
         private void OnDeleteProfile(object commandParameter)
         {

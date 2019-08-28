@@ -20,7 +20,7 @@
             <ListView x:Name="lvProfiles" ItemsSource="{Binding Path=ProfileList}">
             <ListView.View>
                 <GridView>
-                        <GridViewColumn Header="Nome" x:Name="col" />
+                        <GridViewColumn Header="Nome" x:Name="col" Width="{Binding ElementName=lvProfiles,Path=ActualWidth}" />
                     </GridView>
             </ListView.View>
         </ListView>

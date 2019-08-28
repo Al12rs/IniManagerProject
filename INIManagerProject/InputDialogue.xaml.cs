@@ -22,8 +22,9 @@ namespace INIManagerProject
         public InputDialogue(string question, string defaultAnswer="")
         {
             InitializeComponent();
-            QuestionLabel.Content = question;
+            QuestionLabel.Text = question;
             TextAnswer.Text = defaultAnswer;
+            TextAnswer.Focus();
         }
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
         {
