@@ -1,7 +1,7 @@
 ﻿using INIManagerProject.Model;
 using System.Collections.Generic;
 
-namespace INIManagerProject.src.Model
+namespace INIManagerProject.Model
 {
     /// <summary>
     /// Class modelling the collection of Sections in an ini file.

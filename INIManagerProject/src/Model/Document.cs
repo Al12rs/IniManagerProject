@@ -63,6 +63,8 @@ namespace INIManagerProject.Model
             }
             LoadDocumentSettings();
 
+            MergeTree = new MergeStructure(this);
+
             ProfileManager = new ProfileManager(this);
             EditListModel = new EditListModel(this);
             EditListModel.LoadEditsFromDisk();
@@ -93,6 +95,9 @@ namespace INIManagerProject.Model
                 return false;
             ManagedFile.ManagedFilePath = filePath;
             ManagedFile.Initialize();
+
+            MergeTree = new MergeStructure(this);
+
 
             ProfileManager = new ProfileManager(this);
             EditListModel = new EditListModel(this);

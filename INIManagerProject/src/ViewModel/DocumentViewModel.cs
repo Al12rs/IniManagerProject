@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using INIManagerProject.src.ViewModel;
+using INIManagerProject.ViewModel;
 using System.IO;
 using System.Windows.Input;
 using INIManagerProject.ViewModel.Utils;
@@ -22,6 +22,8 @@ namespace INIManagerProject.ViewModel
         private Profile _currentProfileCache;
         private readonly DelegateCommand _mergeResultSelected;
         private DelegateCommand _managedFileSelectged;
+        private DelegateCommand _calculateMergeResultPressed;
+        private DelegateCommand _applyMergeResult;
 
 
         public Document Document { get => _document; private set => _document = value; }
@@ -31,6 +33,8 @@ namespace INIManagerProject.ViewModel
         public int ManagedFileSelectionIndex { get; set; }
         public ICommand MergeResultSelected => _mergeResultSelected;
         public ICommand ManagedFileSelected => _managedFileSelectged;
+        public ICommand CalculateMergeResult => _calculateMergeResultPressed;
+        public ICommand ApplyMergeResult => _applyMergeResult;
         public Profile CurrentProfileCache
         {
             // Does not currently listen to chages from ProfileManager.
@@ -48,6 +52,8 @@ namespace INIManagerProject.ViewModel
             _document = document;
             _mergeResultSelected = new DelegateCommand(OnMergeResultSelected);
             _managedFileSelectged = new DelegateCommand(OnManagedFileSelected);
+            _calculateMergeResultPressed = new DelegateCommand(OnCalculateMergeResultPressed);
+            _applyMergeResult = new DelegateCommand(OnApplyMergeResultPressed);
 
 
             _editListViewModel = new EditListViewModel(this);
@@ -81,13 +87,26 @@ namespace INIManagerProject.ViewModel
             ManagedFileSelectionIndex = -1;
             EditListViewModel.SelectedItem = null;
             // TODO: Uncomment this once RawContent of Mergestructure isn't null.
-            //ShowMergeResultContents();
+            ShowMergeResultContents();
         }
 
         private void OnManagedFileSelected(object commandParameter)
         {
             MergeResultSelectionIndex = -1;
             EditListViewModel.SelectedIndex = -1;
+            ShowManagedFileContents();
+        }
+
+
+        private void OnCalculateMergeResultPressed(object commandParameter)
+        {
+            Document.MergeTree.CalculateMergeResult();
+            ShowMergeResultContents();
+        }
+
+        private void OnApplyMergeResultPressed(object commandParameter)
+        {
+            Document.ManagedFile.RawContent = Document.MergeTree.RawContent;
             ShowManagedFileContents();
         }
     }

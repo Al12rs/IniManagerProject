@@ -180,9 +180,6 @@
     <Resource Include="src\Resources\deleteButton.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="favicon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="INIM.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

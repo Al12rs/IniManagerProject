@@ -133,7 +133,7 @@ namespace INIManagerProject.Model
         {
             var parser = new IniDataParser();
             parser.Configuration.ThrowExceptionsOnError = false;
-            IniData ParsedData = parser.Parse(_rawContent);
+            ParsedData = parser.Parse(_rawContent);
             if (ParsedData == null)
             {
                 return false;

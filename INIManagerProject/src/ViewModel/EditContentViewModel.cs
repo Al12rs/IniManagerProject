@@ -9,7 +9,7 @@ using INIManagerProject.ViewModel.Utils;
 using System.Windows.Input;
 using INIManagerProject.ViewModel;
 
-namespace INIManagerProject.src.ViewModel
+namespace INIManagerProject.ViewModel
 {
     class EditContentViewModel : ViewModelBase
     {
@@ -40,7 +40,7 @@ namespace INIManagerProject.src.ViewModel
                 TextContent = _contentSource.RawContent;
             }
         }
-        public bool CanSave { get => _canSave; set => _canSave = value; }
+        public bool CanSave { get => _canSave; set { SetProperty(ref _canSave, value, "CanSave"); } }
 
 
         public EditContentViewModel(DocumentViewModel docViewModel)
@@ -53,7 +53,7 @@ namespace INIManagerProject.src.ViewModel
         public void Populate(string header, IRawContentProvider rawContentProvider, bool canSave)
         {
             ContentSource = rawContentProvider;
-            CanSave = true;
+            CanSave = canSave;
             Header = header;
         }
 

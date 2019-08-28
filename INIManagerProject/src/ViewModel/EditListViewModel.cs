@@ -1,6 +1,6 @@
 ﻿using INIManagerProject.View;
 using INIManagerProject.Model;
-using INIManagerProject.src.ViewModel;
+using INIManagerProject.ViewModel;
 using INIManagerProject.ViewModel.Utils;
 using System;
 using System.Collections.Generic;

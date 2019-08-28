@@ -136,6 +136,7 @@ namespace INIManagerProject.Model
             }
             Edit result = new Edit(IdBroker.NextId, editName, Document);
             result.SetStatus(false);
+            result.UpdateFromDisk();
             var profileList = Document.ProfileManager.CurrentProfile.EditNamesAndStatusByPriority;
             result.PriorityCache = profileList.Count + 1;
             profileList.Add(new Pair<string, bool>(editName, false));
