@@ -75,7 +75,9 @@ namespace INIManagerProject.Model
             set
             {
                 _priorityCache = value;
-                OnPropertyChanged("PriorityCache");
+                // Don't trigger this since it usually comes with a complete change of the modlist, so trigger the update only
+                // once all the updates have finished.
+                //OnPropertyChanged("PriorityCache");
             }
         }
         public Document Document { get; private set; }

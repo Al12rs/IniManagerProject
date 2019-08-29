@@ -128,6 +128,12 @@ namespace INIManagerProject.Model
             // The sorting is applied with CollectionViewSource class in viewModel using PriorityCache.
         }
 
+        /// <summary>
+        /// Create a new empty edit with the passed name.
+        /// If the passed name is alredy present it will fail and return null.
+        /// </summary>
+        /// <param name="editName"></param>
+        /// <returns></returns>
         public Edit AddEdit(string editName)
         {
             if (ModelList.Any(e => e.EditName == editName))
@@ -144,6 +150,12 @@ namespace INIManagerProject.Model
             return result;
         }
 
+
+        /// <summary>
+        /// Removes the edit with the passed name from the list and deletes the relative folder from appdata.
+        /// </summary>
+        /// <param name="editName"></param>
+        /// <returns></returns>
         public bool RemoveEdit(string editName)
         {
             // Obtain Edit from name.
@@ -155,6 +167,11 @@ namespace INIManagerProject.Model
             return RemoveEdit(edit);
         }
 
+        /// <summary>
+        /// Removes the passed edit from the list and deletes the relative folder from appdata.
+        /// </summary>
+        /// <param name="edit"></param>
+        /// <returns></returns>
         public bool RemoveEdit(Edit edit)
         {
             var profileList = Document.ProfileManager.CurrentProfile.EditNamesAndStatusByPriority;
@@ -162,6 +179,15 @@ namespace INIManagerProject.Model
             ModelList.Remove(edit);
             Directory.Delete(edit.EditFolderPath, recursive: true);
             return true;
+        }
+
+        public void changeEditPriority(List<int> sourceIndices, int newPriority)
+        {
+            // Sort the edits by ascending priority.
+            var sortedEdits = Document.EditListModel.ModelList.OrderBy(e => e.PriorityCache);
+
+            // Move the edits that are decreasing in priority.
+            // Copy code from: https://github.com/ModOrganizer2/modorganizer/blob/Develop/src/modlist.cpp#L718 .
         }
 
         #endregion PublicMethods
