@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ctrl="clr-namespace:Itenso.Windows.Controls.ListViewLayout;assembly=Itenso.Windows.Controls.ListViewLayout"
         xmlns:local="clr-namespace:INIManagerProject.View"
         mc:Ignorable="d"
         Title="Manage Profiles" Height="300" Width="500">
@@ -17,7 +18,8 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-            <ListView x:Name="lvProfiles" ItemsSource="{Binding Path=ProfileList}">
+            <ListView x:Name="lvProfiles" ItemsSource="{Binding Path=ProfileList}"
+                      ctrl:ListViewLayoutManager.Enabled="True">
             <ListView.View>
                 <GridView>
                         <GridView.ColumnHeaderContainerStyle>
@@ -25,7 +27,8 @@
                                 <Setter Property="IsHitTestVisible" Value="False" />
                             </Style>
                         </GridView.ColumnHeaderContainerStyle>
-                        <GridViewColumn Header="Nome" x:Name="col" Width="{Binding ElementName=lvProfiles,Path=ActualWidth}" />
+                        <GridViewColumn Header="Nome" x:Name="col"
+                                        ctrl:ProportionalColumn.Width="1"/>
                     </GridView>
             </ListView.View>
         </ListView>

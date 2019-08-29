@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:INIManagerProject.View"
+        xmlns:ctrl="clr-namespace:Itenso.Windows.Controls.ListViewLayout;assembly=Itenso.Windows.Controls.ListViewLayout"
         mc:Ignorable="d"
         Title="Open Document" Height="450" Width="800" MinWidth="500" MinHeight="300">    
     <Grid>
@@ -14,14 +15,16 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Name="Header" FontSize="14" Content="Existing documents:" VerticalAlignment="Center"/>
         <Button Grid.Row="0" HorizontalAlignment="Right" Height="25" Width="auto" Margin="5,0,5,0" Content="Create New Document" />
-        <ListView Grid.Row="1" x:Name="lvDoc" ItemsSource="{Binding Path=SavedDocuments}">
+        <ListView Grid.Row="1" x:Name="lvDoc" 
+                  ItemsSource="{Binding Path=SavedDocuments}"
+                  ctrl:ListViewLayoutManager.Enabled="True">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn  x:Name="col1" Width="300"  DisplayMemberBinding="{Binding Key}">
+                        <GridViewColumn  x:Name="col1" ctrl:RangeColumn.MinWidth="100" ctrl:RangeColumn.MaxWidth="1000"  DisplayMemberBinding="{Binding Key}">
                             <GridViewColumnHeader Content="Document" SizeChanged="GridViewColumnHeader_SizeChanged" />
                         </GridViewColumn>
-                        <GridViewColumn  Width="{Binding ElementName=helperField,Path=ActualWidth}" DisplayMemberBinding="{Binding Value}">
+                        <GridViewColumn  ctrl:RangeColumn.MinWidth="120" ctrl:RangeColumn.IsFillColumn="True" DisplayMemberBinding="{Binding Value}">
                             <GridViewColumnHeader Content="Path" SizeChanged="GridViewColumnHeader_SizeChanged" />
                         </GridViewColumn>
                     </GridView.Columns>

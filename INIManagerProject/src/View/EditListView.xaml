@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:INIManagerProject.View"
       xmlns:utils="clr-namespace:INIManagerProject.View.Utils"
+      xmlns:ctrl="clr-namespace:Itenso.Windows.Controls.ListViewLayout;assembly=Itenso.Windows.Controls.ListViewLayout"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -18,7 +19,8 @@
                           ItemsSource="{Binding EditListModel.ModelList}"
                           SelectedItem="{Binding Path=SelectedItem}"
                           SelectedIndex="{Binding Path=SelectedIndex}"
-                          utils:GridViewSort.AutoSort="True">
+                          utils:GridViewSort.AutoSort="True"
+                          ctrl:ListViewLayoutManager.Enabled="True">
                     <ListView.Resources>
                         <ContextMenu x:Key="ItemContextMenu">
                             <MenuItem Header="Add Edit..." Command="{Binding Path=DataContext.AddEdit, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" />
@@ -50,7 +52,7 @@
                     <ListView.View>
                         <!--#region -->
                         <GridView>
-                            <GridViewColumn  Width="40">
+                            <GridViewColumn  ctrl:FixedColumn.Width="60">
                                 <GridViewColumnHeader Content="Status" SizeChanged="GridViewColumnHeader_SizeChanged"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -58,12 +60,12 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="300"  
+                            <GridViewColumn Width="auto" ctrl:RangeColumn.MinWidth="100" ctrl:RangeColumn.IsFillColumn="true"  
                                             DisplayMemberBinding="{Binding EditName}"
                                             utils:GridViewSort.PropertyName="EditName">
                                 <GridViewColumnHeader Content="Edit Name" SizeChanged="GridViewColumnHeader_SizeChanged_1"/>
-                            </GridViewColumn>
-                            <GridViewColumn Width="250" 
+                            </GridViewColumn >
+                            <GridViewColumn  ctrl:RangeColumn.MinWidth="60" ctrl:RangeColumn.MaxWidth="600" 
                                             DisplayMemberBinding="{Binding PriorityCache}"
                                             utils:GridViewSort.PropertyName="PriorityCache">
                                 <GridViewColumnHeader Content="Priority" SizeChanged="GridViewColumnHeader_SizeChanged_1" />

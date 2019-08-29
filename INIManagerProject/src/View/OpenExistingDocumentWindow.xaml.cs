@@ -49,6 +49,8 @@ namespace INIManagerProject.View
             ((App)Application.Current).IniApplication.DocumentManager.CurrentDocument = newDoc;
             this.Close();
         }
+
+
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
