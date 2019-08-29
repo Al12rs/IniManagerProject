@@ -8,20 +8,20 @@
         mc:Ignorable="d"
         Title="Manage Profiles" Height="300" Width="500">
     <Grid>
-        <Grid.RowDefinitions>   
+        <Grid.RowDefinitions>
             <RowDefinition Height="7*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
 
             <ListView x:Name="lvProfiles" ItemsSource="{Binding Path=ProfileList}"
                       ctrl:ListViewLayoutManager.Enabled="True">
-            <ListView.View>
-                <GridView>
+                <ListView.View>
+                    <GridView>
                         <GridView.ColumnHeaderContainerStyle>
                             <Style TargetType="{x:Type GridViewColumnHeader}" >
                                 <Setter Property="IsHitTestVisible" Value="False" />
@@ -30,13 +30,17 @@
                         <GridViewColumn Header="Nome" x:Name="col"
                                         ctrl:ProportionalColumn.Width="1"/>
                     </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Grid.Column="1" Height="25" Grid.Row="0" Content="New Profile" Command="{Binding Path=NewProfile}"  VerticalAlignment="Top" Margin="5,25,5,0" />
-        <Button Grid.Column="1" Height="25" Grid.Row="0" Content="Delete Profile" Command="{Binding Path=DeleteProfile}" IsEnabled="{Binding ElementName=lvProfiles, Path=SelectedItems.Count}" CommandParameter="{Binding ElementName=lvProfiles,Path=SelectedItem}" Margin="5,25,5,0"></Button>
-        
+                </ListView.View>
+            </ListView>
+            <Button Grid.Column="1" Height="25" Grid.Row="0" Content="New Profile"
+                    Command="{Binding Path=NewProfile}"  VerticalAlignment="Top" Margin="5,25,5,0" />
+            <Button Grid.Column="1" Height="25" Grid.Row="0" Content="Delete Profile"
+                Command="{Binding Path=DeleteProfile}" 
+                IsEnabled="{Binding ElementName=lvProfiles, Path=SelectedItems.Count}"
+                CommandParameter="{Binding ElementName=lvProfiles,Path=SelectedItem}" Margin="5,25,5,0"/>
+
         </Grid>
-     
+
         <Button Content="Close" Grid.Row="1" Width="50" Height="25" HorizontalAlignment="Center" Click="BtnClose_Click"/>
     </Grid>
 </Window>

@@ -30,40 +30,7 @@ namespace INIManagerProject.View
             DataContext = _openDocumentViewModel;
 
             InitializeComponent();
-            
-            /*List<Document> docList = new List<Document>();
-            docList.Add(new Document() { docName = "documento 1" , docPath="Path/of/Managed/file1.INI"});
-            docList.Add(new Document() { docName = "documento 2", docPath = "Path/of/Managed/file2.INI" });*/
-            //lvDoc.ItemsSource = opvw();
-
-
         }
 
-        private void openButton_Click(object sender, RoutedEventArgs e)
-        {
-            //load selected document
-            //((App)Application.Current).IniApplication.DocumentManager.CreateAndLoadDocumentFromName("Skyrim");
-            var selectedItem = (KeyValuePair<string, string>)lvDoc.SelectedItem;
-            String docNameSelected = selectedItem.Key;
-            Document newDoc = ((App)Application.Current).IniApplication.DocumentManager.CreateAndLoadDocumentFromName(docNameSelected);
-            ((App)Application.Current).IniApplication.DocumentManager.CurrentDocument = newDoc;
-            this.Close();
-        }
-
-
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void GridViewColumnHeader_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (e.NewSize.Width <= 140)
-            {
-                e.Handled = true;
-                ((GridViewColumnHeader)sender).Column.Width = 140;
-            }
-
-        }
     }
 }
