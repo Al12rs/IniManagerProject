@@ -183,5 +183,10 @@ namespace INIManagerProject.View
             //Persist all settings.
             ((App)Application.Current).IniApplication.Persist();
         }
+
+        private void mnuExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

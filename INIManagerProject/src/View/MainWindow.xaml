@@ -23,11 +23,10 @@
         <!-- Menu Bar -->
         <Menu Grid.Row="0" Margin="0,0,0,0">
             <MenuItem Header="_Document">
-                <MenuItem Header="_New" Click="mnuNew_Click"/>
-                <MenuItem Header="_Open" Click="mnuOpen_Click" />
-                <MenuItem Header="_Save" />
+                <MenuItem Header="_New Document" Click="mnuNew_Click"/>
+                <MenuItem Header="_Open Existing Document" Click="mnuOpen_Click" />
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit" Click="mnuExit_Click" />
             </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Header="_New Edit"/>

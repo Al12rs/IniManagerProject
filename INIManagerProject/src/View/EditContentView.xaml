@@ -16,7 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="200" />
+            <RowDefinition Height="160" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0" HorizontalAlignment="Left" FontSize="14" Content="{Binding Header}"/>
         <Grid Grid.Row="1">

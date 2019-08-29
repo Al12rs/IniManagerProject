@@ -10,9 +10,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40" Name="LabelHeader"/>
             <RowDefinition Height="*" Name="List"/>
-            <RowDefinition Height="30" Name="Buttons"/>
+            <RowDefinition Height="100" Name="Buttons"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Name="Header" Content="Existing documents"/>
+        <Label Grid.Row="0" Name="Header" FontSize="14" Content="Existing documents:" VerticalAlignment="Center"/>
         <Button Grid.Row="0" HorizontalAlignment="Right" Height="25" Width="auto" Margin="5,0,5,0" Content="Create New Document" />
         <ListView Grid.Row="1" x:Name="lvDoc" ItemsSource="{Binding Path=SavedDocuments}">
             <ListView.View>
@@ -42,7 +42,7 @@
         </Grid>
 
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">
-            <Button Name="OpenButton" Width="100" Click="openButton_Click"> Open
+            <Button Name="OpenButton" Width="100" Height="30" Margin="5,5,50,5" Click="openButton_Click"> Open
                 <Button.Style>
                     <Style>
                         <Style.Triggers>
@@ -54,7 +54,7 @@
                 </Button.Style>
             </Button>
 
-            <Button Name="CancelButton" Width="100" Content="Cancel" Click="cancelButton_Click" IsCancel="True"/>
+            <Button Name="CancelButton" Width="100" Height="30" Content="Cancel" Margin="0,5,50,5" Click="cancelButton_Click" IsCancel="True"/>
         </StackPanel>
     </Grid>
 

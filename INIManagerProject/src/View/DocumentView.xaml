@@ -17,14 +17,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" Name="Grid1" MinWidth="300"/>
                 <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="*" Name="Grid2" MinWidth="300"/>
+                <ColumnDefinition Width="*" Name="Grid2"  MinWidth="300"/>
             </Grid.ColumnDefinitions>
             <!-- Left Grid (Edit List) -->
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" Name="EditListMenu" />
                     <RowDefinition Height="*" Name="EditList" />
-                    <RowDefinition Height="200" x:Name="Buttons" />
+                    <RowDefinition Height="160" x:Name="Buttons" />
                 </Grid.RowDefinitions>
                 <!-- Edit List (Combo box) -->
                 <!-- TODO: Add here Grid to distribute buttons and labels on this line.-->
@@ -44,6 +44,7 @@
                                   DisplayMemberPath="ProfileName"
                                   SelectedItem="{Binding CurrentProfileCache}">
                     </ComboBox>
+                    
                     <Button Grid.Column="2" HorizontalAlignment="Center" Width="100" Height="25" VerticalAlignment="Center" Content="MANAGE" Click="mnuManage_Click" />
                 </Grid>
                 <!--  Edit List (List View Zone)  -->
@@ -51,7 +52,7 @@
 
                 </local:EditListView>
                 <!--TODO: Add here grid where to place Calculate Merge Result and Apply buttons.-->
-                <Grid Grid.Row="2" VerticalAlignment="Center" Grid.RowSpan="5">
+                <Grid Grid.Row="2" VerticalAlignment="Stretch" Grid.RowSpan="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition Height="25" />
@@ -61,7 +62,7 @@
                     <!-- ROW 0 -->
                     <Button Grid.Row="0" Content="MERGE" Margin="5,0,0,0" Height="25" Width="100" Command="{Binding CalculateMergeResult}"/>
                     <!-- ROW 1 -->
-                    <Border Grid.Row="1" HorizontalAlignment="Stretch" Margin="50,0,50,0" Background="GhostWhite" BorderThickness="1">
+                    <Border Grid.Row="1" HorizontalAlignment="Stretch" Margin="10,0,10,0" Background="GhostWhite" BorderThickness="1">
                         <Grid >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -71,7 +72,9 @@
                             <ListView Grid.Column="0" 
                                           HorizontalAlignment="Stretch"  
                                           HorizontalContentAlignment="Center"
-                                          SelectedIndex="{Binding MergeResultSelectionIndex}">
+                                          SelectedIndex="{Binding MergeResultSelectionIndex}"
+                                          BorderThickness="1"
+                                          Background="Transparent">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="GotFocus">
                                         <i:InvokeCommandAction Command="{Binding Path=MergeResultSelected}"/>
@@ -84,11 +87,11 @@
                         </Grid>
                     </Border>
                     <!-- ROW 2 -->
-                    <StackPanel Grid.Row="2" Margin="0,10,0,0">
+                    <StackPanel Grid.Row="2" VerticalAlignment="Stretch" Margin="0,10,0,0">
                         <Button  Content="APPLY" Margin="5,0,0,0" Height="25" Width="100" Command="{Binding ApplyMergeResult}"/>
                     </StackPanel>
                     <!-- ROW 3 -->
-                    <Border Grid.Row="3" HorizontalAlignment="Stretch" Background="GhostWhite" Margin="50,0,50,0" BorderThickness="1" Height="25" VerticalAlignment="Top">
+                    <Border Grid.Row="3" HorizontalAlignment="Stretch" Background="GhostWhite" Margin="10,5,10,-5" BorderThickness="0" Height="25" VerticalAlignment="Top">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -97,10 +100,11 @@
                             </Grid.ColumnDefinitions>
                             <ListView Background="Transparent" 
                                           HorizontalAlignment="Stretch" 
-                                          BorderThickness="0" 
+                                          BorderThickness="1" 
                                           Grid.Column="0" 
                                           HorizontalContentAlignment="Center"
-                                          SelectedIndex="{Binding ManagedFileSelectionIndex}">
+                                          SelectedIndex="{Binding ManagedFileSelectionIndex}"
+                                      >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="GotFocus">
                                         <i:InvokeCommandAction Command="{Binding Path=ManagedFileSelected}"/>
@@ -119,7 +123,7 @@
             <!-- -->
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
             <!-- Right Grid (Edit Content) -->
-            <local:EditContentView Margin="0,0,0,0" Grid.Column="2" x:Name="editContentControl" DataContext="{Binding Path=EditContentViewModel}">
+            <local:EditContentView Margin="10,0,10,0" Grid.Column="2"  VerticalAlignment="Stretch" x:Name="editContentControl" DataContext="{Binding Path=EditContentViewModel}">
 
             </local:EditContentView>
         </Grid>
