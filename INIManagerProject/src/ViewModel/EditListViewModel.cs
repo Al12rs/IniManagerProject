@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.IO;
+using GongSolutions.Wpf.DragDrop;
 
 namespace INIManagerProject.ViewModel
 {
-    class EditListViewModel : ViewModelBase
+    class EditListViewModel : ViewModelBase, IDropTarget
     {
         private EditListModel _editListModel;
 
@@ -81,10 +82,55 @@ namespace INIManagerProject.ViewModel
 
         private void OnRemoveEditPressed(object commandParameter)
         {
-            Edit edit = commandParameter as Edit;
-            if (edit != null)
+            if (commandParameter is Edit edit)
             {
                 EditListModel.RemoveEdit(edit);
+            }
+        }
+
+        void IDropTarget.DragOver(IDropInfo dropInfo)
+        {
+            Edit sourceItem = dropInfo.Data as Edit;
+            Edit targetItem = dropInfo.TargetItem as Edit;
+            RelativeInsertPosition relativePosition = dropInfo.InsertPosition;
+            // Avoid cases where there are no targets and no sources, as well
+            // as cases where the drop isn't before or after.
+            // Also avoid drops before Base File.
+            if(sourceItem != null && targetItem != null
+                && relativePosition != RelativeInsertPosition.TargetItemCenter
+                && sourceItem.IsRegular
+                && !(!targetItem.IsRegular && relativePosition != RelativeInsertPosition.AfterTargetItem))
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                dropInfo.Effects = System.Windows.DragDropEffects.Move;
+            }
+        }
+
+        void IDropTarget.Drop(IDropInfo dropInfo)
+        {
+            Edit sourceItem = dropInfo.Data as Edit;
+            Edit targetItem = dropInfo.TargetItem as Edit;
+            RelativeInsertPosition relativePosition = dropInfo.InsertPosition;
+            if (sourceItem != null && targetItem != null
+                && relativePosition != RelativeInsertPosition.TargetItemCenter
+                && sourceItem.IsRegular
+                && !(!targetItem.IsRegular && relativePosition != RelativeInsertPosition.AfterTargetItem))
+            {
+                int oldPriority = sourceItem.PriorityCache;
+                int newPriority = targetItem.PriorityCache;
+                if(relativePosition.HasFlag(RelativeInsertPosition.AfterTargetItem))
+                {
+                    newPriority += 1;
+                }
+
+                if(oldPriority < newPriority)
+                {
+                    newPriority -= 1;
+                }
+
+                EditListModel.ChangeEditPriority(sourceItem, ref newPriority);
+                _viewList.Refresh();
+
             }
         }
     }

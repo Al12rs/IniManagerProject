@@ -204,8 +204,6 @@ namespace INIManagerProject.Model
                 newPriority = 1;
             }
 
-            int lastPriority = int.MinValue;
-
             foreach(Edit currentEdit in ModelList)
             {
                 if (oldPriority > newPriority && newPriority <= currentEdit.PriorityCache && currentEdit.PriorityCache < oldPriority)
@@ -220,15 +218,9 @@ namespace INIManagerProject.Model
                     // that are between the old and new prios as they slide down.
                     currentEdit.PriorityCache -= 1;
                 }
-                // Obtain the highest priority edit after the successful move.
-                lastPriority = Math.Max(lastPriority, currentEdit.PriorityCache);
             }
 
-            // In case the priority passed was too high.
-            newPriority = Math.Min(lastPriority, newPriority);
-
-            // This should prevent keeping the reference of newPriority in PriorityCache.
-            targetEdit.PriorityCache = Math.Min(lastPriority, newPriority);
+            targetEdit.PriorityCache = newPriority;
 
             // Update the profile according to the change.
             Document.ProfileManager.CurrentProfile.UpdateFromModelList();
