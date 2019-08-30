@@ -188,7 +188,7 @@ namespace INIManagerProject.Model
         /// </summary>
         /// <param name="targetEdit"></param>
         /// <param name="newPriority">Will be modified to reflect the actual final priority.</param>
-        public void changeEditPriority(Edit targetEdit, ref int newPriority)
+        public void ChangeEditPriority(Edit targetEdit, ref int newPriority)
         {
             int oldPriority = targetEdit.PriorityCache;
             if (!targetEdit.IsRegular || oldPriority == newPriority)
