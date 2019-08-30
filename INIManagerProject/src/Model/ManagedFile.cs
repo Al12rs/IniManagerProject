@@ -41,6 +41,9 @@ namespace INIManagerProject.Model
             {
                 RawContent = File.ReadAllText(ManagedFilePath);
                 var parser = new IniDataParser();
+                parser.Configuration.AllowDuplicateKeys = true;
+                parser.Configuration.OverrideDuplicateKeys = true;
+                parser.Configuration.ThrowExceptionsOnError = false;
                 ParsedData = parser.Parse(RawContent);
             }
         }

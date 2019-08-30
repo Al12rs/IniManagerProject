@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using INIManagerProject.ViewModel.Utils;
 using System.Windows.Input;
+using Microsoft.Win32;
 
 namespace INIManagerProject.ViewModel
 {
@@ -17,11 +18,13 @@ namespace INIManagerProject.ViewModel
         private readonly DocumentManager _documentManager;
         private readonly DelegateCommand _cancel;
         private readonly DelegateCommand _openDocument;
+        private readonly DelegateCommand _newDocument;
 
         public int SelectedIndex { get; set; }
         public List<KeyValuePair<string, string>> SavedDocuments { get; set; }
         public ICommand CancelCommand => _cancel;
         public ICommand OpenDocumentCommand => _openDocument;
+        public ICommand NewDocumentCommand => _newDocument;
         public OpenDocumentViewModel()
         {
             _documentManager = ((App)Application.Current).IniApplication.DocumentManager;
@@ -34,6 +37,7 @@ namespace INIManagerProject.ViewModel
             //Initialize commands
             _cancel = new DelegateCommand(OnCancel);
             _openDocument = new DelegateCommand(OnOpenDocument);
+            _newDocument = new DelegateCommand(OnCreateNewDocument);
         }
 
         /// <summary>
@@ -61,6 +65,24 @@ namespace INIManagerProject.ViewModel
             if (commandParameter != null)
             {
                 ((Window)commandParameter).Close();
+            }
+        }
+
+        /// <summary>
+        /// Create and open a new document based on the selection choice made by the user.
+        /// </summary>
+        /// <param name="commandParameter">The commandParameter is the OpenExistingDocumentWindow</param>
+        private void OnCreateNewDocument(object commandParameter)
+        {
+            if (commandParameter != null)
+            {
+                ((Window)commandParameter).Close();
+            }
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "INI files(*.ini)|*.ini";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                _documentManager.CurrentDocument = _documentManager.CreateNewDocument(openFileDialog.FileName);
             }
         }
     }

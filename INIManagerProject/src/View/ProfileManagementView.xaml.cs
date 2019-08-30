@@ -23,7 +23,7 @@ namespace INIManagerProject.View
     {
         public ProfileManagementView()
         {
-            DataContext = new ProfileManagementViewModel(((App)Application.Current).IniApplication.DocumentManager.CurrentDocument.ProfileManager);
+            DataContext = new ProfileManagementViewModel();
             InitializeComponent();
         }
 
