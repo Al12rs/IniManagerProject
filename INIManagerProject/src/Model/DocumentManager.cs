@@ -86,10 +86,10 @@ namespace INIManagerProject.Model
         /// </summary>
         /// <param name="filePath">Path to the ini file to manage.</param>
         /// <returns>Generated document.</returns>
-        public Document CreateNewDocument(String filePath)
+        public Document CreateNewDocument(String filePath,String docName)
         {
             Document newDocument = new Document(IdBroker.NextId);
-            newDocument.CreateNewFromIniFilePath(filePath);
+            newDocument.CreateNewFromIniFilePath(filePath,docName);
             DocumentList.Add(newDocument);
             return newDocument;
         }

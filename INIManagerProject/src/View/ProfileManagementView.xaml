@@ -6,7 +6,8 @@
         xmlns:ctrl="clr-namespace:Itenso.Windows.Controls.ListViewLayout;assembly=Itenso.Windows.Controls.ListViewLayout"
         xmlns:local="clr-namespace:INIManagerProject.View"
         mc:Ignorable="d"
-        Title="Manage Profiles" Height="300" Width="500">
+        Title="Manage Profiles" Height="300" Width="500"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="7*"/>

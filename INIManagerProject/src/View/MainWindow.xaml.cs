@@ -5,6 +5,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace INIManagerProject.View
 {
@@ -173,7 +173,32 @@ namespace INIManagerProject.View
             openFileDialog.Filter = "INI files(*.ini)|*.ini";
             if (openFileDialog.ShowDialog() == true)
             {
-                ((App)Application.Current).IniApplication.DocumentManager.CurrentDocument = ((App)Application.Current).IniApplication.DocumentManager.CreateNewDocument(openFileDialog.FileName);
+                var dialog = new InputDialogue("Insert name of new Edit:");
+                while (dialog.ShowDialog() == true)
+                {
+                    string docName = dialog.Answer;
+                    if (docName == "" || _mainWindowViewModel.DocumentManager.DocumentList.Any(x => x.DocumentName == docName))
+                    {
+                        dialog = new InputDialogue("Name already in use or invalid, please select a different name: 1");
+                        continue;
+                    }
+                    string folderPath;
+                    try
+                    {
+                        folderPath = Path.Combine(_mainWindowViewModel.DocumentManager.DocumentsFolderPath, docName);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        dialog = new InputDialogue("Name already in use or invalid, please select a different name: 2");
+                        continue;
+                    }
+
+                    ((App)Application.Current).IniApplication.DocumentManager.CurrentDocument = ((App)Application.Current).IniApplication.DocumentManager.CreateNewDocument(openFileDialog.FileName, docName);
+                    break;
+
+                }
+                
             }
 
         }

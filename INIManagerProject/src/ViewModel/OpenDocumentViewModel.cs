@@ -10,6 +10,7 @@ using System.Windows;
 using INIManagerProject.ViewModel.Utils;
 using System.Windows.Input;
 using Microsoft.Win32;
+using System.IO;
 
 namespace INIManagerProject.ViewModel
 {
@@ -82,7 +83,30 @@ namespace INIManagerProject.ViewModel
             openFileDialog.Filter = "INI files(*.ini)|*.ini";
             if (openFileDialog.ShowDialog() == true)
             {
-                _documentManager.CurrentDocument = _documentManager.CreateNewDocument(openFileDialog.FileName);
+                var dialog = new InputDialogue("Insert name of new Edit:");
+                while (dialog.ShowDialog() == true)
+                {
+                    string docName = dialog.Answer;
+                    if (docName == "" || _documentManager.DocumentList.Any(x => x.DocumentName == docName))
+                    {
+                        dialog = new InputDialogue("Name already in use or invalid, please select a different name:");
+                        continue;
+                    }
+                    string folderPath;
+                    try
+                    {
+                        folderPath = Path.Combine(_documentManager.DocumentsFolderPath, docName);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        dialog = new InputDialogue("Name already in use or invalid, please select a different name:");
+                        continue;
+                    }
+
+                    _documentManager.CurrentDocument = _documentManager.CreateNewDocument(openFileDialog.FileName, docName);
+                    break;
+                }
             }
         }
     }

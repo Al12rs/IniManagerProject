@@ -44,12 +44,13 @@ namespace INIManagerProject.Model
         /// Will also generate the folder structure needed for the Document.
         /// </summary>
         /// <param name="filePath"></param>
-        public void CreateNewFromIniFilePath(string filePath)
+        public void CreateNewFromIniFilePath(string filePath,string docName)
         {
             ManagedFile.ManagedFilePath = filePath;
             ManagedFile.Initialize();
             // TODO: create unique document name.
-            DocumentName = Path.GetFileNameWithoutExtension(filePath);
+
+            DocumentName = docName;
             var documentsFolder = ((App)Application.Current).IniApplication.DocumentManager.DocumentsFolderPath;
             DocumentFolderPath = Path.Combine(documentsFolder, DocumentName);
             if (!Directory.Exists(DocumentFolderPath))
