@@ -118,6 +118,23 @@ namespace INIManagerProject.Model
             _editNamesAndStatusByPriority.RemoveAll(pair => ! modelList.Any(edit => edit.EditName == pair.Key));
         }
 
+        public void UpdateFromModelList()
+        {
+            var modelList = Document.EditListModel.ModelList;
+            var sortedEditList = modelList.OrderBy(e => e.PriorityCache);
+            _editNamesAndStatusByPriority.Clear();
+
+            foreach(Edit edit in sortedEditList)
+            {
+                if(edit.EditName == "Base File")
+                {
+                    continue;
+                }
+                _editNamesAndStatusByPriority.Add(new Pair<string, bool>(edit.EditName, edit.StatusCache));
+            }
+            Persist();
+        }
+
         #endregion PublicMethods
 
         #region PrivateMethods

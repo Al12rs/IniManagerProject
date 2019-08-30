@@ -1,4 +1,5 @@
 ﻿using INIManagerProject.Model.Utils;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -181,13 +182,56 @@ namespace INIManagerProject.Model
             return true;
         }
 
-        public void changeEditPriority(List<int> sourceIndices, int newPriority)
+        /// <summary>
+        /// Changes the priority of the passed edit and all other edits that may be pushed up or down.
+        /// Also updates the Profile according to the change.
+        /// </summary>
+        /// <param name="targetEdit"></param>
+        /// <param name="newPriority">Will be modified to reflect the actual final priority.</param>
+        public void changeEditPriority(Edit targetEdit, ref int newPriority)
         {
-            // Sort the edits by ascending priority.
-            var sortedEdits = Document.EditListModel.ModelList.OrderBy(e => e.PriorityCache);
+            int oldPriority = targetEdit.PriorityCache;
+            if (!targetEdit.IsRegular || oldPriority == newPriority)
+            {
+                // Don't change priority of Base File and do nothing if the new
+                // prio is same as before.
+                return;
+            }
 
-            // Move the edits that are decreasing in priority.
-            // Copy code from: https://github.com/ModOrganizer2/modorganizer/blob/Develop/src/modlist.cpp#L718 .
+            if (newPriority < 1)
+            {
+                // Can't move edit before BaseFile.
+                newPriority = 1;
+            }
+
+            int lastPriority = int.MinValue;
+
+            foreach(Edit currentEdit in ModelList)
+            {
+                if (oldPriority > newPriority && newPriority <= currentEdit.PriorityCache && currentEdit.PriorityCache < oldPriority)
+                {
+                    // Moving an edit to lower priority and increasing priority of all edits
+                    // that are between the new and old prios as they get pushed up.
+                    currentEdit.PriorityCache += 1;
+                } else 
+                if (oldPriority < newPriority && oldPriority < currentEdit.PriorityCache && currentEdit.PriorityCache <= newPriority)
+                {
+                    // Moving an edit to higher priority and decreasing prio of all edits 
+                    // that are between the old and new prios as they slide down.
+                    currentEdit.PriorityCache -= 1;
+                }
+                // Obtain the highest priority edit after the successful move.
+                lastPriority = Math.Max(lastPriority, currentEdit.PriorityCache);
+            }
+
+            // In case the priority passed was too high.
+            newPriority = Math.Min(lastPriority, newPriority);
+
+            // This should prevent keeping the reference of newPriority in PriorityCache.
+            targetEdit.PriorityCache = Math.Min(lastPriority, newPriority);
+
+            // Update the profile according to the change.
+            Document.ProfileManager.CurrentProfile.UpdateFromModelList();
         }
 
         #endregion PublicMethods
