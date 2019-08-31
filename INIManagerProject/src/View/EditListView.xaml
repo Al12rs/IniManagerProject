@@ -24,7 +24,8 @@
                           ctrl:ListViewLayoutManager.Enabled="True"
                           dd:DragDrop.IsDragSource="True"
                           dd:DragDrop.IsDropTarget="True"
-                          dd:DragDrop.DropHandler="{Binding}">
+                          dd:DragDrop.DropHandler="{Binding}"
+                          SelectionMode="Single">
                     <ListView.Resources>
                         <ContextMenu x:Key="ItemContextMenu">
                             <MenuItem Header="Add Edit..." Command="{Binding Path=DataContext.AddEdit,
