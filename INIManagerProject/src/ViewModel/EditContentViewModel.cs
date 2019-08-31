@@ -69,10 +69,7 @@ namespace INIManagerProject.ViewModel
                     if (ContentSource.RawContent != TextContent)
                     {
                         // Failed to set Raw Content pobably because invalid INI format.
-                        MessageBox.Show("Invalid INI format");
-                        TextContent = ContentSource.RawContent;
-
-
+                        MessageBox.Show("Save Failed: Invalid INI format.");
                     }
                 }
             }
