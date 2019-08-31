@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace INIManagerProject
+namespace INIManagerProject.View
 {
     /// <summary>
     /// Logica di interazione per InputDialogue.xaml

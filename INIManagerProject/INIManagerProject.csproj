@@ -74,7 +74,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="InputDialogue.xaml.cs">
+    <Compile Include="src\View\InputDialogue.xaml.cs">
       <DependentUpon>InputDialogue.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\Model\IRawContentProvider.cs" />
@@ -98,7 +98,7 @@
     </Compile>
     <Compile Include="src\Model\Utils\IdBroker.cs" />
     <Compile Include="src\View\Utils\InverseBooleanConverter.cs" />
-    <Page Include="InputDialogue.xaml">
+    <Page Include="src\View\InputDialogue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
