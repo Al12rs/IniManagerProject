@@ -69,8 +69,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Width="auto" ctrl:RangeColumn.MinWidth="100" ctrl:RangeColumn.IsFillColumn="true"
-                                            DisplayMemberBinding="{Binding EditName}"
-                                            utils:GridViewSort.PropertyName="EditName">
+                                            DisplayMemberBinding="{Binding EditName}">
                                 <GridViewColumnHeader Content="Edit Name" SizeChanged="GridViewColumnHeader_SizeChanged_1" />
                             </GridViewColumn>
                             <GridViewColumn  ctrl:RangeColumn.MinWidth="60" ctrl:RangeColumn.MaxWidth="600"
