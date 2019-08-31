@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Deployment.Application;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -43,6 +44,7 @@ namespace INIManagerProject.View
                 _mainWindowViewModel = new MainWindowViewModel();
                 DataContext = _mainWindowViewModel;
                 InitializeComponent();
+                this.Title = "INI Manager " + getRunningVersion();
             }
             catch (Exception ex)
             {
@@ -114,6 +116,18 @@ namespace INIManagerProject.View
         private void mnuExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private Version getRunningVersion()
+        {
+            try
+            {
+                return ApplicationDeployment.CurrentDeployment.CurrentVersion;
+            }
+            catch (Exception)
+            {
+                return Assembly.GetExecutingAssembly().GetName().Version;
+            }
         }
     }
 }
