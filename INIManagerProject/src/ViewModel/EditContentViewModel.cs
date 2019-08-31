@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using INIManagerProject.ViewModel.Utils;
 using System.Windows.Input;
 using INIManagerProject.ViewModel;
+using System.Windows;
 
 namespace INIManagerProject.ViewModel
 {
@@ -63,7 +64,16 @@ namespace INIManagerProject.ViewModel
             {
                 if(ContentSource.RawContent != TextContent)
                 {
-                    ContentSource.RawContent = TextContent;
+                        ContentSource.RawContent = TextContent;
+
+                    if (ContentSource.RawContent != TextContent)
+                    {
+                        // Failed to set Raw Content pobably because invalid INI format.
+                        MessageBox.Show("Invalid INI format");
+                        TextContent = ContentSource.RawContent;
+
+
+                    }
                 }
             }
         }
