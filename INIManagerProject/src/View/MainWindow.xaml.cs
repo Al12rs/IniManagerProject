@@ -5,8 +5,10 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,139 +28,39 @@ namespace INIManagerProject.View
     public partial class MainWindow : Window
     {
         private MainWindowViewModel _mainWindowViewModel;
+        private readonly FieldInfo _menuDropAlignmentField;
         MainWindowViewModel MainWindowViewModel => _mainWindowViewModel;
 
         public MainWindow()
         {
             try
             {
+                _menuDropAlignmentField = typeof(SystemParameters).GetField("_menuDropAlignment", BindingFlags.NonPublic | BindingFlags.Static);
+                System.Diagnostics.Debug.Assert(_menuDropAlignmentField != null);
+                EnsureStandardPopupAlignment();
+                SystemParameters.StaticPropertyChanged += SystemParameters_StaticPropertyChanged;
+
                 _mainWindowViewModel = new MainWindowViewModel();
                 DataContext = _mainWindowViewModel;
                 InitializeComponent();
-               
-                
-                // initialize tabItem array
-
-                //New stuff
-
-
-                // add a tabItem with + in header 
-                //TabItem tabAdd = new TabItem();
-                //tabAdd.Header = "+";
-
-               // _tabItems.Add(tabAdd);
-
-                // add first tab
-                //this.AddTabItem();
-
-                // bind tab control
-                //tabControl.DataContext = _tabItems;
-
-                //tabControl.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-        // Should not be needed.
-        private TabItem AddTabItem()
+        private void SystemParameters_StaticPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            /*int count = _tabItems.Count;
-
-            // create new tab item
-            TabItem tab = new TabItem();
-            tab.Header = string.Format("DocumentName {0}", count);
-            tab.Name = string.Format("tab{0}", count);
-            tab.HeaderTemplate = tabControl.FindResource("TabHeader") as DataTemplate;
-
-            // add controls to tab item, this case I added just a textbox
-            TextBox txt = new TextBox();
-            txt.Name = "txt";
-            DocumentView dv = new DocumentView();
-            tab.Content = dv;
-
-            // insert tab item right before the last (+) tab item
-            _tabItems.Insert(count -1, tab);
-            return tab;*/
-            return null;
-        } 
-
-        // Should not be needed.
-        private void document_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            /*TabItem tab = tabControl.SelectedItem as TabItem;
-
-            if (tab != null && tab.Header != null)
-            {
-                if (tab.Header.Equals("+"))
-                {
-                    // clear tab control binding
-                    tabControl.DataContext = null;
-
-                    // add new tab
-                    TabItem newTab = this.AddTabItem();
-
-                    // bind tab control
-                    tabControl.DataContext = _tabItems;
-
-                    // select newly added tab item
-                    tabControl.SelectedItem = newTab;
-                }
-                else
-                {
-                    // your code here...
-                }
-            }*/
+            EnsureStandardPopupAlignment();
         }
 
-        //private void btnCloseTab_Click(object sender, RoutedEventArgs e)
-        //{
-            /*if (sender is Button button)
+        private void EnsureStandardPopupAlignment()
+        {
+            if (SystemParameters.MenuDropAlignment && _menuDropAlignmentField != null)
             {
-                var docName = button.Tag;
-                Document docToClose = _mainWindowViewModel.DocumentManager.DocumentList.Single(d => d.DocumentName == docName);
-                docToClose.Persist();
-                ((ObservableCollection<Document>) documentTabControl.ItemsSource).Remove(docToClose);
-            }*/
-
-            //string tabName = (sender as Button).CommandParameter.ToString();
-
-            /*
-            var item = tabControl.Items.Cast<TabItem>().Where(i => i.Name.Equals(tabName)).SingleOrDefault();
-
-            TabItem tab = item as TabItem;
-
-            if (tab != null)
-            {
-                if (_tabItems.Count < 3)
-                {
-                    MessageBox.Show("Cannot remove last tab.");
-                }
-                else if (MessageBox.Show(string.Format("Are you sure you want to remove the tab '{0}'?", tab.Header.ToString()),
-                    "Remove Tab", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    // get selected tab
-                    TabItem selectedTab = tabControl.SelectedItem as TabItem;
-
-                    // clear tab control binding
-                    tabControl.DataContext = null;
-
-                    _tabItems.Remove(tab);
-
-                    // bind tab control
-                    tabControl.DataContext = _tabItems;
-
-                    // select previously selected tab. if that is removed then select first tab
-                    if (selectedTab == null || selectedTab.Equals(tab))
-                    {
-                        selectedTab = _tabItems[0];
-                    }
-                    tabControl.SelectedItem = selectedTab;
-                }
+                _menuDropAlignmentField.SetValue(null, false);
             }
-        }*/
+        }
 
         private void mnuOpen_Click(object sender, RoutedEventArgs e)
         {
