@@ -134,6 +134,8 @@ namespace INIManagerProject.Model
         private bool UpdateFromRawContent()
         {
             var parser = new IniDataParser();
+            parser.Configuration.AllowDuplicateKeys = true;
+            parser.Configuration.OverrideDuplicateKeys = true;
             parser.Configuration.ThrowExceptionsOnError = false;
             ParsedData = parser.Parse(_rawContent);
             if (ParsedData == null)
