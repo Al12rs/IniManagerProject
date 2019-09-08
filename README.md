@@ -11,3 +11,9 @@ This way change to the Base File can be toggled at any time, in addition if two 
 * Manage multiple documents at the same time through tabs.
 * Text editor to modify contens of Edits, Base File and Managed .ini file.
 * Profiles that contain order and status of Edits to quicly obtain different configurations of the final file.
+
+### Contributing:
+INIM was developed as part of a University Software Engineering project, but it has been released under GPL3 licence so that it's developent can continue even after the completition of the project. 
+Any contribution is greatly appreciated.
+
+If you are interested in the project here is the link to the INI Manager Development Discord Server: https://discord.gg/z9m4gbn
