@@ -1,7 +1,7 @@
-﻿using INIManagerProject.Model;
-using System.Linq;
-using IniParser.Model;
+﻿using IniParser.Model;
+using IniParser.Parser;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace INIManagerProject.Model
 {
@@ -10,21 +10,28 @@ namespace INIManagerProject.Model
         #region Fields
 
         private string _rawContent;
-        private SectionCollection _sectionCollection;
+        private Section _globalSection;
+        private Dictionary<string, Section> _sectionCollection;
+        private IniData _parsedData;
+        private IniDataParser _iniParser;
 
         #endregion Fields
 
         #region Properties
 
-        public SectionCollection SectionCollection { get => _sectionCollection; private set => _sectionCollection = value; }
+        public Dictionary<string, Section> SectionCollection { get => _sectionCollection; private set => _sectionCollection = value; }
         public Document Document { get; private set; }
-        public string RawContent { get => _rawContent;
+
+        public string RawContent
+        {
+            get => _rawContent;
             set
             {
             }
         }
-        public IniData ParsedData { get; set; }
 
+        public Section GlobalSection { get => _globalSection; private set => _globalSection = value; }
+        public IniData ParsedData { get => _parsedData; set => _parsedData = value; }
 
         #endregion Properties
 
@@ -33,7 +40,13 @@ namespace INIManagerProject.Model
         public MergeStructure(Document doc)
         {
             Document = doc;
+            SectionCollection = new Dictionary<string, Section>();
+            // Initializing global section using boolean.
+            GlobalSection = new Section(isGlobal: true);
             _rawContent = "";
+            _parsedData = null;
+            _iniParser = new IniDataParser();
+            _iniParser.Configuration.ThrowExceptionsOnError = false;
         }
 
         #endregion Initialization
@@ -42,32 +55,24 @@ namespace INIManagerProject.Model
 
         public void PopulateStructure()
         {
-            // Iterate Edits.
-            //foreach (KeyValuePair<Edit, bool> editStatusPair in Document.ProfileManager.CurrentProfile.PriorityList)
-            //{
-            //    // If edit is active.
-            //    if (editStatusPair.Value)
-            //    {
-            //        // TODO: also handle keys without sections.
-            //        var editSectionEnumerator = editStatusPair.Key.ParsedData.Sections.GetEnumerator();
-            //        Section currentSection;
-            //        string currentSectionName;
-            //        while (editSectionEnumerator.MoveNext())
-            //        {
-            //            currentSectionName = editSectionEnumerator.Current.SectionName;
+            // Clearing previous stored data.
+            SectionCollection.Clear();
+            GlobalSection.Clear();
 
-            //            if (!SectionCollection.SectionsDictionary.ContainsKey(currentSectionName))
-            //            {
-            //                currentSection = new Section(currentSectionName);
-            //                SectionCollection.SectionsDictionary.Add(currentSectionName, currentSection);
-            //            }
-            //            else
-            //            {
-            //                currentSection = SectionCollection.SectionsDictionary[currentSectionName];
-            //            }
-            //        }
-            //    }
-            //}
+            // Iterate Edits in descending priority order so the values are added already in order.
+            foreach (Edit currentEdit in Document.EditListModel.ModelList.OrderByDescending(e => e.PriorityCache))
+            {
+                // If edit is inactive skip it.
+                if (currentEdit.StatusCache == false)
+                {
+                    continue;
+                }
+
+                foreach (ValueNode currentValue in currentEdit.Values)
+                {
+                    this.AddValue(currentValue);
+                }
+            }
         }
 
         public void CalculateMergeResult()
@@ -89,5 +94,23 @@ namespace INIManagerProject.Model
         }
 
         #endregion PublicMethods
+
+        #region PrivateMethods
+
+        private void AddValue(ValueNode value)
+        {
+            if (value.isGlobalSection)
+            {
+                GlobalSection.AddValue(value);
+            } else
+            {
+                if (!SectionCollection.ContainsKey(value.SectionName))
+                {
+                    SectionCollection.Add(value.SectionName, new Section(value.SectionName));
+                }
+                SectionCollection[value.SectionName].AddValue(value);
+            }
+        }
+        #endregion
     }
 }

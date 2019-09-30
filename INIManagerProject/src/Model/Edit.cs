@@ -19,7 +19,7 @@ namespace INIManagerProject.Model
         private string _rawContent;
         private int _priorityCache;
         private bool _statusCache;
-
+        private List<ValueNode> _values;
         #endregion Fields
 
         #region Properties
@@ -28,6 +28,7 @@ namespace INIManagerProject.Model
         public string EditSourceFile { get; private set; }
         public string EditFolderPath { get; private set; }
         public bool IsRegular { get { return EditName != "Base File"; } }
+        public List<ValueNode> Values { get => _values; set => _values = value; }
         public string RawContent
         {
             get => _rawContent;
